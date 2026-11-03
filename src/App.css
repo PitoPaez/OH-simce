@@ -1,0 +1,21 @@
+.App {
+  padding: 40px 20px;
+}
+
+.App h1 {
+  margin-bottom: 8px;
+  text-align: center;
+}
+
+.intro {
+  margin-top: 0;
+  margin-bottom: 28px;
+  text-align: center;
+}
+
+.container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 16px;
+}

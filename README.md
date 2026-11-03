@@ -1,8 +1,5 @@
-# Proyecto Ejemplo Vehiculos con React
+Proyecto Open Humbolt - practica simce
 
-Proyecto didáctico de Desarrollo Fullstack II.
-
-## Ejecutar
 
 ```bash
 npm install

@@ -1,3 +1,33 @@
+/* Tokens visuales de OH Simce.
+   Idea: un cuaderno de matemáticas cuadriculado. Cada eje del SIMCE tiene un
+   color de "papel lustre", y el progreso se pinta en cuadritos. */
+:root {
+  --papel: #fcfdff;
+  --cuadricula: #dde8f4;
+  --margen: #f0b4bd;
+  --tinta: #22305a;
+  --tinta-suave: #56638a;
+  --borde: #c7d3e6;
+
+  --eje-numeros: #2f6be0;
+  --eje-patrones: #8650d6;
+  --eje-geometria: #e9a700;
+  --eje-medicion: #0f9c8c;
+  --eje-datos: #e24f8a;
+  --eje-mixta: #22305a;
+  --eje: var(--tinta);
+
+  --logrado: #17844e;
+  --logrado-fondo: #e7f6ed;
+  --revisar: #b84d00;
+  --revisar-fondo: #fff2e4;
+
+  --radio: 14px;
+  --texto: 1.125rem;
+  font-family: 'Andika', 'Trebuchet MS', sans-serif;
+  color: var(--tinta);
+}
+
 * {
   box-sizing: border-box;
 }
@@ -5,7 +35,49 @@
 body {
   margin: 0;
   min-width: 320px;
-  font-family: Arial, Helvetica, sans-serif;
-  background-color: #f4f6f8;
-  color: #222;
+  font-size: var(--texto);
+  line-height: 1.5;
+  background-color: var(--papel);
+  background-image:
+    linear-gradient(var(--cuadricula) 1px, transparent 1px),
+    linear-gradient(90deg, var(--cuadricula) 1px, transparent 1px);
+  background-size: 24px 24px;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Línea de margen rosada del cuaderno, solo en pantallas anchas. */
+@media (min-width: 960px) {
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0 auto 0 72px;
+    width: 2px;
+    background: var(--margen);
+    pointer-events: none;
+  }
+}
+
+h1,
+h2,
+p {
+  margin: 0;
+}
+
+button {
+  font: inherit;
+  color: inherit;
+}
+
+:focus-visible {
+  outline: 3px solid var(--tinta);
+  outline-offset: 3px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    transition: none !important;
+    animation: none !important;
+  }
 }

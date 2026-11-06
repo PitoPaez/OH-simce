@@ -1,0 +1,385 @@
+import { f } from '../../lib/formato.js';
+
+// Eje Datos y probabilidades (OA 25, 26 y 27).
+const BOTELLAS = {
+  tipo: 'pictograma',
+  titulo: 'Botellas recicladas por curso',
+  icono: 'botella',
+  valorIcono: 10,
+  unidad: 'botellas',
+  datos: [
+    { etiqueta: '1° básico', iconos: 4 },
+    { etiqueta: '2° básico', iconos: 6 },
+    { etiqueta: '3° básico', iconos: 8 },
+    { etiqueta: '4° básico', iconos: 5 },
+  ],
+};
+
+export const TEMAS = [
+  {
+    id: 'graficos',
+    eje: 'datos',
+    nombre: 'Tablas, gráficos y pictogramas',
+    descripcion: 'Leer gráficos con escala y pictogramas, y sacar conclusiones',
+    oa: [25, 27],
+    ejemplo: {
+      enunciado: 'El pictograma muestra cuántas botellas recicló cada curso. {{¿Cuántas botellas recicló el 3° básico?}}',
+      pasos: [
+        {
+          paso: 'entender',
+          texto: 'Antes de contar, busca la clave del pictograma: dice cuánto vale cada dibujo.',
+          visual: BOTELLAS,
+        },
+        {
+          paso: 'planificar',
+          texto: 'Aquí cada botella dibujada vale 10 botellas, no 1. Tres de cada siete estudiantes se equivocan en esto en el SIMCE.',
+          visual: BOTELLAS,
+        },
+        {
+          paso: 'hacer',
+          texto: 'El 3° básico tiene 8 dibujos: 8 × 10 = 80 botellas.',
+          visual: BOTELLAS,
+        },
+        {
+          paso: 'comprobar',
+          texto: 'Si cada dibujo valiera 1, serían 8. Pero la clave dice 10: son 80. ✓',
+        },
+      ],
+    },
+  },
+  {
+    id: 'probabilidades',
+    eje: 'datos',
+    nombre: '¿Qué tan probable es?',
+    descripcion: 'Seguro, posible e imposible; más probable y menos probable',
+    oa: [26],
+    ejemplo: {
+      enunciado: 'Javier tiene [[19 juguetes rojos]], [[12 azules]] y [[6 amarillos]] en una caja. Va a sacar uno sin mirar. {{¿Qué color es menos probable que saque?}}',
+      pasos: [
+        {
+          paso: 'entender',
+          texto: 'Te preguntan qué color es menos probable. Mira cuántos juguetes hay de cada color.',
+          visual: { tipo: 'bolsas', bolsas: [{ etiqueta: 'Caja de Javier', bolitas: { roja: 19, azul: 12, amarilla: 6 } }] },
+        },
+        {
+          paso: 'planificar',
+          texto: 'Mientras más juguetes hay de un color, más probable es sacar ese color.',
+          visual: { tipo: 'bolsas', bolsas: [{ etiqueta: 'Caja de Javier', bolitas: { roja: 19, azul: 12, amarilla: 6 } }] },
+        },
+        {
+          paso: 'hacer',
+          texto: 'El amarillo es el que tiene menos juguetes (6). Es el menos probable, pero no es imposible: sí hay amarillos.',
+          visual: { tipo: 'bolsas', bolsas: [{ etiqueta: 'Caja de Javier', bolitas: { roja: 19, azul: 12, amarilla: 6 } }] },
+        },
+        {
+          paso: 'comprobar',
+          texto: '«Seguro» sería si todos los juguetes fueran del mismo color. «Imposible», si no hubiera ninguno de ese color. ✓',
+        },
+      ],
+    },
+  },
+];
+
+export const EJERCICIOS = [
+  // ---------------- Tablas, gráficos y pictogramas ----------------
+  {
+    id: 'gr-picto',
+    tema: 'graficos',
+    tipo: 'alternativas',
+    enunciado: 'El pictograma muestra cuántas botellas recicló cada curso. {{¿Cuántas botellas recicló el 2° básico?}}',
+    visual: BOTELLAS,
+    opciones: [
+      { texto: '60 botellas', correcta: true },
+      { texto: '6 botellas', error: 'Contaste los dibujos, pero cada uno vale 10 botellas. Mira la clave, abajo del pictograma.' },
+      { texto: '16 botellas', error: 'Sumaste 6 + 10. Cada dibujo vale 10: hay que multiplicar.' },
+      { texto: '70 botellas', error: 'Revisa la fila del 2° básico: tiene 6 dibujos.' },
+    ],
+    pistas: {
+      planificar: 'Mira la clave: ¿cuánto vale cada dibujo?',
+      hacer: 'El 2° básico tiene 6 dibujos y cada uno vale 10.',
+    },
+    solucion: { texto: '6 × 10 = 60 botellas.' },
+    comprobar: 'Cuenta de 10 en 10, un dibujo a la vez: 10, 20, 30, 40, 50, 60. ✓',
+    origen: 'Aprendiendo de los errores, ejemplo 20',
+  },
+  {
+    id: 'gr-ordenar',
+    tema: 'graficos',
+    tipo: 'ordenar',
+    enunciado: '{{Ordena los cursos de **mayor a menor** según las botellas que reciclaron.}}',
+    visual: BOTELLAS,
+    elementos: [{ texto: '3° básico' }, { texto: '2° básico' }, { texto: '4° básico' }, { texto: '1° básico' }],
+    errores: {
+      alReves: 'Los ordenaste de menor a mayor. Se pide de mayor a menor: primero el curso que recicló más.',
+      otro: 'Cuenta los dibujos de cada curso: el que tiene más dibujos va primero.',
+    },
+    pistas: {
+      planificar: 'Todos los dibujos valen lo mismo, así que basta con comparar cuántos dibujos tiene cada curso.',
+      hacer: '3° básico: 8 dibujos. 2° básico: 6. 4° básico: 5. 1° básico: 4.',
+    },
+    solucion: { texto: '3° básico (80), 2° básico (60), 4° básico (50) y 1° básico (40).' },
+    comprobar: '80 > 60 > 50 > 40. ✓',
+    origen: 'Programa de estudio, OA 27',
+  },
+  {
+    id: 'gr-escala',
+    tema: 'graficos',
+    tipo: 'alternativas',
+    enunciado: 'El gráfico no tiene números en el eje. Se sabe que [[10 niños prefieren el cine]]. {{¿Cuántos niños prefieren el estadio?}}',
+    visual: {
+      tipo: 'grafico',
+      titulo: 'Lugares preferidos para ir de paseo',
+      numeros: false,
+      max: 16,
+      paso: 2,
+      datos: [
+        { etiqueta: 'Museo', valor: 6 },
+        { etiqueta: 'Cine', valor: 10 },
+        { etiqueta: 'Parque', valor: 14 },
+        { etiqueta: 'Estadio', valor: 8 },
+      ],
+    },
+    opciones: [
+      { texto: '8', correcta: true },
+      { texto: '4', error: 'Contaste las líneas hasta el estadio (4), pero cada línea no vale 1. Usa el cine para saber cuánto vale cada línea.' },
+      { texto: '9', error: 'Pensaste que cada línea vale 1 y restaste 10 − 1. Mira: el cine llega a la línea 5 y vale 10.' },
+      { texto: '5', error: '5 son las líneas que alcanza el cine. Primero averigua cuánto vale cada línea.' },
+    ],
+    pistas: {
+      planificar: 'Usa la barra del cine: llega a la línea 5 y vale 10. ¿Cuánto vale cada línea?',
+      hacer: '10 : 5 = 2. Cada línea vale 2. El estadio llega a la línea 4.',
+    },
+    solucion: { texto: '4 × 2 = 8 niños prefieren el estadio.' },
+    comprobar: 'La barra del estadio es un poco más baja que la del cine, y 8 < 10. ✓',
+    origen: 'Aprendiendo de los errores, ejemplo 24',
+  },
+  {
+    id: 'gr-granja',
+    tema: 'graficos',
+    tipo: 'barra',
+    enunciado: 'En la granja hay [[82 animales]] en total, pero falta la barra de las vacas. {{Sube la barra hasta el número correcto.}}',
+    grafico: {
+      titulo: 'Animales en la granja',
+      max: 24,
+      paso: 4,
+      datos: [
+        { etiqueta: 'Caballos', valor: 22 },
+        { etiqueta: 'Cerdos', valor: 16 },
+        { etiqueta: 'Gallinas', valor: 14 },
+        { etiqueta: 'Vacas', valor: null },
+        { etiqueta: 'Ovejas', valor: 22 },
+      ],
+    },
+    faltante: 3,
+    respuesta: 8,
+    errores: {
+      otro: 'La barra quedó en {valor}. Suma los animales de las otras barras y compara con los 82 del total.',
+    },
+    pistas: {
+      planificar: 'Suma los animales que ya están en el gráfico y compara con el total.',
+      hacer: '22 + 16 + 14 + 22 = 74.',
+    },
+    solucion: { texto: '82 − 74 = 8 vacas.' },
+    comprobar: '22 + 16 + 14 + 8 + 22 = 82. ✓',
+    origen: 'PPT Datos y Probabilidades, ejercicio 9',
+  },
+  {
+    id: 'gr-asistencia',
+    tema: 'graficos',
+    tipo: 'alternativas',
+    enunciado: 'Durante la semana asistieron [[72 estudiantes]] al taller, pero falta la barra del jueves. {{¿Qué día asistió la misma cantidad de estudiantes que el jueves?}}',
+    visual: {
+      tipo: 'grafico',
+      titulo: 'Asistencia al taller',
+      max: 24,
+      paso: 2,
+      datos: [
+        { etiqueta: 'Lunes', valor: 16 },
+        { etiqueta: 'Martes', valor: 22 },
+        { etiqueta: 'Miércoles', valor: 12 },
+        { etiqueta: 'Jueves', valor: null },
+        { etiqueta: 'Viernes', valor: 6 },
+      ],
+    },
+    opciones: [
+      { texto: 'Lunes', correcta: true },
+      { texto: 'Martes', error: 'El martes fueron 22. Calcula primero cuántos fueron el jueves: 72 menos los otros días.' },
+      { texto: 'Miércoles', error: 'El miércoles fueron 12. Calcula primero cuántos fueron el jueves.' },
+      { texto: 'Viernes', error: 'El viernes fueron 6. Calcula primero cuántos fueron el jueves.' },
+    ],
+    ordenFijo: true,
+    pistas: {
+      planificar: 'Calcula cuántos fueron el jueves: el total menos los otros días.',
+      hacer: '16 + 22 + 12 + 6 = 56. 72 − 56 = 16.',
+    },
+    solucion: { texto: 'El jueves fueron 16 estudiantes, igual que el lunes.' },
+    comprobar: '16 + 22 + 12 + 16 + 6 = 72. ✓',
+    origen: 'PPT Datos y Probabilidades, ejercicio 13',
+  },
+  {
+    id: 'gr-libros',
+    tema: 'graficos',
+    tipo: 'alternativas',
+    enunciado: 'El gráfico muestra los libros que vendió una librería. {{¿Cuál es la diferencia de libros vendidos entre enero y febrero?}}',
+    visual: {
+      tipo: 'grafico',
+      titulo: 'Libros vendidos por mes',
+      max: 500,
+      paso: 100,
+      datos: [
+        { etiqueta: 'Enero', valor: 500 },
+        { etiqueta: 'Febrero', valor: 100 },
+        { etiqueta: 'Marzo', valor: 400 },
+        { etiqueta: 'Abril', valor: 300 },
+      ],
+    },
+    opciones: [
+      { texto: '400 libros', correcta: true },
+      { texto: '600 libros', error: 'Sumaste enero y febrero. La diferencia se calcula restando.' },
+      { texto: '100 libros', error: '100 libros se vendieron en febrero. Falta compararlo con enero.' },
+      { texto: `${f(1300)} libros`, error: 'Sumaste todos los meses. La pregunta compara solo enero y febrero.' },
+    ],
+    pistas: {
+      planificar: 'Lee el valor de cada barra en el eje de los números.',
+      hacer: 'Enero: 500. Febrero: 100.',
+    },
+    solucion: { texto: '500 − 100 = 400 libros.' },
+    comprobar: '100 + 400 = 500. ✓',
+    origen: 'PPT Datos y Probabilidades, ejercicio 11',
+  },
+  {
+    id: 'gr-votos',
+    tema: 'graficos',
+    tipo: 'alternativas',
+    enunciado: 'El 4° B votó por su animal favorito. {{¿Qué animal obtuvo **6 votos más** que el león y **6 votos menos** que el tigre?}}',
+    visual: {
+      tipo: 'pictograma',
+      titulo: 'Animal favorito del 4° B',
+      icono: 'carita',
+      valorIcono: 2,
+      unidad: 'votos',
+      datos: [
+        { etiqueta: 'León', iconos: 4 },
+        { etiqueta: 'Gorila', iconos: 7 },
+        { etiqueta: 'Tigre', iconos: 10 },
+        { etiqueta: 'Hipopótamo', iconos: 5 },
+        { etiqueta: 'Elefante', iconos: 9 },
+      ],
+    },
+    opciones: [
+      { texto: 'Gorila', correcta: true },
+      { texto: 'Elefante', error: 'El elefante tiene 18 votos. Recuerda que cada carita vale 2.' },
+      { texto: 'Hipopótamo', error: 'El hipopótamo tiene 10 votos: 2 más que el león, no 6.' },
+      { texto: 'Tigre', error: 'El tigre es el que tiene más votos. Se busca uno con 6 votos menos que él.' },
+    ],
+    pistas: {
+      planificar: 'Mira la clave: cada carita vale 2 votos. Calcula los votos del león y del tigre.',
+      hacer: 'León: 4 × 2 = 8. Tigre: 10 × 2 = 20. Busca uno con 8 + 6 = 14 votos.',
+    },
+    solucion: { texto: 'El gorila tiene 7 caritas: 14 votos.' },
+    comprobar: '14 − 8 = 6 y 20 − 14 = 6. ✓',
+    origen: 'Ensayo 2, pregunta 11; PPT Datos y Probabilidades, ejercicio 12',
+  },
+
+  // ---------------- ¿Qué tan probable es? ----------------
+  {
+    id: 'pr-medallas',
+    tema: 'probabilidades',
+    tipo: 'alternativas',
+    enunciado: 'Pamela tiene [[18 medallas de oro]], [[12 de plata]] y [[9 de bronce]] en una caja. Sacará una sin mirar. {{¿Cuál de estas oraciones es verdadera?}}',
+    opciones: [
+      { texto: 'Es seguro que saque una medalla de oro.', error: 'No es seguro: también hay medallas de plata y de bronce. Es probable, pero no seguro.' },
+      { texto: 'Es menos probable que saque una de bronce que una de plata.', correcta: true },
+      { texto: 'Es más probable que saque una de plata que una de oro.', error: 'Hay más medallas de oro (18) que de plata (12): es más probable sacar oro.' },
+      { texto: 'Es imposible que saque una medalla de bronce.', error: 'Sí hay medallas de bronce (9): sacar una es posible.' },
+    ],
+    ordenFijo: true,
+    columnas: 1,
+    pistas: {
+      planificar: 'Compara cuántas medallas hay de cada tipo.',
+      hacer: 'Oro: 18. Plata: 12. Bronce: 9.',
+    },
+    solucion: { texto: 'Hay menos de bronce (9) que de plata (12): es menos probable sacar bronce.' },
+    comprobar: '9 < 12. ✓',
+    origen: 'PPT Datos y Probabilidades, ejercicio 4; Ensayo 2, pregunta 23',
+  },
+  {
+    id: 'pr-mermeladas',
+    tema: 'probabilidades',
+    tipo: 'alternativas',
+    enunciado: 'En una tienda hay frascos de mermelada de distintos sabores. {{Si se saca un frasco al azar, ¿qué dos sabores tienen la **misma** probabilidad de salir?}}',
+    visual: {
+      tipo: 'tabla',
+      encabezados: ['Sabor', 'Frascos'],
+      filas: [
+        ['Uva', 17],
+        ['Manzana', 8],
+        ['Frutilla', 14],
+        ['Durazno', 11],
+        ['Naranja', 6],
+        ['Piña', 8],
+      ],
+    },
+    opciones: [
+      { texto: 'Manzana y piña', correcta: true },
+      { texto: 'Frutilla y durazno', error: 'Frutilla tiene 14 frascos y durazno 11: no hay la misma cantidad.' },
+      { texto: 'Naranja y piña', error: 'Naranja tiene 6 frascos y piña 8.' },
+      { texto: 'Uva y frutilla', error: 'Uva tiene 17 frascos y frutilla 14.' },
+    ],
+    pistas: {
+      planificar: 'Tienen la misma probabilidad los sabores que tienen la misma cantidad de frascos.',
+      hacer: 'Busca dos números iguales en la tabla.',
+    },
+    solucion: { texto: 'Manzana y piña tienen 8 frascos cada uno.' },
+    comprobar: 'Son los únicos dos sabores con la misma cantidad. ✓',
+    origen: 'PPT Datos y Probabilidades, ejercicio 1',
+  },
+  {
+    id: 'pr-bolsas',
+    tema: 'probabilidades',
+    tipo: 'alternativas',
+    enunciado: 'Ganas si sacas una bolita **roja** sin mirar. {{¿Con qué bolsa es más probable ganar?}}',
+    visual: {
+      tipo: 'bolsas',
+      bolsas: [
+        { etiqueta: 'Bolsa 1', bolitas: { roja: 2, azul: 2 } },
+        { etiqueta: 'Bolsa 2', bolitas: { roja: 3, azul: 1 } },
+        { etiqueta: 'Bolsa 3', bolitas: { roja: 1, azul: 3 } },
+        { etiqueta: 'Bolsa 4', bolitas: { azul: 4 } },
+      ],
+    },
+    opciones: [
+      { texto: 'Bolsa 1', error: 'En la bolsa 1 es igual de probable sacar roja que azul (2 y 2). Hay una bolsa con más rojas.' },
+      { texto: 'Bolsa 2', correcta: true },
+      { texto: 'Bolsa 3', error: 'En la bolsa 3 hay solo 1 roja de 4.' },
+      { texto: 'Bolsa 4', error: 'En la bolsa 4 no hay rojas: es imposible ganar.' },
+    ],
+    ordenFijo: true,
+    pistas: {
+      planificar: 'Todas las bolsas tienen 4 bolitas. Cuenta las rojas de cada una.',
+      hacer: 'Bolsa 1: 2 rojas. Bolsa 2: 3. Bolsa 3: 1. Bolsa 4: ninguna.',
+    },
+    solucion: { texto: 'La bolsa 2 tiene más bolitas rojas: 3 de 4.' },
+    comprobar: 'Con la bolsa 4 es imposible ganar, y con la 2 es lo más probable. ✓',
+    origen: 'Ensayo 1, pregunta 20 (adaptado)',
+  },
+  {
+    id: 'pr-dado',
+    tema: 'probabilidades',
+    tipo: 'alternativas',
+    enunciado: 'Lanzas un dado común, con los números del 1 al 6. {{¿Qué es **imposible**?}}',
+    opciones: [
+      { texto: 'Sacar un 7', correcta: true },
+      { texto: 'Sacar un número par', error: 'Es posible: el 2, el 4 y el 6 son pares.' },
+      { texto: 'Sacar un 1', error: 'Es posible: el dado tiene un 1.' },
+      { texto: 'Sacar un número menor que 7', error: 'Esto no es imposible: es seguro. Todos los números del dado son menores que 7.' },
+    ],
+    pistas: {
+      planificar: 'Imposible es algo que no puede pasar nunca.',
+      hacer: '¿Qué números tiene el dado? ¿Hay alguno que no esté?',
+    },
+    solucion: { texto: 'El dado no tiene 7: sacar un 7 es imposible.' },
+    comprobar: 'En cambio, sacar un número menor que 7 es seguro. ✓',
+    origen: 'Programa de estudio, OA 26',
+  },
+];

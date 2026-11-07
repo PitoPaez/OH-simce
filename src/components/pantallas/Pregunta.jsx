@@ -13,6 +13,7 @@ import RelojInteractivo from '../interactivos/RelojInteractivo.jsx';
 import Cuadricula from '../interactivos/Cuadricula.jsx';
 import PintarCuadricula from '../interactivos/PintarCuadricula.jsx';
 import { BarraGrafico, Ordenar } from '../interactivos/Otros.jsx';
+import ArrastrarPosicional from '../interactivos/ArrastrarPosicional.jsx';
 
 const INTERACTIVOS = {
   numero: Numero,
@@ -25,6 +26,7 @@ const INTERACTIVOS = {
   pintarCuadricula: PintarCuadricula,
   barra: BarraGrafico,
   ordenar: Ordenar,
+  arrastrarPosicional: ArrastrarPosicional,
 };
 
 // Retroalimentación cuando el error no tiene un mensaje propio.

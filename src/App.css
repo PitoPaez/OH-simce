@@ -1606,6 +1606,16 @@ button.cuadricula-celda:hover:not(:disabled) {
   height: 56px;
   border: 2px dashed var(--borde);
   border-radius: 10px;
+  transition: background-color 0.15s ease, border-color 0.15s ease;
+}
+
+.ordenar-vacia--over {
+  background: color-mix(in srgb, var(--eje) 15%, #fff);
+  border-color: var(--eje);
+}
+
+.ordenar-ranura--over {
+  border-radius: 10px;
 }
 
 .ordenar-disponibles {
@@ -2887,4 +2897,147 @@ code {
   fill: #2f9e5b;
   stroke: var(--tinta);
   stroke-width: 1.5;
+}
+
+/* =========================================================
+   Arrastrar valor posicional (Drag and Drop)
+   ========================================================= */
+.arrastrar-posicional {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 18px;
+  padding: 24px;
+  border: 2px solid var(--borde);
+  border-radius: var(--radio);
+  background: var(--blanco);
+  width: 100%;
+  max-width: 720px;
+  margin: 0 auto;
+}
+
+.arrastrar-tabla-wrapper {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+}
+
+.arrastrar-tabla {
+  border-collapse: collapse;
+}
+
+.arrastrar-celda {
+  width: 90px;
+  height: 90px;
+  border: 2px solid var(--tinta);
+  text-align: center;
+  vertical-align: middle;
+  background: #ffffff;
+  transition: background-color 0.15s ease, border-color 0.15s ease;
+  cursor: pointer;
+  user-select: none;
+}
+
+.arrastrar-celda--over {
+  background: color-mix(in srgb, var(--eje) 20%, #fff);
+  border-color: var(--eje);
+  border-style: dashed;
+}
+
+.arrastrar-celda-placeholder {
+  color: #c0c6d4;
+  font-size: 2rem;
+  line-height: 1;
+}
+
+.arrastrar-numero-puesto {
+  font-size: 2.6rem;
+  font-weight: 700;
+  color: var(--tinta);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+  cursor: grab;
+}
+
+.arrastrar-numero-puesto:active {
+  cursor: grabbing;
+}
+
+.arrastrar-instruccion {
+  font-size: 1.05rem;
+  color: var(--tinta-suave);
+  margin: 0;
+  text-align: center;
+}
+
+/* Caja de números dispersos estilo la imagen (caja abierta arriba con borde oscuro) */
+.arrastrar-caja-numeros {
+  width: 100%;
+  max-width: 520px;
+  height: 240px;
+  border-left: 3px solid #111;
+  border-right: 3px solid #111;
+  border-bottom: 3px solid #111;
+  position: relative;
+  background: rgba(255, 255, 255, 0.4);
+  border-radius: 0 0 6px 6px;
+  margin-top: 6px;
+}
+
+.arrastrar-numeros-dispersos {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+
+/* Fichas con números flotantes */
+.arrastrar-ficha {
+  position: absolute;
+  font-size: 2.2rem;
+  font-weight: 700;
+  color: #1a1a1a;
+  cursor: grab;
+  user-select: none;
+  touch-action: none;
+  padding: 6px 14px;
+  border-radius: 8px;
+  transition: transform 0.15s ease, opacity 0.2s ease, box-shadow 0.15s ease;
+}
+
+.arrastrar-ficha:hover {
+  transform: scale(1.15);
+  color: var(--eje, #1f5cc0);
+}
+
+.arrastrar-ficha:active {
+  cursor: grabbing;
+}
+
+.arrastrar-ficha--seleccionada {
+  background: color-mix(in srgb, var(--eje) 15%, #fff);
+  border: 2px dashed var(--eje);
+  transform: scale(1.1);
+}
+
+.arrastrar-ficha--oculta {
+  opacity: 0;
+  pointer-events: none;
+}
+
+/* Posiciones orgánicas semejantes al dibujo proporcionado: 
+   7 arriba a la derecha, 5 centro izquierda, 6 medio bajo izquierda, 
+   2 centro derecha, 9 abajo centro-izq, 8 abajo der */
+.arrastrar-pos-0 { top: 12%; left: 52%; } /* 7 */
+.arrastrar-pos-1 { top: 26%; left: 24%; } /* 5 */
+.arrastrar-pos-2 { top: 52%; left: 20%; } /* 6 */
+.arrastrar-pos-3 { top: 48%; left: 48%; } /* 2 */
+.arrastrar-pos-4 { top: 72%; left: 32%; } /* 9 */
+.arrastrar-pos-5 { top: 68%; left: 55%; } /* 8 */
+
+.arrastrar-posicional .interactivo-pie {
+  width: 100%;
+  max-width: 520px;
 }

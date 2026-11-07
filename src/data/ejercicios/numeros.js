@@ -266,15 +266,17 @@ export const EJERCICIOS = [
   {
     id: 'vp-alicia',
     tema: 'valor-posicional',
-    tipo: 'alternativas',
+    tipo: 'arrastrarPosicional',
     enunciado: 'El número de la casa de Alicia se forma con [[7 decenas]], [[5 unidades]] y [[2 centenas]]. {{¿Cuál es el número de la casa de Alicia?}}',
-    visual: { tipo: 'posicional', columnas: ['C', 'D', 'U'], cifras: [null, null, null] },
-    opciones: [
-      { texto: '275', correcta: true },
-      { texto: '752', error: 'Escribiste las cifras en el orden en que aparecen: 7, 5, 2. Pero el orden lo da el valor: ¿cuántas centenas hay? Esa cifra va primero.' },
-      { texto: '257', error: 'El 5 y el 7 quedaron cambiados. ¿Cuál es la cifra de las decenas: el 7 o el 5?' },
-      { texto: '527', error: 'Las unidades van al final, a la derecha. ¿Qué cifra va en las centenas?' },
-    ],
+    columnas: ['C', 'D', 'U'],
+    disponibles: [7, 5, 6, 2, 9, 8],
+    solucionPosicional: [2, 7, 5],
+    errores: {
+      752: 'Escribiste las cifras en el orden en que aparecen en el texto: 7, 5 y 2. Pero el orden en la tabla lo da el valor: ¿cuántas centenas hay? Esa cifra va en la C.',
+      257: 'El 5 y el 7 quedaron cambiados. ¿Cuál es la cifra de las decenas: el 7 o el 5?',
+      527: 'Las unidades van al final a la derecha en la U. ¿Qué cifra va en las centenas (C)?',
+      otro: 'Revisa qué número representa las centenas (C), cuál las decenas (D) y cuál las unidades (U).',
+    },
     pistas: {
       planificar: 'Usa la tabla con C, D y U, y pon cada cifra en su columna.',
       hacer: '2 centenas van en la C, 7 decenas en la D y 5 unidades en la U.',
@@ -397,15 +399,17 @@ export const EJERCICIOS = [
   {
     id: 'vp-camiseta',
     tema: 'valor-posicional',
-    tipo: 'alternativas',
+    tipo: 'arrastrarPosicional',
     enunciado: 'Simón dice: «Mi camiseta tiene [[0 C]], [[8 D]], [[4 U]] y [[2 UM]]». {{¿Qué número tiene la camiseta de Simón?}}',
-    visual: { tipo: 'posicional' },
-    opciones: [
-      { texto: f(2084), correcta: true },
-      { texto: f(2048), error: 'Cambiaste las decenas y las unidades. Hay 8 decenas y 4 unidades: el 8 va antes que el 4.' },
-      { texto: f(2840), error: 'El 8 quedó en las centenas, pero hay 0 centenas.' },
-      { texto: f(8042), error: 'El 2 son unidades de mil: va primero, a la izquierda.' },
-    ],
+    columnas: ['UM', 'C', 'D', 'U'],
+    disponibles: [0, 8, 4, 2, 6, 7],
+    solucionPosicional: [2, 0, 8, 4],
+    errores: {
+      2048: 'Cambiaste las decenas y las unidades. Hay 8 decenas y 4 unidades: el 8 va antes que el 4 en las decenas.',
+      2840: 'El 8 quedó en las centenas, pero Simón dijo que tiene 0 centenas (0 C).',
+      8042: 'El 2 son unidades de mil: va primero, a la izquierda en la casilla de UM.',
+      otro: 'Revisa con calma cada indicación: ¿cuál va en UM, cuál en C, en D y en U?',
+    },
     pistas: {
       planificar: 'Pon cada cifra en la tabla: UM, C, D, U.',
       hacer: 'El 2 va en UM, el 0 en C, el 8 en D y el 4 en U.',

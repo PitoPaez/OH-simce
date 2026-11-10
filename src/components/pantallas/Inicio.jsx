@@ -1,5 +1,4 @@
 import { EJES, colorEje } from '../../data/ejes.js';
-import { EJERCICIOS, TEMAS } from '../../data/index.js';
 import { idsParaRepasar } from '../../lib/progreso.js';
 import Cuadritos from '../ui/Cuadritos.jsx';
 import IconoEje from '../ui/IconoEje.jsx';
@@ -12,17 +11,32 @@ const DESCRIPCION_PASOS = {
   comprobar: '¿Mi respuesta tiene sentido?',
 };
 
-export default function Inicio({ progreso, ir }) {
-  const repasar = idsParaRepasar(progreso).filter((id) => EJERCICIOS.some((e) => e.id === id));
-  const ultimoTema = TEMAS.find((t) => t.id === progreso.ultimoTema);
+export default function Inicio({ progreso, perfil, catalogo, ir }) {
+  const { activos: EJERCICIOS, temas: TEMAS } = catalogo;
+  const repasar = idsParaRepasar(progreso).filter((id) => catalogo.activo(id));
+  const pendientes = idsParaRepasar(progreso, ['pendiente']).filter((id) => catalogo.activo(id)).length;
+  const ultimoTema = TEMAS.find((t) => t.id === progreso.ultimoTema && EJERCICIOS.some((e) => e.tema === t.id));
   const ultimoEnsayo = progreso.ensayos.at(-1);
 
   return (
     <main className="pagina inicio">
       <header className="inicio-encabezado">
-        <p className="marca">
-          OH Simce <span>Matemática 4° básico</span>
-        </p>
+        <div className="inicio-arriba">
+          <p className="marca">
+            OH Simce <span>Matemática 4° básico</span>
+          </p>
+          <button type="button" className="quien-soy" onClick={() => ir('/perfil')}>
+            {perfil.nombre ? (
+              <>
+                <span className="quien-soy-nombre">{perfil.nombre}</span>
+                {perfil.curso && <span className="quien-soy-curso">{perfil.curso.nombre}</span>}
+                <span className="quien-soy-accion">Cambiar</span>
+              </>
+            ) : (
+              <span className="quien-soy-accion">Escribe tu nombre</span>
+            )}
+          </button>
+        </div>
         <h1>¿Qué quieres practicar hoy?</h1>
         <p className="inicio-intro">Elige un tema y avanza a tu ritmo. Aquí equivocarse está bien: cada error te muestra algo que puedes aprender.</p>
       </header>
@@ -54,7 +68,7 @@ export default function Inicio({ progreso, ir }) {
                 </span>
                 <span className="indice-progreso">
                   <Cuadritos
-                    estados={temas.map((t) => {
+                    estados={temas.filter((t) => EJERCICIOS.some((e) => e.tema === t.id)).map((t) => {
                       const ids = EJERCICIOS.filter((e) => e.tema === t.id).map((e) => e.id);
                       const n = ids.filter((id) => progreso.ejercicios[id] === 'solo').length;
                       return n === ids.length ? 'solo' : n > 0 || ids.some((id) => progreso.ejercicios[id]) ? 'ayuda' : 'vacio';
@@ -89,10 +103,11 @@ export default function Inicio({ progreso, ir }) {
           {repasar.length > 0 ? (
             <>
               <p>
-                Tienes {repasar.length} {repasar.length === 1 ? 'pregunta que te costó' : 'preguntas que te costaron'}. Repasar otro día ayuda a que no se olvide.
+                Tienes {repasar.length} {repasar.length === 1 ? 'pregunta para repasar' : 'preguntas para repasar'}
+                {pendientes > 0 && <> ({pendientes === 1 ? '1 la dejaste' : `${pendientes} las dejaste`} para después)</>}. Repasar otro día ayuda a que no se olvide.
               </p>
               <button type="button" className="boton boton--principal" onClick={() => ir('/repasar')}>
-                Repasar ahora
+                Elegir qué repasar
               </button>
             </>
           ) : (
@@ -115,8 +130,11 @@ export default function Inicio({ progreso, ir }) {
       </section>
 
       <footer className="pie">
+        <button type="button" className="boton boton--texto" onClick={() => ir('/docentes/informacion')}>
+          Cómo está pensada (docentes y familias)
+        </button>
         <button type="button" className="boton boton--texto" onClick={() => ir('/docentes')}>
-          Información para docentes y familias
+          Panel docente
         </button>
       </footer>
     </main>

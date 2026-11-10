@@ -1,11 +1,11 @@
 import { EJES, colorEje } from '../../data/ejes.js';
-import { EJERCICIOS, TEMAS } from '../../data/index.js';
 import Cuadritos from '../ui/Cuadritos.jsx';
 import IconoEje from '../ui/IconoEje.jsx';
 
-export default function Eje({ ejeId, progreso, ir }) {
+export default function Eje({ ejeId, progreso, catalogo, ir }) {
   const eje = EJES.find((e) => e.id === ejeId);
-  const temas = TEMAS.filter((t) => t.eje === ejeId);
+  // Los temas sin ejercicios activos (el docente los desactivó todos) no se muestran.
+  const temas = catalogo.temas.filter((t) => t.eje === ejeId && catalogo.activos.some((e) => e.tema === t.id));
 
   return (
     <main className="pagina eje" style={{ '--eje': colorEje(ejeId) }}>
@@ -26,7 +26,7 @@ export default function Eje({ ejeId, progreso, ir }) {
 
       <ul className="temas">
         {temas.map((tema) => {
-          const ejercicios = EJERCICIOS.filter((e) => e.tema === tema.id);
+          const ejercicios = catalogo.activos.filter((e) => e.tema === tema.id);
           const logrados = ejercicios.filter((e) => progreso.ejercicios[e.id] === 'solo').length;
           return (
             <li key={tema.id} className="tema">
@@ -37,7 +37,7 @@ export default function Eje({ ejeId, progreso, ir }) {
                   <Cuadritos
                     estados={ejercicios.map((e) => {
                       const estado = progreso.ejercicios[e.id];
-                      return estado === 'solo' ? 'solo' : estado ? 'ayuda' : 'vacio';
+                      return estado === 'solo' ? 'solo' : estado === 'pendiente' ? 'pendiente' : estado ? 'ayuda' : 'vacio';
                     })}
                     etiqueta={`${logrados} de ${ejercicios.length} logrados`}
                   />

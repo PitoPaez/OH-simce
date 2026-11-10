@@ -114,6 +114,23 @@ estrategia y el esfuerzo, nunca la «inteligencia». El panel de error se llama
 «Revisemos», en naranjo y no en rojo. Las preguntas que costaron quedan en
 **Repasar**, para practicarlas otro día (práctica espaciada).
 
+### 8b. Dejar para después
+En la práctica y en el ensayo se puede dejar una pregunta para el final. En el
+SIMCE conviene no quedarse pegado en una pregunta y volver a ella al final,
+así que es una estrategia que vale la pena practicar. Además, quedarse
+bloqueado aumenta la ansiedad matemática (Boaler). En la práctica, la pregunta pasa al
+final de la fila; cuando solo quedan las pendientes, la página avisa y se puede
+terminar ahí: las que queden sin hacer pasan a «Repasar». En el ensayo hay un
+mapa con todas las preguntas, como hojear la prueba, y una pantalla «Antes de
+entregar» que muestra las que faltan.
+
+### 8c. Repasar por partes
+El estudiante elige qué repasar (las que dejó para después, las que le
+costaron, las que vio resueltas y las que no salieron en el ensayo) y de qué
+ejes y temas. Elegir da autonomía, y la práctica mezcla los temas elegidos,
+porque intercalar tipos de problemas ayuda a reconocer qué estrategia usar en
+cada uno (práctica intercalada; Rohrer y Taylor, 2007).
+
 ### 9. Menos carga para quien todavía lee lento
 - Una pregunta por pantalla y nada decorativo alrededor. La información que no
   sirve para aprender consume memoria de trabajo (efecto de redundancia, CLT
@@ -134,7 +151,16 @@ redondeadas, colores cálidos, personajes) aumenta la motivación (Mayer, cap. 2
 Por eso hay compañeros dibujados, pero solo donde cumplen una función (en
 «¿Quién tiene razón?»), no como adorno.
 
-### 11. También para la sala de clases
+### 11. Lo que ve el docente
+El panel de resultados se ordena por **errores**, no solo por notas: muestra las
+respuestas equivocadas que más estudiantes dieron y el error frecuente que hay
+detrás, con el mismo mensaje que vio el estudiante. Así el docente sabe qué
+reenseñar, que es lo que recomienda la Agencia («Aprendiendo de los errores»).
+Para cada ejercicio muestra qué respondió cada estudiante en su primer intento
+(análisis de distractores). El logro se mide «a la primera y sin ayuda», porque
+acertar después de dos pistas no es lo mismo que acertar solo.
+
+### 12. También para la sala de clases
 Pacheco encontró que los docentes valoran las plataformas cuando permiten
 interactuar con los estudiantes y conversar los problemas, no cuando
 reemplazan esa conversación. Por eso cada ejercicio se puede abrir con un
@@ -185,12 +211,17 @@ muestran en vertical.
 | `cuadricula` | Ubica una casilla o traslada una figura | `modo`, `objetivo`, `inicio` |
 | `pintarCuadricula` | Pinta un rectángulo o completa una simetría | `modo`, `area` / `perimetro`, `fijas`, `ejeSimetria` |
 | `barra` | Completa la barra de un gráfico | `grafico`, `faltante`, `respuesta` |
-| `ordenar` | Ordena fichas tocándolas | `elementos` en el orden correcto |
+| `ordenar` | Ordena fichas tocándolas o arrastrándolas | `elementos` en el orden correcto |
+| `arrastrarPosicional` | Pone cifras en la tabla de valor posicional | `columnas`, `disponibles`, `solucionPosicional`, `errores` |
 
 En los tipos interactivos, `errores` relaciona cada respuesta equivocada con su
 mensaje. La clave es el valor que dio el estudiante (`'7550'`, `'D3'`,
 `'10:45'`) y `otro` sirve para el resto. `{valor}` se reemplaza por lo que
 respondió.
+
+Los docentes también pueden crear ejercicios desde el panel docente
+(«Ejercicios» → «Crear un ejercicio») y exportarlos con «Exportar para el
+repositorio» para pegarlos aquí.
 
 Antes de subir cambios, corre `npm run validar`. Revisa que cada ejercicio tenga
 una sola alternativa correcta, un mensaje para cada error, pistas, solución,

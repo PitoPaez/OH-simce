@@ -1606,6 +1606,16 @@ button.cuadricula-celda:hover:not(:disabled) {
   height: 56px;
   border: 2px dashed var(--borde);
   border-radius: 10px;
+  transition: background-color 0.15s ease, border-color 0.15s ease;
+}
+
+.ordenar-vacia--over {
+  background: color-mix(in srgb, var(--eje) 15%, #fff);
+  border-color: var(--eje);
+}
+
+.ordenar-ranura--over {
+  border-radius: 10px;
 }
 
 .ordenar-disponibles {
@@ -2887,4 +2897,714 @@ code {
   fill: #2f9e5b;
   stroke: var(--tinta);
   stroke-width: 1.5;
+}
+
+/* =========================================================
+   Arrastrar valor posicional (Drag and Drop)
+   ========================================================= */
+.arrastrar-posicional {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 18px;
+  padding: 24px;
+  border: 2px solid var(--borde);
+  border-radius: var(--radio);
+  background: var(--blanco);
+  width: 100%;
+  max-width: 720px;
+  margin: 0 auto;
+}
+
+.arrastrar-tabla-wrapper {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+}
+
+.arrastrar-tabla {
+  border-collapse: collapse;
+}
+
+.arrastrar-celda {
+  width: 90px;
+  height: 90px;
+  border: 2px solid var(--tinta);
+  text-align: center;
+  vertical-align: middle;
+  background: #ffffff;
+  transition: background-color 0.15s ease, border-color 0.15s ease;
+  cursor: pointer;
+  user-select: none;
+}
+
+.arrastrar-celda--over {
+  background: color-mix(in srgb, var(--eje) 20%, #fff);
+  border-color: var(--eje);
+  border-style: dashed;
+}
+
+.arrastrar-celda-placeholder {
+  color: #c0c6d4;
+  font-size: 2rem;
+  line-height: 1;
+}
+
+.arrastrar-numero-puesto {
+  font-size: 2.6rem;
+  font-weight: 700;
+  color: var(--tinta);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+  cursor: grab;
+}
+
+.arrastrar-numero-puesto:active {
+  cursor: grabbing;
+}
+
+.arrastrar-instruccion {
+  font-size: 1.05rem;
+  color: var(--tinta-suave);
+  margin: 0;
+  text-align: center;
+}
+
+/* Caja de números dispersos estilo la imagen (caja abierta arriba con borde oscuro) */
+.arrastrar-caja-numeros {
+  width: 100%;
+  max-width: 520px;
+  height: 240px;
+  border-left: 3px solid #111;
+  border-right: 3px solid #111;
+  border-bottom: 3px solid #111;
+  position: relative;
+  background: rgba(255, 255, 255, 0.4);
+  border-radius: 0 0 6px 6px;
+  margin-top: 6px;
+}
+
+.arrastrar-numeros-dispersos {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+
+/* Fichas con números flotantes */
+.arrastrar-ficha {
+  position: absolute;
+  font-size: 2.2rem;
+  font-weight: 700;
+  color: #1a1a1a;
+  cursor: grab;
+  user-select: none;
+  touch-action: none;
+  padding: 6px 14px;
+  border-radius: 8px;
+  transition: transform 0.15s ease, opacity 0.2s ease, box-shadow 0.15s ease;
+}
+
+.arrastrar-ficha:hover {
+  transform: scale(1.15);
+  color: var(--eje, #1f5cc0);
+}
+
+.arrastrar-ficha:active {
+  cursor: grabbing;
+}
+
+.arrastrar-ficha--seleccionada {
+  background: color-mix(in srgb, var(--eje) 15%, #fff);
+  border: 2px dashed var(--eje);
+  transform: scale(1.1);
+}
+
+.arrastrar-ficha--oculta {
+  opacity: 0;
+  pointer-events: none;
+}
+
+/* Posiciones orgánicas semejantes al dibujo proporcionado: 
+   7 arriba a la derecha, 5 centro izquierda, 6 medio bajo izquierda, 
+   2 centro derecha, 9 abajo centro-izq, 8 abajo der */
+.arrastrar-pos-0 { top: 12%; left: 52%; } /* 7 */
+.arrastrar-pos-1 { top: 26%; left: 24%; } /* 5 */
+.arrastrar-pos-2 { top: 52%; left: 20%; } /* 6 */
+.arrastrar-pos-3 { top: 48%; left: 48%; } /* 2 */
+.arrastrar-pos-4 { top: 72%; left: 32%; } /* 9 */
+.arrastrar-pos-5 { top: 68%; left: 55%; } /* 8 */
+
+.arrastrar-posicional .interactivo-pie {
+  width: 100%;
+  max-width: 520px;
+}
+
+/* =========================================================
+   Dejar para después (práctica y ensayo)
+   ========================================================= */
+/* Pendiente: el cuadrito queda con un punto, como una marca de lápiz. */
+.cuadrito--pendiente {
+  border-color: var(--eje);
+  background: radial-gradient(circle, var(--eje) 0 3px, var(--blanco) 3.5px);
+}
+
+.cuadritos--grande .cuadrito--pendiente {
+  background: radial-gradient(circle, var(--eje) 0 6px, var(--blanco) 6.5px);
+}
+
+.boton--pendiente {
+  min-height: 44px;
+  padding: 8px 16px;
+  background: var(--blanco);
+  border-color: var(--borde);
+  border-style: dashed;
+  color: var(--tinta);
+  font-size: 1rem;
+}
+
+.ayuda-acciones .boton--pendiente {
+  margin-left: auto;
+}
+
+.boton--pendiente:hover:not(:disabled) {
+  border-color: var(--tinta);
+  border-style: solid;
+}
+
+.boton--pendiente-activo {
+  border-style: solid;
+  background: var(--resaltador);
+}
+
+.aviso-pendiente {
+  display: inline-block;
+  margin-bottom: 16px;
+  padding: 6px 14px;
+  border-radius: 999px;
+  background: var(--resaltador);
+  font-weight: 700;
+  font-size: 1rem;
+}
+
+.vuelta-pendientes {
+  display: grid;
+  gap: 16px;
+  padding: 28px;
+  border: 2px solid var(--borde);
+  border-radius: var(--radio);
+  background: var(--blanco);
+}
+
+.vuelta-pendientes h1 {
+  font-size: clamp(1.5rem, 5vw, 2rem);
+  line-height: 1.2;
+}
+
+.pendiente-nota {
+  color: var(--tinta-suave);
+  font-size: 1rem;
+}
+
+.repasar--pendientes {
+  padding: 18px 20px 20px;
+  border: 2px dashed var(--tinta-suave);
+  border-radius: var(--radio);
+  background: color-mix(in srgb, var(--resaltador) 35%, transparent);
+}
+
+@media (max-width: 520px) {
+  .ayuda-acciones .boton--pendiente {
+    margin-left: 0;
+  }
+
+  .vuelta-pendientes {
+    padding: 20px;
+  }
+}
+
+/* ---- Ensayo: indicaciones, mapa de preguntas y entrega ---- */
+.ensayo-intro h1,
+.antes-entregar h1,
+.repasar-elegir h1,
+.perfil h1 {
+  font-size: clamp(1.75rem, 6vw, 2.5rem);
+  line-height: 1.15;
+  margin-bottom: 12px;
+}
+
+.ensayo-consejos {
+  display: grid;
+  gap: 12px;
+  margin: 24px 0 28px;
+  padding-left: 1.3em;
+  max-width: 40em;
+}
+
+.ensayo-acciones {
+  align-items: center;
+}
+
+.ensayo-mapa {
+  display: grid;
+  gap: 10px;
+  justify-items: start;
+  margin-top: 18px;
+  padding: 16px 18px;
+  border: 2px solid var(--borde);
+  border-radius: var(--radio);
+  background: var(--blanco);
+}
+
+.ensayo-mapa h2 {
+  font-size: 1.05rem;
+}
+
+.mapa-preguntas {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.mapa-pregunta {
+  position: relative;
+  width: 44px;
+  height: 44px;
+  border: 2px solid var(--tinta-suave);
+  border-radius: 8px;
+  background: var(--blanco);
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.mapa-pregunta:hover {
+  border-color: var(--tinta);
+}
+
+.mapa-pregunta--respondida {
+  background: #d9e0ee;
+  border-color: #d9e0ee;
+}
+
+/* Para después: resaltada y con borde punteado. */
+.mapa-pregunta--marcada {
+  background: var(--resaltador);
+  border-color: var(--tinta);
+  border-style: dashed;
+}
+
+.mapa-pregunta--actual {
+  outline: 3px solid var(--eje);
+  outline-offset: 2px;
+}
+
+.mapa-preguntas--grande .mapa-pregunta {
+  width: 52px;
+  height: 52px;
+  font-size: 1.1rem;
+}
+
+.mapa-leyenda {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px 16px;
+  font-size: 0.9rem;
+  color: var(--tinta-suave);
+}
+
+.mapa-leyenda > span {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.mapa-muestra {
+  display: inline-block;
+  width: 16px;
+  height: 16px;
+  border: 2px solid var(--tinta-suave);
+  border-radius: 4px;
+  background: var(--blanco);
+}
+
+.mapa-muestra.mapa-pregunta--marcada {
+  border-color: var(--tinta);
+  border-style: dashed;
+  background: var(--resaltador);
+}
+
+.mapa-muestra.mapa-pregunta--respondida {
+  background: #d9e0ee;
+  border-color: #d9e0ee;
+}
+
+.antes-entregar {
+  display: grid;
+  gap: 18px;
+  justify-items: start;
+}
+
+.antes-cuentas {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.antes-cuentas li {
+  padding: 8px 16px;
+  border-radius: 999px;
+  border: 2px solid var(--borde);
+  background: var(--blanco);
+}
+
+.antes-cuentas--marcadas {
+  background: var(--resaltador) !important;
+}
+
+.antes-cuentas--blanco {
+  border-style: dashed !important;
+}
+
+.antes-confirmar {
+  display: grid;
+  gap: 14px;
+}
+
+.revision-marca {
+  font-size: 0.95rem;
+  color: var(--tinta-suave);
+}
+
+/* ---- Repasar por partes ---- */
+.repasar-grupo {
+  margin: 24px 0 0;
+  padding: 0;
+  border: 0;
+  min-width: 0;
+}
+
+.repasar-grupo legend {
+  margin-bottom: 12px;
+  padding: 0;
+  font-size: 1.25rem;
+  font-weight: 700;
+}
+
+.repasar-partes,
+.repasar-cantidad {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.opcion-marcable {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  min-height: 52px;
+  padding: 8px 16px;
+  border: 2px solid var(--borde);
+  border-radius: 12px;
+  background: var(--blanco);
+  cursor: pointer;
+}
+
+.opcion-marcable:has(input:checked) {
+  border-color: var(--tinta);
+  box-shadow: inset 0 0 0 1px var(--tinta);
+}
+
+.opcion-marcable:has(input:focus-visible) {
+  outline: 3px solid var(--tinta);
+  outline-offset: 3px;
+}
+
+.opcion-marcable input {
+  width: 22px;
+  height: 22px;
+  margin: 0;
+  accent-color: var(--tinta);
+}
+
+.opcion-marcable--vacia {
+  opacity: 0.5;
+  cursor: default;
+}
+
+.opcion-marcable-cuenta {
+  min-width: 28px;
+  padding: 0 8px;
+  border-radius: 999px;
+  background: #eef2fb;
+  font-weight: 700;
+  font-size: 0.95rem;
+  text-align: center;
+}
+
+.opcion-marcable--chica {
+  min-width: 84px;
+  justify-content: center;
+}
+
+.repasar-ejes {
+  display: grid;
+  gap: 14px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.repasar-eje {
+  padding: 14px 16px;
+  border: 2px solid var(--borde);
+  border-left: 8px solid var(--eje);
+  border-radius: var(--radio);
+  background: var(--blanco);
+}
+
+.repasar-eje-titulo {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-weight: 700;
+  font-size: 1.15rem;
+  cursor: pointer;
+}
+
+.repasar-eje-titulo input {
+  width: 22px;
+  height: 22px;
+  margin: 0;
+  accent-color: var(--tinta);
+}
+
+.indice-papel--chico {
+  width: 34px;
+  height: 34px;
+}
+
+.indice-papel--chico .icono-eje {
+  width: 24px;
+  height: 24px;
+}
+
+.repasar-temas {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 12px;
+}
+
+.opcion-marcable--tema {
+  min-height: 44px;
+  font-size: 1rem;
+}
+
+.repasar-empezar {
+  margin-top: 28px;
+}
+
+/* ---- Perfiles: ¿quién está practicando? ---- */
+.inicio-arriba {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 24px;
+}
+
+.inicio-arriba .marca {
+  margin-bottom: 0;
+}
+
+.quien-soy {
+  display: inline-flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 4px 10px;
+  min-height: 44px;
+  padding: 6px 16px;
+  border: 2px solid var(--borde);
+  border-radius: 999px;
+  background: var(--blanco);
+  cursor: pointer;
+}
+
+.quien-soy:hover {
+  border-color: var(--tinta);
+}
+
+.quien-soy-nombre {
+  font-weight: 700;
+}
+
+.quien-soy-curso {
+  color: var(--tinta-suave);
+  font-size: 0.95rem;
+}
+
+.quien-soy-accion {
+  color: var(--tinta-suave);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  font-size: 0.95rem;
+}
+
+.pie {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 4px 16px;
+}
+
+.perfil {
+  display: grid;
+  gap: 8px;
+}
+
+.perfil-seccion {
+  display: grid;
+  gap: 12px;
+  margin-top: 20px;
+  justify-items: start;
+}
+
+.perfil-seccion h2 {
+  font-size: 1.3rem;
+}
+
+.perfil-curso {
+  font-weight: 700;
+}
+
+.perfil-entregar {
+  display: grid;
+  gap: 10px;
+  justify-items: start;
+  margin-top: 8px;
+  padding: 20px;
+  border: 2px solid var(--borde);
+  border-radius: var(--radio);
+  background: var(--blanco);
+}
+
+.perfil-ok {
+  color: var(--logrado);
+  font-weight: 700;
+}
+
+.perfiles {
+  display: grid;
+  gap: 10px;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.perfil-boton {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  width: 100%;
+  min-height: 64px;
+  padding: 10px 16px;
+  border: 2px solid var(--borde);
+  border-radius: var(--radio);
+  background: var(--blanco);
+  text-align: left;
+  cursor: pointer;
+}
+
+.perfil-boton:hover {
+  border-color: var(--tinta);
+}
+
+.perfil-boton--activo {
+  border-color: var(--tinta);
+}
+
+.perfil-inicial {
+  display: grid;
+  place-items: center;
+  flex: none;
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  background: var(--tinta);
+  color: var(--blanco);
+  font-weight: 700;
+  font-size: 1.2rem;
+}
+
+.perfil-texto {
+  display: grid;
+}
+
+.perfil-nombre {
+  font-weight: 700;
+}
+
+.perfil-detalle {
+  color: var(--tinta-suave);
+  font-size: 0.95rem;
+}
+
+.perfil-marca {
+  margin-left: auto;
+  padding: 2px 10px;
+  border-radius: 999px;
+  background: var(--logrado-fondo);
+  color: var(--logrado);
+  font-size: 0.9rem;
+  font-weight: 700;
+}
+
+.form-nombre {
+  display: grid;
+  gap: 8px;
+  width: 100%;
+  max-width: 560px;
+}
+
+.form-nombre label {
+  font-weight: 700;
+}
+
+.form-nombre-fila {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.form-nombre-fila .campo {
+  flex: 1 1 220px;
+}
+
+.campo {
+  min-height: 52px;
+  padding: 10px 14px;
+  border: 2px solid var(--borde);
+  border-radius: 12px;
+  background: var(--blanco);
+  font: inherit;
+  color: var(--tinta);
+}
+
+.campo:focus-visible {
+  border-color: var(--tinta);
+  outline-offset: 1px;
+}
+
+.campo::placeholder {
+  color: #8d97b5;
 }

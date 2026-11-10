@@ -1,5 +1,6 @@
 import { useEffect, useMemo, useRef, useState } from 'react';
 import { callar } from '../../lib/voz.js';
+import { mensajeError } from '../../lib/retro.js';
 import Visual from '../visuales/Visual.jsx';
 import Texto from '../ui/Texto.jsx';
 import Leer from '../ui/Leer.jsx';
@@ -13,6 +14,7 @@ import RelojInteractivo from '../interactivos/RelojInteractivo.jsx';
 import Cuadricula from '../interactivos/Cuadricula.jsx';
 import PintarCuadricula from '../interactivos/PintarCuadricula.jsx';
 import { BarraGrafico, Ordenar } from '../interactivos/Otros.jsx';
+import ArrastrarPosicional from '../interactivos/ArrastrarPosicional.jsx';
 
 const INTERACTIVOS = {
   numero: Numero,
@@ -25,35 +27,8 @@ const INTERACTIVOS = {
   pintarCuadricula: PintarCuadricula,
   barra: BarraGrafico,
   ordenar: Ordenar,
+  arrastrarPosicional: ArrastrarPosicional,
 };
-
-// Retroalimentación cuando el error no tiene un mensaje propio.
-const GENERICO = {
-  numero: 'Tu respuesta fue {valor}. Revisa tu cálculo paso a paso, o pide ayuda.',
-  bloques: 'Formaste {valor}. Compara columna por columna: ¿cuántas unidades de mil, centenas, decenas y unidades necesitas?',
-  pintar: 'Pintaste {valor}. Fíjate en el número de arriba de la fracción: dice cuántas partes hay que pintar.',
-  recta: 'Pusiste el punto en {valor}. Cuenta los saltos entre las marcas: ¿cuánto vale cada salto?',
-  balanza: 'Con □ = {valor} la balanza no queda como se pide. Mira hacia dónde se inclina y ajusta el valor.',
-  reloj: 'El reloj marca {valor}. Revisa las dos manecillas: la corta es la hora y la larga, los minutos.',
-  cuadricula: 'Quedó en {valor}. Recuerda: primero la letra (la columna, abajo) y después el número (la fila, al costado).',
-  noRectangulo: 'Los cuadrados que pintaste no forman un rectángulo. Un rectángulo no tiene huecos ni partes que sobresalen.',
-  otraArea: 'Es un rectángulo, pero tiene {valor} cuadrados. ¿Cuántos tiene que tener?',
-  otroPerimetro: 'Es un rectángulo, pero su perímetro es {valor} cm. Recorre el borde y cuenta los lados de los cuadritos.',
-  ladoEquivocado: 'Pintaste cuadrados en el lado que ya estaba listo. Pinta solo al otro lado de la línea roja.',
-  copiada: 'Copiaste la figura tal cual, como un timbre. Al reflejarla queda dada vuelta, como en un espejo: lo que está cerca de la línea sigue cerca de la línea.',
-  noEspejo: 'Todavía no es el reflejo. Cada cuadrado debe quedar a la misma distancia de la línea roja que su pareja, pero al otro lado.',
-  barra: 'La barra quedó en {valor}. Usa el total y los datos de las otras barras para calcular la que falta.',
-  alReves: 'Los ordenaste al revés. Lee otra vez: ¿se pide de menor a mayor o de mayor a menor?',
-  otro: 'Todavía no está bien. Revisa con calma uno por uno.',
-  alternativas: 'Esa no es. Lee otra vez la pregunta y revisa los datos.',
-};
-
-function mensajeError(ejercicio, resultado) {
-  if (resultado.error) return resultado.error;
-  const mapa = ejercicio.errores ?? {};
-  const texto = mapa[resultado.clave] ?? GENERICO[resultado.clave] ?? mapa.otro ?? GENERICO[ejercicio.tipo] ?? GENERICO.otro;
-  return texto.replaceAll('{valor}', resultado.valor ?? '');
-}
 
 function mezclar(lista) {
   const copia = [...lista];
@@ -82,7 +57,7 @@ const ENTENDER_GENERICO =
 // Ayuda en los 4 pasos de resolución de problemas del programa de estudio
 // (OA b: entender, planificar, hacer y comprobar). Se entrega de a una,
 // de la más general a la más concreta.
-function Ayuda({ pistas, nivel, onPedir, tieneMarcas, onVerEjemplo }) {
+function Ayuda({ pistas, nivel, onPedir, tieneMarcas, onVerEjemplo, onPendiente }) {
   const textos = {
     entender: pistas?.entender ?? (tieneMarcas ? ENTENDER_GENERICO : null),
     planificar: pistas?.planificar,
@@ -117,8 +92,22 @@ function Ayuda({ pistas, nivel, onPedir, tieneMarcas, onVerEjemplo }) {
             Ver el ejemplo resuelto
           </button>
         )}
+        {onPendiente && <BotonPendiente onClick={onPendiente} />}
       </div>
     </section>
+  );
+}
+
+// Dejar la pregunta para después, para no quedarse pegado: como en la prueba,
+// conviene seguir con las demás y volver al final.
+export function BotonPendiente({ onClick, marcada = false, texto }) {
+  return (
+    <button type="button" className={marcada ? 'boton boton--pendiente boton--pendiente-activo' : 'boton boton--pendiente'} onClick={onClick} aria-pressed={texto ? marcada : undefined}>
+      <svg viewBox="0 0 20 20" width="20" height="20" aria-hidden="true" focusable="false">
+        <path d="M5 2.5h10v15l-5-3.6-5 3.6z" fill={marcada ? 'currentColor' : 'none'} stroke="currentColor" strokeWidth="2" strokeLinejoin="round" />
+      </svg>
+      {texto ?? 'Dejar para después'}
+    </button>
   );
 }
 
@@ -152,7 +141,9 @@ function Explicar({ explicar }) {
   );
 }
 
-export default function Pregunta({ ejercicio, esUltima, onTerminar, onVerEjemplo }) {
+// onTerminar(estado, detalle) y onPendiente(detalle) entregan lo que hizo el
+// estudiante: detalle = { x: [[clave, valor], ...] respuestas equivocadas, a: ayudas pedidas }.
+export default function Pregunta({ ejercicio, esUltima, onTerminar, onVerEjemplo, onPendiente }) {
   const opciones = useMemo(() => prepararOpciones(ejercicio), [ejercicio]);
   const [errores, setErrores] = useState([]);
   const [nivelAyuda, setNivelAyuda] = useState(0);
@@ -198,6 +189,7 @@ export default function Pregunta({ ejercicio, esUltima, onTerminar, onVerEjemplo
     : ejercicio.enunciado;
 
   const estadoFinal = vioSolucion ? 'solucion' : soloPrimera ? 'solo' : 'ayuda';
+  const detalle = () => ({ x: errores.map((e) => [String(e.clave), String(e.valor ?? e.clave)]), a: nivelAyuda });
 
   return (
     <>
@@ -264,7 +256,7 @@ export default function Pregunta({ ejercicio, esUltima, onTerminar, onVerEjemplo
             {vioSolucion && <p className="panel-nota">Esta pregunta queda en tu lista para repasar. La próxima vez te va a salir.</p>}
             {ejercicio.explicar && !vioSolucion && <Explicar explicar={ejercicio.explicar} />}
             <div className="panel-acciones">
-              <button type="button" className="boton boton--principal" onClick={() => onTerminar(estadoFinal)}>
+              <button type="button" className="boton boton--principal" onClick={() => onTerminar(estadoFinal, detalle())}>
                 {esUltima ? 'Ver cómo me fue' : 'Siguiente pregunta'}
               </button>
             </div>
@@ -278,6 +270,7 @@ export default function Pregunta({ ejercicio, esUltima, onTerminar, onVerEjemplo
             onPedir={() => setNivelAyuda((n) => n + 1)}
             tieneMarcas={tieneMarcas}
             onVerEjemplo={onVerEjemplo}
+            onPendiente={onPendiente ? () => onPendiente(detalle()) : undefined}
           />
         )}
       </div>

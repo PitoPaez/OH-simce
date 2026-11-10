@@ -33,7 +33,42 @@ La explicación completa, con las fuentes, está en
 - **¿Quién tiene razón?** Compañeros con razonamientos distintos, para
   argumentar.
 - **Ensayo tipo SIMCE** de 15 preguntas, sin cronómetro, con revisión al final.
-- **Repasar.** Las preguntas que costaron vuelven otro día.
+  Se responden en el orden que se quiera, con un mapa de preguntas.
+- **Dejar para después.** En la práctica y en el ensayo una pregunta difícil se
+  puede dejar para el final, para no quedarse pegado.
+- **Repasar por partes.** El estudiante elige qué repasar (las que dejó para
+  después, las que le costaron, las que vio resueltas, las del ensayo) y de qué
+  temas.
+
+## Panel docente
+
+En `#/docentes`:
+
+- **Resultados.** Errores más frecuentes del curso con el error que hay detrás,
+  logro por tema, mapa de calor por estudiante y análisis de cada ejercicio
+  (qué respondieron en el primer intento). Se puede descargar como planilla CSV
+  y probar con un curso de ejemplo.
+- **Ejercicios.** Activar o desactivar ejercicios, crear nuevos (alternativas o
+  respuesta numérica) y editar o duplicar cualquiera, con vista previa y la
+  misma revisión que `npm run validar`. «Exportar para el repositorio» genera el
+  código para dejarlos en la página para todos.
+- **Curso y enlace.** Nombre del curso y un enlace que lleva la selección de
+  ejercicios a los estudiantes.
+
+### Cómo viajan los datos sin servidor
+
+La página no tiene servidor, así que todo queda en el navegador:
+
+1. El docente crea su curso y comparte el enlace (`#/unirse/...`). La
+   configuración va dentro del enlace, comprimida.
+2. Cada estudiante practica con su nombre. Un mismo computador puede tener
+   varios perfiles (sala de computación).
+3. El estudiante descarga un archivo con sus resultados y se lo entrega al
+   docente, que lo carga en el panel. Los perfiles del mismo computador
+   aparecen solos.
+
+Todo el guardado está en `src/lib/almacen.js`. Para usar un servidor (Firebase,
+Supabase u otro), basta con cambiar ese archivo.
 
 [`docs/REVISION-MATERIALES.md`](docs/REVISION-MATERIALES.md) lista los errores
 que se encontraron en las presentaciones, la planilla y los ensayos.
@@ -46,7 +81,9 @@ que se encontraron en las presentaciones, la planilla y los ensayos.
 | `src/components/pantallas/` | Inicio, eje, ejemplo, práctica, ensayo y página para docentes |
 | `src/components/interactivos/` | Los ejercicios interactivos (bloques, balanza, reloj...) |
 | `src/components/visuales/` | Los dibujos de cada ejercicio |
-| `src/lib/` | Formato de números, lectura en voz alta y progreso guardado |
+| `src/components/docentes/` | Panel docente: resultados, gestión de ejercicios, editor y curso |
+| `src/lib/` | Formato de números, voz, perfiles y progreso, catálogo, análisis de resultados y guardado |
+| `src/lib/validar.js` | Reglas de revisión de ejercicios (las usan el script y el editor) |
 | `src/index.css` | Colores, tipografía y fondo de cuaderno |
 | `scripts/validar-datos.mjs` | Revisión automática de los ejercicios |
 
@@ -59,7 +96,9 @@ que se encontraron en las presentaciones, la planilla y los ensayos.
 | `#/tema/fracciones/ejemplo` | El ejemplo resuelto de un tema |
 | `#/ejercicio/fr-pizza` | Un solo ejercicio, para proyectarlo en clases |
 | `#/ensayo` | Un ensayo tipo SIMCE |
-| `#/docentes` | Información para docentes y familias |
+| `#/repasar` | Elegir qué repasar |
+| `#/docentes` | Panel docente |
+| `#/docentes/informacion` | Cómo está pensada, para docentes y familias |
 
 El progreso se guarda solo en el navegador de cada estudiante (localStorage).
 

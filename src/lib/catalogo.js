@@ -23,9 +23,9 @@ export function guardarCurso(config) {
 
 const conEje = (e) => ({ ...e, eje: TEMAS.find((t) => t.id === e.tema)?.eje ?? e.eje });
 
-export function armarCatalogo(config = CURSO_VACIO) {
+export function armarCatalogo(config = CURSO_VACIO, ejercicios = EJERCICIOS) {
   const desactivados = new Set(config.desactivados);
-  const base = EJERCICIOS.map((e) => (config.modificados[e.id] ? conEje({ ...config.modificados[e.id], id: e.id }) : e));
+  const base = ejercicios.map((e) => (config.modificados[e.id] ? conEje({ ...config.modificados[e.id], id: e.id }) : e));
   const propios = config.propios.filter((e) => TEMAS.some((t) => t.id === e.tema)).map(conEje);
   // Los creados por el docente van después de los de su mismo tema.
   const todos = TEMAS.flatMap((t) => [...base.filter((e) => e.tema === t.id), ...propios.filter((e) => e.tema === t.id)]);
@@ -38,6 +38,6 @@ export function armarCatalogo(config = CURSO_VACIO) {
     porId,
     activo: (id) => porId.has(id) && !desactivados.has(id),
     origen,
-    original: (id) => EJERCICIOS.find((e) => e.id === id),
+    original: (id) => ejercicios.find((e) => e.id === id),
   };
 }

@@ -3,6 +3,8 @@ import './App.css';
 import { EJES } from './data/ejes.js';
 import { anotar, cargarEstudiantes, crearPerfil, guardarEstudiantes, idsParaRepasar, PARTES_REPASO } from './lib/progreso.js';
 import { armarCatalogo, guardarCurso, leerCurso } from './lib/catalogo.js';
+import { EJERCICIOS } from './data/index.js';
+import { pedirEjercicios } from './lib/api.js';
 import Inicio from './components/pantallas/Inicio.jsx';
 import Eje from './components/pantallas/Eje.jsx';
 import Ejemplo from './components/pantallas/Ejemplo.jsx';
@@ -68,7 +70,17 @@ export default function App() {
   const [ruta, setRuta] = useState(leerRuta);
   const [estudiantes, setEstudiantes] = useState(cargarEstudiantes);
   const [curso, setCurso] = useState(leerCurso);
-  const catalogo = useMemo(() => armarCatalogo(curso), [curso]);
+  const [ejercicios, setEjercicios] = useState(EJERCICIOS);
+  useEffect(() => {
+    pedirEjercicios()
+      .then((lista) => {
+        if (lista.length > 0) setEjercicios(lista);
+      })
+      .catch((error) => {
+        console.warn('No se pudo conectar con el backend. Se usan las preguntas del frontend.', error);
+      });
+  }, []);
+  const catalogo = useMemo(() => armarCatalogo(curso, ejercicios), [curso, ejercicios]);
   const perfil = estudiantes.perfiles[estudiantes.activo];
   const progreso = perfil.progreso;
 

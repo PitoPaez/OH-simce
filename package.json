@@ -8,7 +8,8 @@
     "build": "vite build",
     "lint": "eslint .",
     "preview": "vite preview",
-    "validar": "node scripts/validar-datos.mjs"
+    "validar": "node scripts/validar-datos.mjs",
+    "cargar": "node scripts/cargar-ejercicios.mjs"
   },
   "dependencies": {
     "react": "^19.1.1",

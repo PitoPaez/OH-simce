@@ -242,6 +242,81 @@
 }
 
 /* ---------- Práctica ---------- */
+.practica {
+  position: relative;
+}
+
+/* Flechas de navegación para adelantar y retroceder ejercicios */
+.flecha-nav {
+  position: fixed;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 30;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 64px;
+  height: 96px;
+  padding: 0;
+  background: transparent;
+  border: none;
+  border-radius: 18px;
+  color: var(--tinta);
+  cursor: pointer;
+  transition: transform 0.2s cubic-bezier(0.2, 0, 0, 1), background-color 0.2s ease, opacity 0.2s ease, color 0.2s ease;
+  user-select: none;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.flecha-nav:hover:not(:disabled) {
+  background: color-mix(in srgb, var(--eje) 10%, transparent);
+  color: var(--eje);
+  transform: translateY(-50%) scale(1.12);
+}
+
+.flecha-nav:active:not(:disabled) {
+  transform: translateY(-50%) scale(0.95);
+}
+
+.flecha-nav:disabled {
+  opacity: 0.14;
+  cursor: not-allowed;
+}
+
+.flecha-nav--anterior {
+  left: max(12px, calc(50vw - 475px));
+}
+
+.flecha-nav--siguiente {
+  right: max(12px, calc(50vw - 475px));
+}
+
+.flecha-nav__icono {
+  width: 40px;
+  height: 68px;
+  display: block;
+}
+
+@media (max-width: 900px) {
+  .flecha-nav {
+    width: 44px;
+    height: 68px;
+    background: rgba(255, 255, 255, 0.82);
+    backdrop-filter: blur(6px);
+    box-shadow: 0 2px 10px rgba(34, 48, 90, 0.08);
+  }
+  .flecha-nav--anterior {
+    left: 6px;
+  }
+  .flecha-nav--siguiente {
+    right: 6px;
+  }
+  .flecha-nav__icono {
+    width: 26px;
+    height: 46px;
+  }
+}
+
 .barra {
   display: flex;
   flex-wrap: wrap;
@@ -625,3 +700,912 @@
   flex-wrap: wrap;
   gap: 12px;
 }
+
+
+/* Fracción vertical en el texto. */
+.frac-mixta {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.15em;
+  vertical-align: middle;
+}
+
+.frac {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  font-size: 0.85em;
+  line-height: 1.1;
+  margin: 0 0.1em;
+}
+
+.frac-num {
+  padding: 0 0.15em;
+  border-bottom: 2px solid currentColor;
+}
+
+.frac-den {
+  padding: 0 0.15em;
+}
+
+/* =========================================================
+   Alternativas
+   ========================================================= */
+.opciones {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 12px;
+}
+
+.opciones--una-columna {
+  grid-template-columns: 1fr;
+}
+
+/* =========================================================
+   Dibujos (SVG y HTML)
+   ========================================================= */
+.v-relleno {
+  fill: color-mix(in srgb, var(--eje) 16%, #fff);
+}
+
+.v-relleno-borde {
+  fill: color-mix(in srgb, var(--eje) 16%, #fff);
+  stroke: var(--tinta);
+  stroke-width: 2.5;
+  stroke-linejoin: round;
+}
+
+.v-sin-borde {
+  stroke: none;
+}
+
+.v-borde-solo {
+  fill: none;
+  stroke: var(--tinta);
+  stroke-width: 2.5;
+}
+
+.v-linea {
+  fill: var(--blanco);
+  stroke: var(--tinta);
+  stroke-width: 2.5;
+  stroke-linejoin: round;
+}
+
+.v-celda {
+  fill: var(--blanco);
+  stroke: var(--borde);
+  stroke-width: 2;
+}
+
+.v-celda-vacia {
+  fill: #f5f7fb;
+  stroke: var(--borde);
+  stroke-width: 1;
+}
+
+.v-borde {
+  stroke: var(--tinta);
+  stroke-width: 1.5;
+}
+
+.v-incognita {
+  fill: var(--blanco);
+  stroke: var(--eje);
+  stroke-width: 3;
+  stroke-dasharray: 8 6;
+}
+
+.v-diferencia {
+  fill: none;
+  stroke: var(--tinta-suave);
+  stroke-width: 2;
+  stroke-dasharray: 4 4;
+}
+
+.v-pintado {
+  fill: var(--eje);
+  stroke: var(--tinta);
+  stroke-width: 2.5;
+  stroke-linejoin: round;
+}
+
+.v-pintado-2 {
+  fill: color-mix(in srgb, var(--eje) 40%, #fff);
+  stroke: var(--tinta);
+  stroke-width: 2.5;
+}
+
+.v-pintado-suave {
+  fill: var(--eje);
+  stroke: var(--tinta);
+  stroke-width: 1.5;
+}
+
+.v-punto {
+  fill: var(--eje);
+}
+
+.v-num {
+  font-size: 26px;
+  font-weight: 700;
+  fill: var(--tinta);
+  text-anchor: middle;
+}
+
+.v-chico {
+  font-size: 20px;
+}
+
+.v-claro {
+  fill: var(--blanco);
+}
+
+.v-acento {
+  fill: var(--eje);
+}
+
+.v-etq {
+  font-size: 18px;
+  fill: var(--tinta-suave);
+  text-anchor: middle;
+}
+
+.v-fuerte {
+  fill: var(--tinta);
+  font-weight: 700;
+}
+
+.v-der {
+  text-anchor: end;
+}
+
+.v-izq {
+  text-anchor: start;
+}
+
+.v-chica {
+  font-size: 15px;
+}
+
+.v-acento-texto {
+  fill: var(--tinta);
+  font-weight: 700;
+}
+
+.v-trazo {
+  stroke: var(--tinta);
+  stroke-width: 3;
+  stroke-linecap: round;
+}
+
+.v-trazo-fino {
+  stroke: var(--tinta);
+  stroke-width: 2;
+}
+
+.v-salto {
+  fill: none;
+  stroke: var(--eje);
+  stroke-width: 3;
+}
+
+.v-oculta {
+  fill: none;
+  stroke: var(--tinta-suave);
+  stroke-width: 2;
+  stroke-dasharray: 6 5;
+}
+
+.v-guia {
+  stroke: var(--cuadricula);
+  stroke-width: 1.5;
+}
+
+.v-pivote {
+  fill: var(--tinta);
+}
+
+.v-hilo {
+  stroke: var(--tinta-suave);
+  stroke-width: 1.5;
+}
+
+.v-caja {
+  fill: var(--resaltador);
+  stroke: var(--tinta);
+  stroke-width: 2.5;
+}
+
+.v-pesa {
+  fill: var(--tinta-suave);
+  stroke: var(--tinta);
+  stroke-width: 2;
+}
+
+.v-bolita {
+  fill: #9aa7c4;
+  stroke: var(--tinta);
+  stroke-width: 1.5;
+}
+
+.v-platillo {
+  fill: color-mix(in srgb, var(--eje) 22%, #fff);
+  stroke: var(--tinta);
+  stroke-width: 2.5;
+}
+
+.v-tronco {
+  fill: #c98a4b;
+  stroke: #6b4120;
+  stroke-width: 2;
+}
+
+.v-tronco-centro {
+  fill: none;
+  stroke: #6b4120;
+  stroke-width: 1.5;
+}
+
+.v-camino line {
+  stroke: var(--eje);
+  stroke-width: 3;
+  stroke-dasharray: 6 5;
+}
+
+.v-esfera {
+  stroke-width: 3;
+}
+
+.v-manecilla {
+  stroke: var(--tinta);
+  stroke-width: 4;
+  stroke-linecap: round;
+}
+
+.v-manecilla-hora {
+  stroke: var(--tinta);
+  stroke-width: 7;
+  stroke-linecap: round;
+}
+
+.v-manecilla--resaltada {
+  stroke: var(--eje);
+}
+
+.v-reloj--chico {
+  width: 120px;
+  height: 120px;
+}
+
+.v-lado-resaltado {
+  stroke: var(--eje);
+  stroke-width: 7;
+  stroke-linecap: round;
+}
+
+.v-angulo-recto {
+  fill: none;
+  stroke: var(--tinta);
+  stroke-width: 2;
+}
+
+.v-eje-simetria {
+  stroke: var(--rojo-eje);
+  stroke-width: 3;
+  stroke-dasharray: 8 5;
+}
+
+.v-cubo-arriba {
+  fill: color-mix(in srgb, var(--eje) 40%, #fff);
+  stroke: var(--tinta);
+  stroke-width: 1.5;
+  stroke-linejoin: round;
+}
+
+.v-cubo-frente {
+  fill: var(--eje);
+  stroke: var(--tinta);
+  stroke-width: 1.5;
+  stroke-linejoin: round;
+}
+
+.v-cubo-lado {
+  fill: color-mix(in srgb, var(--eje) 70%, #000);
+  stroke: var(--tinta);
+  stroke-width: 1.5;
+  stroke-linejoin: round;
+}
+
+.v-barra-editable {
+  fill: color-mix(in srgb, var(--eje) 55%, #fff);
+  stroke: var(--tinta);
+  stroke-width: 2.5;
+  stroke-dasharray: 6 4;
+  transition: all 0.2s;
+}
+
+/* Tabla de valor posicional */
+.v-tabla-posicional {
+  border-collapse: collapse;
+  font-size: 1.3rem;
+}
+
+.v-tabla-posicional th,
+.v-tabla-posicional td {
+  width: 72px;
+  border: 2px solid var(--tinta);
+  text-align: center;
+}
+
+.v-tabla-posicional th {
+  padding: 6px;
+  background: color-mix(in srgb, var(--eje) 16%, #fff);
+}
+
+.v-tabla-posicional td {
+  height: 68px;
+  font-size: 2.2rem;
+  font-weight: 700;
+}
+
+.v-tabla-posicional .resaltada {
+  background: color-mix(in srgb, var(--eje) 35%, #fff);
+}
+
+/* Número con una cifra destacada */
+.v-numero-destacado {
+  font-size: 3.2rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+}
+
+.cifra--destacada {
+  color: var(--eje);
+  text-decoration: underline;
+  text-decoration-thickness: 5px;
+  text-underline-offset: 8px;
+}
+
+.cifra-espacio {
+  display: inline-block;
+  width: 0.35em;
+}
+
+/* Algoritmo en columnas */
+.v-columnas {
+  display: grid;
+  font-size: 2rem;
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+}
+
+.v-columnas-fila {
+  display: grid;
+  grid-template-columns: 1.2em repeat(var(--ancho), 1.5em);
+  align-items: center;
+}
+
+.v-columnas .col {
+  text-align: center;
+  line-height: 1.35;
+}
+
+.v-columnas .col--resaltada {
+  background: color-mix(in srgb, var(--eje) 18%, #fff);
+}
+
+.v-columnas-encabezado {
+  font-size: 0.85rem;
+  color: var(--tinta-suave);
+}
+
+.v-columnas-arriba {
+  font-size: 1.1rem;
+  color: var(--revisar);
+  min-height: 1.4em;
+}
+
+.v-columnas-ultima {
+  border-bottom: 3px solid var(--tinta);
+}
+
+.v-columnas-resultado {
+  color: var(--eje);
+  min-height: 1.4em;
+}
+
+.tachada {
+  text-decoration: line-through;
+  text-decoration-color: var(--revisar);
+  text-decoration-thickness: 3px;
+}
+
+/* Secuencias y patrones */
+.v-secuencia {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 10px 0;
+}
+
+.v-secuencia-item {
+  display: grid;
+  grid-template-columns: auto auto;
+  grid-template-areas: 'salto caja' '. etq';
+  align-items: center;
+  justify-items: center;
+}
+
+.v-secuencia-salto {
+  grid-area: salto;
+  padding: 0 8px;
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: var(--tinta-suave);
+}
+
+.v-secuencia-caja {
+  grid-area: caja;
+  min-width: 64px;
+  padding: 10px 12px;
+  border: 2px solid var(--tinta);
+  border-radius: 8px;
+  font-size: 1.4rem;
+  font-weight: 700;
+  text-align: center;
+  background: var(--blanco);
+}
+
+.v-secuencia-caja--vacia {
+  border: 3px dashed var(--eje);
+  color: var(--eje);
+}
+
+.v-secuencia-etq {
+  grid-area: etq;
+  font-size: 0.9rem;
+  color: var(--tinta-suave);
+}
+
+.v-etapas {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: flex-end;
+  gap: 14px 18px;
+}
+
+.v-etapa {
+  display: grid;
+  justify-items: center;
+  gap: 6px;
+}
+
+.v-etapa svg {
+  width: 120px;
+  max-height: 140px;
+}
+
+.v-etapa-etq {
+  font-weight: 700;
+  font-size: 0.95rem;
+}
+
+/* Precios */
+.v-precios {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 12px;
+}
+
+.v-precio {
+  display: grid;
+  justify-items: center;
+  gap: 4px;
+  width: 126px;
+  padding: 10px 8px;
+  border: 2px solid var(--borde);
+  border-radius: 10px;
+  text-align: center;
+}
+
+.v-producto-icono {
+  width: 48px;
+  height: 48px;
+}
+
+.v-precio-nombre {
+  font-size: 0.95rem;
+  line-height: 1.2;
+}
+
+.v-precio-valor {
+  padding: 2px 10px;
+  border-radius: 6px;
+  background: var(--resaltador);
+  font-weight: 700;
+  font-size: 1.15rem;
+}
+
+.v-prod-a {
+  fill: #5b8def;
+  stroke: var(--tinta);
+  stroke-width: 2;
+}
+.v-prod-b {
+  fill: #f2b705;
+  stroke: var(--tinta);
+  stroke-width: 2;
+}
+.v-prod-c {
+  fill: #f28b9a;
+  stroke: var(--tinta);
+  stroke-width: 2;
+}
+.v-prod-d {
+  fill: #3fb28f;
+  stroke: var(--tinta);
+  stroke-width: 2;
+}
+.v-prod-linea {
+  stroke: var(--tinta);
+  stroke-width: 2;
+  fill: none;
+}
+.v-prod-linea-relleno {
+  fill: var(--tinta);
+}
+.v-prod-rojo {
+  fill: #e2483d;
+  stroke: var(--tinta);
+  stroke-width: 2;
+}
+.v-prod-verde {
+  fill: #4f9a3a;
+  stroke: var(--tinta);
+  stroke-width: 2;
+}
+.v-prod-cafe {
+  fill: #8a5a2b;
+}
+.v-prod-naranjo {
+  fill: #f08a24;
+  stroke: var(--tinta);
+  stroke-width: 2;
+}
+.v-prod-linea-verde {
+  stroke: #4f9a3a;
+  stroke-width: 3;
+  stroke-linecap: round;
+}
+
+/* Tablas */
+.v-tabla {
+  border-collapse: collapse;
+  font-size: 1.1rem;
+  min-width: min(100%, 320px);
+}
+
+.v-tabla caption {
+  font-weight: 700;
+  padding-bottom: 8px;
+}
+
+.v-tabla th,
+.v-tabla td {
+  padding: 8px 14px;
+  border: 2px solid var(--tinta);
+  text-align: center;
+}
+
+.v-tabla th {
+  background: color-mix(in srgb, var(--eje) 16%, #fff);
+}
+
+/* Varios dibujos juntos */
+.v-grupo {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  gap: 16px;
+  width: 100%;
+}
+
+.v-grupo > svg {
+  width: 100%;
+  max-width: 360px;
+}
+
+/* Geometría */
+.v-sala {
+  display: grid;
+  gap: 10px;
+  justify-items: center;
+}
+
+.v-sala-pizarra {
+  width: 80%;
+  padding: 6px;
+  border-radius: 6px;
+  background: #2f5a46;
+  color: var(--blanco);
+  text-align: center;
+  font-weight: 700;
+}
+
+.v-sala-fila {
+  display: flex;
+  gap: 12px;
+}
+
+.v-sala-puesto {
+  display: grid;
+  place-items: center;
+  width: 96px;
+  height: 56px;
+  border: 2px solid var(--tinta);
+  border-radius: 8px;
+  background: color-mix(in srgb, var(--eje) 16%, #fff);
+  font-weight: 700;
+}
+
+.v-sala-nota {
+  font-size: 0.95rem;
+  color: var(--tinta-suave);
+}
+
+.v-cuerpo {
+  width: 100%;
+  max-width: 220px;
+}
+
+.v-cuerpo--chico {
+  max-width: 120px;
+}
+
+.v-figuras {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 16px;
+}
+
+.v-figuras li {
+  display: grid;
+  justify-items: center;
+  gap: 4px;
+}
+
+.v-figura {
+  width: 130px;
+  height: auto;
+}
+
+.v-figuras-etq {
+  font-weight: 700;
+}
+
+.v-red {
+  width: 100%;
+  max-width: 180px;
+}
+
+.v-poligono {
+  width: 100%;
+  max-width: 360px;
+}
+
+/* Medición */
+.v-longitudes {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 12px;
+  width: 100%;
+}
+
+.v-longitudes li {
+  display: grid;
+  gap: 4px;
+}
+
+.v-longitud-etq {
+  font-weight: 700;
+}
+
+.v-longitud-barra {
+  display: flex;
+  align-items: center;
+  width: var(--largo);
+  min-height: 36px;
+  padding: 0 10px;
+  border: 2px solid var(--tinta);
+  border-radius: 4px;
+  background: repeating-linear-gradient(90deg, color-mix(in srgb, var(--eje) 25%, #fff) 0 9px, var(--tinta) 9px 10px);
+  font-weight: 700;
+}
+
+.v-longitud-barra span {
+  padding: 0 6px;
+  background: var(--blanco);
+  border-radius: 4px;
+}
+
+.v-cubos-contenedor {
+  display: grid;
+  justify-items: center;
+  gap: 12px;
+  width: 100%;
+}
+
+.v-cubos {
+  width: 100%;
+  max-width: 300px;
+  max-height: 240px;
+}
+
+.v-pisos {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 16px;
+}
+
+.v-pisos li {
+  display: grid;
+  justify-items: center;
+  gap: 4px;
+}
+
+.v-pisos svg {
+  width: 90px;
+}
+
+/* Datos */
+.v-pictograma {
+  display: grid;
+  gap: 8px;
+}
+
+.v-pictograma-titulo {
+  font-weight: 700;
+  text-align: center;
+}
+
+.v-pictograma table {
+  border-collapse: collapse;
+}
+
+.v-pictograma th,
+.v-pictograma td {
+  padding: 6px 10px;
+  border: 2px solid var(--tinta);
+}
+
+.v-pictograma th {
+  text-align: left;
+  background: color-mix(in srgb, var(--eje) 16%, #fff);
+}
+
+.v-pictograma td {
+  min-width: 200px;
+}
+
+.v-picto {
+  width: 28px;
+  height: 28px;
+  vertical-align: middle;
+}
+
+.v-picto-relleno {
+  fill: var(--eje);
+  stroke: var(--tinta);
+  stroke-width: 1.5;
+}
+
+.v-picto-cono {
+  fill: #e0b26a;
+  stroke: var(--tinta);
+  stroke-width: 1.5;
+}
+
+.v-picto-detalle {
+  fill: var(--tinta);
+}
+
+.v-picto-trazo {
+  fill: none;
+  stroke: var(--tinta);
+  stroke-width: 2;
+  stroke-linecap: round;
+}
+
+.v-pictograma-clave {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-weight: 700;
+}
+
+.v-bolsas {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 16px;
+}
+
+.v-bolsas li {
+  display: grid;
+  justify-items: center;
+  gap: 2px;
+  width: 140px;
+  text-align: center;
+}
+
+.v-bolsas--una li {
+  width: 260px;
+}
+
+.v-bolsa-dibujo {
+  width: 100%;
+}
+
+.v-bolsa-tela {
+  fill: #efe3cf;
+  stroke: var(--tinta);
+  stroke-width: 2;
+}
+
+.v-bolsa-etq {
+  font-weight: 700;
+}
+
+.v-bolsa-detalle {
+  font-size: 0.9rem;
+  color: var(--tinta-suave);
+  line-height: 1.3;
+}
+
+.v-bolita-roja {
+  fill: #e2483d;
+  stroke: var(--tinta);
+  stroke-width: 1.5;
+}
+.v-bolita-azul {
+  fill: #2f6be0;
+  stroke: var(--tinta);
+  stroke-width: 1.5;
+}
+.v-bolita-amarilla {
+  fill: #f6c21c;
+  stroke: var(--tinta);
+  stroke-width: 1.5;
+}
+.v-bolita-verde {
+  fill: #2f9e5b;
+  stroke: var(--tinta);
+  stroke-width: 1.5;
+}
+

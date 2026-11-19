@@ -156,30 +156,99 @@ function Pregunta({ ejercicio, esUltima, onSiguiente }) {
 
 export default function Practica({ sesion, onTerminar, onSalir }) {
   const [indice, setIndice] = useState(0);
-  const [resultados, setResultados] = useState([]);
+  const [historial, setHistorial] = useState({});
   const ejercicio = sesion.ejercicios[indice];
   const eje = EJES.find((e) => e.id === ejercicio.eje);
   const total = sesion.ejercicios.length;
 
   function siguiente(primerIntento) {
-    const nuevos = [...resultados, { id: ejercicio.id, primerIntento }];
+    const nuevos = { ...historial, [ejercicio.id]: { id: ejercicio.id, primerIntento } };
+    setHistorial(nuevos);
     if (indice + 1 >= total) {
-      onTerminar(nuevos);
+      const listaFinal = sesion.ejercicios.map((e) => nuevos[e.id] ?? { id: e.id, primerIntento: false });
+      onTerminar(listaFinal);
     } else {
-      setResultados(nuevos);
-      setIndice(indice + 1);
+      setIndice((prev) => prev + 1);
       window.scrollTo({ top: 0 });
     }
   }
 
-  const estados = sesion.ejercicios.map((_, i) => {
-    if (i < resultados.length) return resultados[i].primerIntento ? 'pintado' : 'repasar';
+  function retroceder() {
+    if (indice > 0) {
+      setIndice((prev) => prev - 1);
+      window.scrollTo({ top: 0 });
+    }
+  }
+
+  function adelantar() {
+    if (indice + 1 < total) {
+      setIndice((prev) => prev + 1);
+      window.scrollTo({ top: 0 });
+    }
+  }
+
+  useEffect(() => {
+    function manejarTeclas(e) {
+      if (e.target && ['input', 'textarea', 'select'].includes(e.target.tagName?.toLowerCase())) return;
+      if (e.key === 'ArrowLeft') {
+        retroceder();
+      } else if (e.key === 'ArrowRight') {
+        adelantar();
+      }
+    }
+    window.addEventListener('keydown', manejarTeclas);
+    return () => window.removeEventListener('keydown', manejarTeclas);
+  }, [indice, total]);
+
+  const estados = sesion.ejercicios.map((e, i) => {
     if (i === indice) return 'actual';
+    const h = historial[e.id];
+    if (h) return h.primerIntento ? 'pintado' : 'repasar';
     return 'vacio';
   });
 
   return (
     <main className="pagina practica" style={{ '--eje': `var(--eje-${eje.id})` }}>
+      <button
+        type="button"
+        className="flecha-nav flecha-nav--anterior"
+        onClick={retroceder}
+        disabled={indice === 0}
+        aria-label="Ejercicio anterior"
+        title="Ejercicio anterior"
+      >
+        <svg viewBox="0 0 48 80" aria-hidden="true" className="flecha-nav__icono">
+          <path
+            d="M34 14 L14 40 L34 66"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="6"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+          />
+        </svg>
+      </button>
+
+      <button
+        type="button"
+        className="flecha-nav flecha-nav--siguiente"
+        onClick={adelantar}
+        disabled={indice + 1 >= total}
+        aria-label="Siguiente ejercicio"
+        title="Siguiente ejercicio"
+      >
+        <svg viewBox="0 0 48 80" aria-hidden="true" className="flecha-nav__icono">
+          <path
+            d="M14 14 L34 40 L14 66"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="6"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+          />
+        </svg>
+      </button>
+
       <nav className="barra">
         <button type="button" className="boton boton--texto" onClick={onSalir}>
           Salir

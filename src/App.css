@@ -2250,3 +2250,867 @@
   max-width: 520px;
 }
 
+/* ==========================================================================
+   EJERCICIO INTERACTIVO: CAJAS Y LÁPICES (MULTIPLICACIÓN)
+   ========================================================================== */
+
+.cajas-lapices-interactivo {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+  width: 100%;
+  max-width: 760px;
+  margin: 0 auto;
+  user-select: none;
+  -webkit-user-select: none;
+}
+
+/* Panel de suministro / origen del manojo */
+.cajas-lapices-suministro-panel {
+  width: 100%;
+  background: color-mix(in srgb, var(--eje) 6%, #ffffff);
+  border: 2px dashed color-mix(in srgb, var(--eje) 35%, #0000);
+  border-radius: var(--radio);
+  padding: 14px 18px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+}
+
+.cajas-lapices-suministro-header {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 12px;
+}
+
+.suministro-badge {
+  font-weight: 800;
+  font-size: 0.95rem;
+  color: var(--eje);
+  background: #ffffff;
+  padding: 4px 10px;
+  border-radius: 20px;
+  border: 1px solid color-mix(in srgb, var(--eje) 30%, #fff);
+}
+
+.suministro-guia {
+  font-size: 0.92rem;
+  color: var(--tinta-suave);
+}
+
+.cajas-lapices-suministro-cuerpo {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+.manojo-draggable {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 8px 16px 8px 10px;
+  background: #ffffff;
+  border: 2px solid var(--borde);
+  border-radius: 14px;
+  cursor: grab;
+  transition: transform 0.15s ease, box-shadow 0.15s ease, border-color 0.15s ease;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
+  touch-action: manipulation;
+}
+
+.manojo-draggable:hover {
+  transform: translateY(-2px);
+  border-color: var(--eje);
+  box-shadow: 0 6px 16px rgba(47, 107, 224, 0.15);
+}
+
+.manojo-draggable:active {
+  cursor: grabbing;
+}
+
+.manojo-draggable--arrastrando {
+  opacity: 0.5;
+  transform: scale(0.95);
+}
+
+.manojo-draggable--seleccionado {
+  border-color: var(--eje);
+  background: color-mix(in srgb, var(--eje) 12%, #fff);
+  box-shadow: 0 0 0 4px color-mix(in srgb, var(--eje) 25%, transparent);
+  animation: pulsoSeleccion 1.5s infinite alternate;
+}
+
+.manojo-img-container {
+  width: 74px;
+  height: 64px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.manojo-img {
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
+  pointer-events: none;
+}
+
+.manojo-etiqueta {
+  display: flex;
+  flex-direction: column;
+}
+
+.manojo-etiqueta strong {
+  font-size: 1.05rem;
+  color: var(--tinta);
+}
+
+.manojo-etiqueta span {
+  font-size: 0.82rem;
+  color: var(--tinta-suave);
+}
+
+.cajas-lapices-acciones-rapidas {
+  display: flex;
+  gap: 8px;
+}
+
+.cajas-btn-secundario {
+  background: #ffffff;
+  border: 1.5px solid var(--borde);
+  color: var(--tinta);
+  font-size: 0.88rem;
+  font-weight: 600;
+  padding: 8px 12px;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.12s, border-color 0.12s;
+}
+
+.cajas-btn-secundario:hover:not(:disabled) {
+  background: color-mix(in srgb, var(--eje) 10%, #fff);
+  border-color: var(--eje);
+}
+
+.cajas-btn-secundario:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+/* Cuadrícula de Cajas */
+.cajas-grid-contenedor {
+  width: 100%;
+  background: #ffffff;
+  border: 1.5px solid var(--borde);
+  border-radius: var(--radio);
+  padding: 18px;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.04);
+}
+
+.cajas-grid-titulo {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 16px;
+  font-weight: 700;
+  color: var(--tinta);
+  font-size: 1.05rem;
+}
+
+.cajas-grid-subtitulo {
+  font-size: 0.88rem;
+  font-weight: 500;
+  color: var(--eje);
+}
+
+.cajas-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+}
+
+@media (max-width: 640px) {
+  .cajas-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 12px;
+  }
+}
+
+.caja-slot {
+  position: relative;
+  min-height: 140px;
+  background: #fafbfc;
+  border: 2px dashed #cbd5e1;
+  border-radius: 12px;
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  cursor: pointer;
+  transition: all 0.18s ease;
+  touch-action: manipulation;
+}
+
+.caja-slot:hover {
+  border-color: var(--eje);
+  background: #f0f7ff;
+}
+
+.caja-slot-numero {
+  position: absolute;
+  top: 8px;
+  left: 10px;
+  font-size: 0.78rem;
+  font-weight: 800;
+  color: var(--tinta-suave);
+  background: rgba(255, 255, 255, 0.9);
+  padding: 2px 8px;
+  border-radius: 10px;
+  border: 1px solid #e2e8f0;
+  z-index: 2;
+}
+
+.caja-slot--esperando {
+  border-color: var(--eje);
+  border-style: solid;
+  background: color-mix(in srgb, var(--eje) 8%, #fff);
+  animation: pulsoSeleccion 1.5s infinite alternate;
+}
+
+.caja-slot--dragover {
+  border-color: #10b981;
+  border-style: solid;
+  background: #ecfdf5;
+  transform: scale(1.02);
+}
+
+.caja-slot--llena {
+  border-style: solid;
+  border-color: #94a3b8;
+  background: #ffffff;
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.05);
+}
+
+.caja-slot-contenido {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 14px;
+}
+
+.caja-llena-vista {
+  position: relative;
+  width: 100%;
+  height: 100px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.caja-manojo-img {
+  max-width: 100%;
+  max-height: 95px;
+  object-fit: contain;
+  filter: drop-shadow(0 4px 6px rgba(0, 0, 0, 0.08));
+  transition: transform 0.15s ease;
+}
+
+.caja-llena-vista:hover .caja-manojo-img {
+  transform: scale(1.04);
+}
+
+.caja-quitar-btn {
+  position: absolute;
+  top: -12px;
+  right: -4px;
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  background: #ef4444;
+  color: #ffffff;
+  border: 2px solid #ffffff;
+  font-size: 0.72rem;
+  font-weight: 800;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+  transition: transform 0.1s;
+}
+
+.caja-quitar-btn:hover {
+  transform: scale(1.15);
+  background: #dc2626;
+}
+
+.caja-vacia-vista {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  opacity: 0.75;
+}
+
+.caja-vacia-img {
+  max-width: 90px;
+  max-height: 65px;
+  object-fit: contain;
+}
+
+.caja-vacia-texto {
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: #94a3b8;
+}
+
+/* Panel de cálculo y respuesta */
+.cajas-calculo-panel {
+  width: 100%;
+  background: #ffffff;
+  border: 1.5px solid var(--borde);
+  border-radius: var(--radio);
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 18px;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.04);
+}
+
+.cajas-calculo-formula {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 12px;
+  font-size: 1.35rem;
+  color: var(--tinta);
+}
+
+.formula-factor {
+  background: #f1f5f9;
+  padding: 6px 14px;
+  border-radius: 10px;
+  font-size: 1.15rem;
+}
+
+.formula-factor strong {
+  font-size: 1.4rem;
+  color: var(--eje);
+}
+
+.formula-signo {
+  font-size: 1.8rem;
+  font-weight: 800;
+  color: var(--tinta-suave);
+}
+
+.formula-input-wrapper {
+  display: inline-flex;
+}
+
+.cajas-input-resultado {
+  width: 90px;
+  height: 60px;
+  border: 2.5px dashed var(--eje);
+  border-radius: 12px;
+  background: #f8faff;
+  font-size: 2rem;
+  font-weight: 800;
+  text-align: center;
+  color: var(--eje);
+  outline: none;
+  transition: all 0.15s ease;
+  box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.04);
+}
+
+.cajas-input-resultado:focus {
+  border-style: solid;
+  border-color: var(--eje);
+  background: #ffffff;
+  box-shadow: 0 0 0 4px color-mix(in srgb, var(--eje) 25%, transparent);
+}
+
+.cajas-input-resultado--con-valor {
+  border-style: solid;
+  background: #ffffff;
+}
+
+.cajas-input-resultado:disabled {
+  background: #f1f5f9;
+  border-color: #10b981;
+  color: #047857;
+  cursor: default;
+}
+
+.formula-unidad {
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: var(--tinta);
+}
+
+/* Teclado numérico táctil */
+.cajas-teclado-tactil {
+  width: 100%;
+  max-width: 440px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: 10px;
+  background: #f8fafc;
+  border: 1.5px solid #e2e8f0;
+  border-radius: 12px;
+}
+
+.cajas-teclado-fila {
+  display: flex;
+  gap: 8px;
+  justify-content: center;
+}
+
+.teclado-btn {
+  flex: 1;
+  min-height: 48px;
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--tinta);
+  background: #ffffff;
+  border: 1.5px solid var(--borde);
+  border-radius: 10px;
+  cursor: pointer;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+  transition: transform 0.1s ease, background-color 0.1s ease;
+  touch-action: manipulation;
+}
+
+.teclado-btn:hover {
+  background: color-mix(in srgb, var(--eje) 15%, #fff);
+  border-color: var(--eje);
+}
+
+.teclado-btn:active {
+  transform: scale(0.94);
+  background: color-mix(in srgb, var(--eje) 25%, #fff);
+}
+
+.teclado-btn--borrar {
+  font-size: 1.3rem;
+  background: #fff3e0;
+  border-color: #ffb74d;
+  color: #e65100;
+}
+
+.teclado-btn--borrar:hover {
+  background: #ffe0b2;
+}
+
+.cajas-lapices-interactivo .interactivo-pie {
+  width: 100%;
+  max-width: 440px;
+}
+
+/* ==========================================================================
+   EJERCICIO INTERACTIVO: CORTAR PIZZA (FRACCIONES)
+   ========================================================================== */
+
+.cortar-pizza-interactivo {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+  width: 100%;
+  max-width: 800px;
+  margin: 0 auto;
+  user-select: none;
+  -webkit-user-select: none;
+}
+
+/* Barra de guía y progreso */
+.cortar-pizza-guia {
+  width: 100%;
+}
+
+.guia-paso {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 18px;
+  border-radius: var(--radio);
+  font-size: 0.96rem;
+  line-height: 1.4;
+  border: 1.5px solid transparent;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.03);
+}
+
+.guia-icono {
+  font-size: 1.5rem;
+  flex-shrink: 0;
+}
+
+.guia-paso--cortar {
+  background: color-mix(in srgb, var(--eje) 8%, #ffffff);
+  border-color: color-mix(in srgb, var(--eje) 35%, #fff);
+  color: var(--tinta);
+}
+
+.guia-paso--comer {
+  background: #fffbeb;
+  border-color: #fcd34d;
+  color: #92400e;
+}
+
+.guia-paso--listo {
+  background: #ecfdf5;
+  border-color: #6ee7b7;
+  color: #065f46;
+}
+
+.guia-paso--exceso {
+  background: #fef2f2;
+  border-color: #fca5a5;
+  color: #991b1b;
+}
+
+/* Escenario principal con cuchillo, mesa de pizza y fracción */
+.cortar-pizza-escenario {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  gap: 24px;
+  width: 100%;
+}
+
+/* Herramientas (Cuchillo) */
+.cortar-pizza-herramientas {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  min-width: 160px;
+}
+
+.herramienta-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  padding: 16px;
+  background: #ffffff;
+  border: 1.5px solid var(--borde);
+  border-radius: var(--radio);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.04);
+  width: 100%;
+}
+
+.herramienta-titulo {
+  font-size: 0.88rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  color: var(--tinta-suave);
+  letter-spacing: 0.5px;
+}
+
+.cuchillo-item {
+  width: 110px;
+  height: 90px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #ffffff;
+  border: 2px dashed #cbd5e1;
+  border-radius: 14px;
+  cursor: grab;
+  transition: transform 0.18s ease, border-color 0.18s ease, box-shadow 0.18s ease;
+  touch-action: manipulation;
+}
+
+.cuchillo-item:hover:not(.cuchillo-item--deshabilitado) {
+  border-color: var(--eje);
+  transform: rotate(-8deg) scale(1.04);
+  box-shadow: 0 6px 16px rgba(47, 107, 224, 0.15);
+}
+
+.cuchillo-item:active:not(.cuchillo-item--deshabilitado) {
+  cursor: grabbing;
+}
+
+.cuchillo-item--seleccionado {
+  border-color: var(--eje);
+  border-style: solid;
+  background: color-mix(in srgb, var(--eje) 10%, #fff);
+  box-shadow: 0 0 0 4px color-mix(in srgb, var(--eje) 25%, transparent);
+  animation: pulsoSeleccion 1.5s infinite alternate;
+}
+
+.cuchillo-item--arrastrando {
+  opacity: 0.4;
+  transform: scale(0.9);
+}
+
+.cuchillo-item--deshabilitado {
+  opacity: 0.45;
+  cursor: not-allowed;
+  border-style: solid;
+  background: #f1f5f9;
+}
+
+.cuchillo-img {
+  max-width: 85%;
+  max-height: 85%;
+  object-fit: contain;
+  filter: drop-shadow(0 3px 5px rgba(0, 0, 0, 0.15));
+  pointer-events: none;
+}
+
+.corte-boton {
+  background: var(--eje);
+  color: #ffffff;
+  font-size: 0.88rem;
+  font-weight: 700;
+  padding: 8px 14px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: transform 0.1s, opacity 0.15s, background-color 0.15s;
+  box-shadow: 0 2px 6px rgba(47, 107, 224, 0.3);
+}
+
+.corte-boton:hover:not(:disabled) {
+  transform: translateY(-1px);
+  filter: brightness(1.08);
+}
+
+.corte-boton:active:not(:disabled) {
+  transform: scale(0.96);
+}
+
+.corte-boton:disabled {
+  background: #94a3b8;
+  cursor: not-allowed;
+  box-shadow: none;
+}
+
+.corte-contador {
+  font-size: 0.84rem;
+  color: var(--tinta-suave);
+}
+
+.cortar-pizza-btn-reiniciar {
+  background: #ffffff;
+  border: 1.5px solid var(--borde);
+  color: var(--tinta);
+  font-size: 0.85rem;
+  font-weight: 600;
+  padding: 7px 12px;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.12s, border-color 0.12s;
+}
+
+.cortar-pizza-btn-reiniciar:hover:not(:disabled) {
+  background: #fee2e2;
+  border-color: #fca5a5;
+  color: #b91c1c;
+}
+
+.cortar-pizza-btn-reiniciar:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+/* Mesa y SVG de la Pizza */
+.pizza-mesa-contenedor {
+  position: relative;
+  width: 310px;
+  height: 310px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  transition: transform 0.15s ease, filter 0.15s ease;
+  touch-action: manipulation;
+}
+
+.pizza-mesa--dragover {
+  transform: scale(1.04);
+  filter: drop-shadow(0 0 16px rgba(47, 107, 224, 0.4));
+}
+
+.pizza-svg-wrapper {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.pizza-svg {
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+}
+
+.pizza-slice {
+  transition: transform 0.18s cubic-bezier(0.34, 1.56, 0.64, 1);
+  outline: none;
+}
+
+.pizza-slice--interactivo {
+  cursor: pointer;
+}
+
+.pizza-slice--interactivo:hover {
+  filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.25));
+}
+
+.hueco-comido {
+  cursor: pointer;
+  transition: opacity 0.15s;
+}
+
+.hueco-comido:hover {
+  opacity: 0.8;
+}
+
+.trozo-comido-etiqueta {
+  font-size: 11px;
+  font-weight: 800;
+  fill: #94a3b8;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  pointer-events: none;
+}
+
+.pizza-corte-linea {
+  stroke-dasharray: 4 3;
+  filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.5));
+  pointer-events: none;
+}
+
+/* Efecto y animación de corte */
+.cuchillo-slash-overlay {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  pointer-events: none;
+  z-index: 10;
+}
+
+.cuchillo-slash-img {
+  width: 110px;
+  animation: animCuchilloCorte 0.45s ease-out forwards;
+}
+
+@keyframes animCuchilloCorte {
+  0% {
+    transform: translate(-60px, -60px) rotate(-35deg) scale(0.8);
+    opacity: 0;
+  }
+  40% {
+    transform: translate(0, 0) rotate(15deg) scale(1.2);
+    opacity: 1;
+  }
+  100% {
+    transform: translate(60px, 60px) rotate(45deg) scale(0.9);
+    opacity: 0;
+  }
+}
+
+/* Panel de Fracción Dinámica */
+.cortar-pizza-fraccion-panel {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 14px;
+  padding: 20px 24px;
+  background: #ffffff;
+  border: 1.5px solid var(--borde);
+  border-radius: var(--radio);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.05);
+  min-width: 210px;
+}
+
+.fraccion-card-titulo {
+  font-size: 0.92rem;
+  font-weight: 800;
+  color: var(--tinta);
+  text-align: center;
+}
+
+.fraccion-display-box {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  background: #f8fafc;
+  border: 1.5px solid #e2e8f0;
+  border-radius: 14px;
+  padding: 14px 20px;
+  width: 100%;
+}
+
+.fraccion-elemento {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.fraccion-numero {
+  font-size: 2.8rem;
+  font-weight: 900;
+  line-height: 1;
+  color: var(--tinta);
+  transition: transform 0.15s ease, color 0.15s ease;
+}
+
+.fraccion-numero--activo {
+  color: #d97706; /* Ámbar cálido para partes comidas */
+  transform: scale(1.08);
+}
+
+.fraccion-numero--completo {
+  color: var(--eje);
+}
+
+.fraccion-barra-linea {
+  width: 90px;
+  height: 5px;
+  background: var(--tinta);
+  border-radius: 4px;
+  margin: 4px 0;
+}
+
+.fraccion-etiqueta {
+  font-size: 0.76rem;
+  font-weight: 700;
+  color: var(--tinta-suave);
+  text-transform: uppercase;
+  letter-spacing: 0.3px;
+  margin-top: 2px;
+}
+
+.fraccion-explicacion {
+  font-size: 0.88rem;
+  text-align: center;
+  color: var(--tinta);
+  background: #f1f5f9;
+  padding: 8px 12px;
+  border-radius: 8px;
+  line-height: 1.35;
+}
+
+.cortar-pizza-interactivo .interactivo-pie {
+  width: 100%;
+  max-width: 440px;
+}
+

@@ -6,10 +6,14 @@ import Visual from './Visual.jsx';
 import Texto from './ui/Texto.jsx';
 import ArrastrarPosicional from './interactivos/ArrastrarPosicional.jsx';
 import RestaColumnas from './interactivos/RestaColumnas.jsx';
+import CajasLapices from './interactivos/CajasLapices.jsx';
+import CortarPizza from './interactivos/CortarPizza.jsx';
 
 const INTERACTIVOS = {
   arrastrarPosicional: ArrastrarPosicional,
   restaColumnas: RestaColumnas,
+  cajasLapices: CajasLapices,
+  cortarPizza: CortarPizza,
 };
 
 const LETRAS = ['A', 'B', 'C', 'D'];

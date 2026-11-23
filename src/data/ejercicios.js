@@ -88,68 +88,43 @@ export const EJERCICIOS = [
   {
     "id": "num-multiplicacion",
     "eje": "numeros",
-    "enunciado": "En la sala hay 6 cajas y cada caja tiene 8 lápices. ¿Cuántos lápices hay en total?",
-    "visual": {
-      "tipo": "arreglo",
-      "filas": 6,
-      "columnas": 8
+    "tipo": "cajasLapices",
+    "enunciado": "En la sala hay [[6 cajas]] y cada caja tiene [[8 lápices]]. {{¿Cuántos lápices hay en total?}}",
+    "cajas": 6,
+    "lapicesPorCaja": 8,
+    "solucionValor": "48",
+    "errores": {
+      "14": "Sumaste 6 + 8 = 14. Pero son 6 cajas y CADA una tiene 8 lápices, por lo que debes contar o sumar el 8 seis veces (6 × 8).",
+      "42": "Ese resultado es 6 × 7. Cuenta los lápices de una caja: hay 8 lápices en cada caja.",
+      "56": "Ese resultado es 7 × 8. Revisa cuántas cajas hay: son 6 cajas en la sala.",
+      "otro": "Cuenta los lápices en las cajas o calcula 6 × 8 para saber el total."
     },
-    "opciones": [
-      {
-        "texto": "48",
-        "correcta": true
-      },
-      {
-        "texto": "14",
-        "feedback": "Sumaste 6 + 8. Pero son 6 grupos de 8 lápices cada uno, así que hay que juntar 8 seis veces."
-      },
-      {
-        "texto": "42",
-        "feedback": "Ese es 6 × 7. Cada caja tiene 8 lápices, no 7. Cuenta una fila del dibujo."
-      },
-      {
-        "texto": "56",
-        "feedback": "Ese es 7 × 8. Revisa cuántas cajas hay: son 6 filas en el dibujo."
-      }
-    ],
     "pistas": [
-      "Cada fila del dibujo es una caja. ¿Cuántas filas hay y cuántos puntos tiene cada una?",
-      "Puedes sumar 8 + 8 + 8 + 8 + 8 + 8, o calcular 6 × 8."
+      "Cada caja tiene 8 lápices. Si llenas las 6 cajas, ¿cuántos lápices tienes en total?",
+      "Puedes sumar de 8 en 8 (8 + 8 + 8 + 8 + 8 + 8) o calcular directamente 6 × 8."
     ],
-    "solucion": "6 cajas × 8 lápices = 48 lápices."
+    "solucion": "6 cajas × 8 lápices = 48 lápices en total."
   },
   {
     "id": "num-fraccion",
     "eje": "numeros",
-    "enunciado": "Una pizza se cortó en 8 partes iguales y la familia se comió 3. ¿Qué fracción de la pizza se comieron?",
-    "visual": {
-      "tipo": "fraccion",
-      "partes": 8,
-      "pintadas": 3
+    "tipo": "cortarPizza",
+    "enunciado": "Una pizza se cortó en [[8 partes iguales]] y la familia se comió [[3 trozos]]. {{¿Qué fracción de la pizza se comieron?}}",
+    "partes": 8,
+    "comidas": 3,
+    "solucionValor": "3/8",
+    "errores": {
+      "cortes-incompletos": "La pizza debe cortarse en 8 partes iguales. Usa el cuchillo para hacer los 4 cortes.",
+      "sin-comer": "Aún no se ha comido ningún trozo. Toca 3 trozos de pizza para retirarlos.",
+      "5/8": "5/8 es la fracción que QUEDÓ en la mesa. Pero la pregunta es: ¿qué fracción se COMIERON? Debes contar los trozos comidos.",
+      "otra-cantidad": "La familia se comió exactamente 3 trozos. Toca los trozos para que queden 3 comidos.",
+      "otro": "Corta la pizza en 8 partes iguales con el cuchillo y come 3 trozos para formar la fracción 3/8."
     },
-    "opciones": [
-      {
-        "texto": "3/8",
-        "correcta": true
-      },
-      {
-        "texto": "5/8",
-        "feedback": "5/8 es la parte que quedó en la caja. La pregunta es por lo que se comieron."
-      },
-      {
-        "texto": "3/5",
-        "feedback": "Comparaste lo que se comieron con lo que quedó. El número de abajo tiene que ser el total de partes."
-      },
-      {
-        "texto": "8/3",
-        "feedback": "Los números están al revés. Abajo va el total de partes y arriba las partes que se comieron."
-      }
-    ],
     "pistas": [
-      "El número de abajo de una fracción dice en cuántas partes iguales se dividió el entero.",
-      "Cuenta las partes pintadas: esas van arriba."
+      "El número de abajo (denominador) indica en cuántas partes iguales se cortó la pizza: 8.",
+      "El número de arriba (numerador) indica cuántas partes se comieron: 3. Así se forma 3/8."
     ],
-    "solucion": "Se comieron 3 de 8 partes iguales: 3/8."
+    "solucion": "Se cortó en 8 partes iguales y se comieron 3: la fracción es 3/8."
   },
   {
     "id": "sr-bolitas",

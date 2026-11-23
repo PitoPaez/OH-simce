@@ -1,7 +1,16 @@
 import { useEffect, useMemo, useRef, useState } from 'react';
 import { EJES } from '../data/ejercicios.js';
+import { textoPlano } from '../lib/formato.js';
 import Cuadritos from './Cuadritos.jsx';
 import Visual from './Visual.jsx';
+import Texto from './ui/Texto.jsx';
+import ArrastrarPosicional from './interactivos/ArrastrarPosicional.jsx';
+import RestaColumnas from './interactivos/RestaColumnas.jsx';
+
+const INTERACTIVOS = {
+  arrastrarPosicional: ArrastrarPosicional,
+  restaColumnas: RestaColumnas,
+};
 
 const LETRAS = ['A', 'B', 'C', 'D'];
 const puedeHablar = typeof window !== 'undefined' && 'speechSynthesis' in window;
@@ -25,19 +34,22 @@ function mezclar(lista) {
 }
 
 function Pregunta({ ejercicio, esUltima, onSiguiente }) {
-  const opciones = useMemo(() => mezclar(ejercicio.opciones), [ejercicio]);
+  const opciones = useMemo(() => (ejercicio.opciones ? mezclar(ejercicio.opciones) : []), [ejercicio]);
   const [descartadas, setDescartadas] = useState([]);
   const [pistas, setPistas] = useState(0);
   const [resuelto, setResuelto] = useState(false);
   const [mostroSolucion, setMostroSolucion] = useState(false);
+  const [errorInteractivo, setErrorInteractivo] = useState(null);
+  const [intentosInteractivo, setIntentosInteractivo] = useState(0);
   const panelRef = useRef(null);
 
+  const Interactivo = INTERACTIVOS[ejercicio.tipo];
   const ultimoError = descartadas.at(-1);
-  const primerIntento = resuelto && descartadas.length === 0 && !mostroSolucion;
+  const primerIntento = resuelto && descartadas.length === 0 && intentosInteractivo === 0 && !mostroSolucion;
 
   useEffect(() => {
-    if (ultimoError || resuelto) panelRef.current?.focus();
-  }, [ultimoError, resuelto]);
+    if (ultimoError || errorInteractivo || resuelto) panelRef.current?.focus();
+  }, [ultimoError, errorInteractivo, resuelto]);
 
   useEffect(() => () => puedeHablar && window.speechSynthesis.cancel(), []);
 
@@ -47,20 +59,40 @@ function Pregunta({ ejercicio, esUltima, onSiguiente }) {
     else setDescartadas((prev) => [...prev, opcion.texto]);
   }
 
+  function responderInteractivo(resultado) {
+    if (resuelto) return;
+    if (resultado.correcta) {
+      setErrorInteractivo(null);
+      setResuelto(true);
+    } else {
+      const mapa = ejercicio.errores ?? {};
+      const mensaje =
+        mapa[resultado.clave] ??
+        mapa.otro ??
+        'Revisa qué número representa las centenas (C), cuál las decenas (D) y cuál las unidades (U).';
+      setErrorInteractivo(mensaje);
+      setIntentosInteractivo((prev) => prev + 1);
+    }
+  }
+
   function verSolucion() {
     setMostroSolucion(true);
+    setErrorInteractivo(null);
     setResuelto(true);
   }
 
-  const lectura = `${ejercicio.enunciado} ${opciones
-    .map((o, i) => `${LETRAS[i]}: ${o.texto}.`)
-    .join(' ')}`;
+  const enunciadoLimpio = textoPlano(ejercicio.enunciado);
+  const lectura = opciones.length
+    ? `${enunciadoLimpio} ${opciones.map((o, i) => `${LETRAS[i]}: ${o.texto}.`).join(' ')}`
+    : enunciadoLimpio;
 
   return (
     <>
       <div className="pregunta">
         <div className="pregunta__enunciado">
-          <h1>{ejercicio.enunciado}</h1>
+          <h1>
+            <Texto texto={ejercicio.enunciado} senalar={pistas >= 1} />
+          </h1>
           {puedeHablar && (
             <button type="button" className="boton boton--suave" onClick={() => hablar(lectura)}>
               <svg viewBox="0 0 24 24" aria-hidden="true" className="icono">
@@ -74,34 +106,45 @@ function Pregunta({ ejercicio, esUltima, onSiguiente }) {
 
         <Visual visual={ejercicio.visual} />
 
-        <div className="opciones" role="group" aria-label="Alternativas">
-          {opciones.map((opcion, i) => {
-            const descartada = descartadas.includes(opcion.texto);
-            const esCorrecta = resuelto && opcion.correcta;
-            return (
-              <button
-                key={opcion.texto}
-                type="button"
-                className={`opcion${descartada ? ' opcion--descartada' : ''}${esCorrecta ? ' opcion--correcta' : ''}`}
-                onClick={() => elegir(opcion)}
-                disabled={descartada || resuelto}
-                aria-label={`${LETRAS[i]}: ${opcion.texto}${descartada ? ', descartada' : ''}${esCorrecta ? ', correcta' : ''}`}
-              >
-                <span className="opcion__letra">{LETRAS[i]}</span>
-                <span className="opcion__texto">{opcion.texto}</span>
-              </button>
-            );
-          })}
-        </div>
+        {Interactivo ? (
+          <Interactivo ejercicio={ejercicio} resuelto={resuelto} onResponder={responderInteractivo} />
+        ) : (
+          <div className="opciones" role="group" aria-label="Alternativas">
+            {opciones.map((opcion, i) => {
+              const descartada = descartadas.includes(opcion.texto);
+              const esCorrecta = resuelto && opcion.correcta;
+              return (
+                <button
+                  key={opcion.texto}
+                  type="button"
+                  className={`opcion${descartada ? ' opcion--descartada' : ''}${esCorrecta ? ' opcion--correcta' : ''}`}
+                  onClick={() => elegir(opcion)}
+                  disabled={descartada || resuelto}
+                  aria-label={`${LETRAS[i]}: ${opcion.texto}${descartada ? ', descartada' : ''}${esCorrecta ? ', correcta' : ''}`}
+                >
+                  <span className="opcion__letra">{LETRAS[i]}</span>
+                  <span className="opcion__texto">{opcion.texto}</span>
+                </button>
+              );
+            })}
+          </div>
+        )}
       </div>
 
       <div className="apoyo" aria-live="polite">
-        {!resuelto && ultimoError && (
+        {!resuelto && (ultimoError || errorInteractivo) && (
           <div className="panel panel--revisar" ref={panelRef} tabIndex={-1}>
             <h2>Revisemos tu respuesta</h2>
-            <p>{ejercicio.opciones.find((o) => o.texto === ultimoError).feedback}</p>
-            <p className="panel__nota">Intenta otra vez con las alternativas que quedan.</p>
-            {descartadas.length >= 2 && (
+            <p>
+              {errorInteractivo ??
+                ejercicio.opciones?.find((o) => o.texto === ultimoError)?.feedback}
+            </p>
+            <p className="panel__nota">
+              {errorInteractivo
+                ? 'Mueve o cambia las cifras en la tabla y vuelve a comprobar.'
+                : 'Intenta otra vez con las alternativas que quedan.'}
+            </p>
+            {(descartadas.length >= 2 || intentosInteractivo >= 2) && (
               <button type="button" className="boton boton--suave" onClick={verSolucion}>
                 Ver cómo se resuelve
               </button>
@@ -118,7 +161,9 @@ function Pregunta({ ejercicio, esUltima, onSiguiente }) {
                   ? '¡Correcto a la primera!'
                   : '¡Lo lograste!'}
             </h2>
-            <p className="panel__solucion">{ejercicio.solucion}</p>
+            <p className="panel__solucion">
+              {typeof ejercicio.solucion === 'object' ? ejercicio.solucion.texto : ejercicio.solucion}
+            </p>
             {!primerIntento && !mostroSolucion && (
               <p className="panel__nota">Encontraste tu error y lo corregiste. Así se aprende.</p>
             )}

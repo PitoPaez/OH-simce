@@ -30,9 +30,10 @@ function Barras(props) {
 
 function Posicional(props) {
   if (Array.isArray(props.cifras)) {
-    const columnas = ['UM', 'C', 'D', 'U'];
+    const columnas = props.columnas ?? (props.cifras.length === 3 ? ['C', 'D', 'U'] : ['UM', 'C', 'D', 'U']);
+    const anchoTotal = columnas.length * 90 + 40;
     return (
-      <svg viewBox="0 0 400 150" role="img" aria-label="Tabla de valor posicional con unidades de mil, centenas, decenas y unidades">
+      <svg viewBox={`0 0 ${anchoTotal} 150`} role="img" aria-label={`Tabla de valor posicional con ${columnas.join(', ')}`}>
         {columnas.map((col, i) => (
           <g key={col}>
             <rect x={20 + i * 90} y="15" width="90" height="44" className="v-relleno" stroke="var(--tinta)" strokeWidth="2" />

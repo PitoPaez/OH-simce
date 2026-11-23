@@ -1,5 +1,6 @@
 import { EJERCICIOS } from '../data/ejercicios.js';
 import Cuadritos from './Cuadritos.jsx';
+import Texto from './ui/Texto.jsx';
 
 function mensaje(logrados, total) {
   if (logrados === total) return 'Respondiste todo a la primera. Tu forma de pensar los problemas está funcionando.';
@@ -37,8 +38,12 @@ export default function Resumen({ sesion, resultados, onRepetir, onInicio }) {
           <ul>
             {repasar.map((e) => (
               <li key={e.id}>
-                <p>{e.enunciado}</p>
-                <p className="repasar__solucion">{e.solucion}</p>
+                <p>
+                  <Texto texto={e.enunciado} />
+                </p>
+                <p className="repasar__solucion">
+                  {typeof e.solucion === 'object' ? e.solucion.texto : e.solucion}
+                </p>
               </li>
             ))}
           </ul>

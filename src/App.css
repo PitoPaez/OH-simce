@@ -1609,3 +1609,644 @@
   stroke-width: 1.5;
 }
 
+/* =========================================================
+   Marcas del enunciado (Datos y preguntas destacadas)
+   ========================================================= */
+.marca-dato {
+  transition: background-color 0.2s, box-shadow 0.2s;
+}
+
+.marca-dato--activa {
+  box-shadow: inset 0 -0.18em 0 var(--eje);
+}
+
+.marca-pregunta--activa {
+  background: var(--resaltador, #fff0a6);
+  box-decoration-break: clone;
+  -webkit-box-decoration-break: clone;
+  padding: 0 0.1em;
+  border-radius: 3px;
+}
+
+/* =========================================================
+   Ejercicios interactivos (Pie y botones)
+   ========================================================= */
+.interactivo-pie {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px 20px;
+  margin-top: 16px;
+}
+
+.boton-comprobar {
+  min-width: 160px;
+}
+
+/* =========================================================
+   Arrastrar valor posicional (Drag and Drop)
+   ========================================================= */
+.arrastrar-posicional {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 18px;
+  padding: 24px;
+  border: 2px solid var(--borde);
+  border-radius: var(--radio);
+  background: var(--blanco);
+  width: 100%;
+  max-width: 720px;
+  margin: 0 auto;
+}
+
+.arrastrar-tabla-wrapper {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+}
+
+.arrastrar-tabla {
+  border-collapse: collapse;
+}
+
+.arrastrar-tabla th {
+  width: 90px;
+}
+
+.arrastrar-celda {
+  width: 90px;
+  height: 90px;
+  border: 2px solid var(--tinta);
+  text-align: center;
+  vertical-align: middle;
+  background: #ffffff;
+  transition: background-color 0.15s ease, border-color 0.15s ease;
+  cursor: pointer;
+  user-select: none;
+}
+
+.arrastrar-celda--over {
+  background: color-mix(in srgb, var(--eje) 20%, #fff);
+  border-color: var(--eje);
+  border-style: dashed;
+}
+
+.arrastrar-celda--ocupada {
+  background: #ffffff;
+}
+
+.arrastrar-celda-placeholder {
+  color: #c0c6d4;
+  font-size: 2rem;
+  line-height: 1;
+}
+
+.arrastrar-numero-puesto {
+  font-size: 2.6rem;
+  font-weight: 700;
+  color: var(--tinta);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+  cursor: grab;
+}
+
+.arrastrar-numero-puesto:active {
+  cursor: grabbing;
+}
+
+.arrastrar-instruccion {
+  font-size: 1.05rem;
+  color: var(--tinta-suave);
+  margin: 0;
+  text-align: center;
+}
+
+/* Caja de números dispersos (caja abierta arriba con borde oscuro) */
+.arrastrar-caja-numeros {
+  width: 100%;
+  max-width: 520px;
+  height: 240px;
+  border-left: 3px solid #111;
+  border-right: 3px solid #111;
+  border-bottom: 3px solid #111;
+  position: relative;
+  background: rgba(255, 255, 255, 0.4);
+  border-radius: 0 0 6px 6px;
+  margin-top: 6px;
+}
+
+.arrastrar-numeros-dispersos {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+
+/* Fichas con números flotantes */
+.arrastrar-ficha {
+  position: absolute;
+  font-size: 2.2rem;
+  font-weight: 700;
+  color: #1a1a1a;
+  cursor: grab;
+  user-select: none;
+  touch-action: none;
+  padding: 6px 14px;
+  border-radius: 8px;
+  transition: transform 0.15s ease, opacity 0.2s ease, box-shadow 0.15s ease;
+}
+
+.arrastrar-ficha:hover {
+  transform: scale(1.15);
+  color: var(--eje, #1f5cc0);
+}
+
+.arrastrar-ficha:active {
+  cursor: grabbing;
+}
+
+.arrastrar-ficha--seleccionada {
+  background: color-mix(in srgb, var(--eje) 15%, #fff);
+  border: 2px dashed var(--eje);
+  transform: scale(1.1);
+}
+
+.arrastrar-ficha--oculta {
+  opacity: 0;
+  pointer-events: none;
+}
+
+/* Posiciones orgánicas semejantes al diseño: 
+   7 arriba a la derecha, 5 centro izquierda, 6 medio bajo izquierda, 
+   2 centro derecha, 9 abajo centro-izq, 8 abajo der */
+.arrastrar-pos-0 { top: 12%; left: 52%; } /* 7 */
+.arrastrar-pos-1 { top: 26%; left: 24%; } /* 5 */
+.arrastrar-pos-2 { top: 52%; left: 20%; } /* 6 */
+.arrastrar-pos-3 { top: 48%; left: 48%; } /* 2 */
+.arrastrar-pos-4 { top: 72%; left: 32%; } /* 9 */
+.arrastrar-pos-5 { top: 68%; left: 55%; } /* 8 */
+
+.arrastrar-posicional .interactivo-pie {
+  width: 100%;
+  max-width: 520px;
+}
+
+/* =========================================================
+   Resta interactiva con Frascos de Canicas (Formato Simce)
+   ========================================================= */
+.simce-canicas-interactivo {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+  padding: 24px;
+  border: 2px solid var(--borde);
+  border-radius: var(--radio);
+  background: #ffffff;
+  width: 100%;
+  max-width: 820px;
+  margin: 0 auto;
+}
+
+.simce-guia-instruccion {
+  font-size: 1.05rem;
+  color: var(--tinta-suave);
+  text-align: center;
+  max-width: 620px;
+  margin: 0;
+  font-weight: 500;
+}
+
+/* Distribución horizontal: Frascos a la izquierda, Tabla a la derecha */
+.simce-pantalla-flex {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 56px;
+  width: 100%;
+  flex-wrap: wrap;
+  padding: 10px 0;
+}
+
+/* Panel izquierdo: Frascos con número debajo */
+.simce-frascos-grupo {
+  display: flex;
+  gap: 36px;
+  align-items: flex-end;
+  justify-content: center;
+}
+
+.simce-frasco-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  cursor: grab;
+  user-select: none;
+  padding: 12px 14px;
+  border-radius: 16px;
+  border: 2px dashed transparent;
+  transition: transform 0.2s ease, background-color 0.2s ease, border-color 0.2s ease;
+}
+
+.simce-frasco-item:hover {
+  transform: translateY(-5px);
+  background: color-mix(in srgb, var(--eje) 8%, #fff);
+  border-color: var(--eje);
+}
+
+.simce-frasco-item:active {
+  cursor: grabbing;
+  transform: scale(0.96);
+}
+
+.simce-frasco-item--colocado {
+  opacity: 0.45;
+  filter: grayscale(30%);
+}
+
+.simce-frasco-item--seleccionado {
+  border-color: var(--eje) !important;
+  background: color-mix(in srgb, var(--eje) 14%, #fff) !important;
+  transform: scale(1.06);
+}
+
+.simce-frasco-img-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 120px;
+}
+
+.simce-frasco-img {
+  height: 125px;
+  width: auto;
+  object-fit: contain;
+  filter: drop-shadow(0 6px 8px rgba(0, 0, 0, 0.12));
+  transition: transform 0.2s ease;
+}
+
+.simce-frasco-img--158 {
+  height: 96px;
+}
+
+.simce-check-badge {
+  position: absolute;
+  top: -4px;
+  right: -6px;
+  background: #2e7d32;
+  color: #fff;
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  font-size: 0.85rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.simce-frasco-label {
+  font-size: 1.8rem;
+  font-weight: 800;
+  color: var(--tinta);
+  letter-spacing: 0.02em;
+}
+
+/* Panel derecho: Tabla de cálculo */
+.simce-tabla-columna {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  user-select: none;
+}
+
+/* Fila de reservas / canjes */
+.simce-fila-reservas {
+  display: flex;
+  height: 30px;
+  width: 100%;
+  align-items: flex-end;
+}
+
+.simce-spacer-signo {
+  width: 48px;
+  display: inline-block;
+}
+
+.simce-reserva-slot {
+  width: 66px;
+  text-align: center;
+  display: flex;
+  justify-content: center;
+}
+
+.simce-num-reserva {
+  font-size: 1.25rem;
+  font-weight: 800;
+  color: #d32f2f;
+  background: #ffebee;
+  border-radius: 6px;
+  padding: 1px 6px;
+  line-height: 1.1;
+  border: 1px solid #ffcdd2;
+  animation: canjePop 0.2s ease-out;
+}
+
+/* Cabecera C D U */
+.simce-header-cdu {
+  display: flex;
+  width: 100%;
+  align-items: center;
+}
+
+.simce-th-letra {
+  width: 66px;
+  text-align: center;
+  font-size: 1.6rem;
+  font-weight: 800;
+  color: #2f6be0;
+}
+
+.simce-linea-azul {
+  width: 100%;
+  height: 2.5px;
+  background: #9ec1f9;
+  margin-top: 2px;
+  margin-bottom: 10px;
+  border-radius: 2px;
+}
+
+/* Filas de datos */
+.simce-fila-datos {
+  display: flex;
+  align-items: center;
+  margin: 3px 0;
+  border-radius: 8px;
+  transition: background-color 0.15s ease;
+}
+
+.simce-fila-datos--dragover {
+  background: rgba(47, 107, 224, 0.1);
+}
+
+.simce-fila-datos--vacia {
+  cursor: pointer;
+}
+
+.simce-casilla-cuadro {
+  width: 64px;
+  height: 64px;
+  border: 2px dashed #b8cde8;
+  border-radius: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 1px;
+  background: #ffffff;
+  transition: all 0.15s ease;
+}
+
+.simce-casilla-cuadro--ocupada {
+  border-style: solid;
+  border-color: #cbd8e8;
+  background: #ffffff;
+}
+
+.simce-placeholder-letra {
+  font-size: 1.45rem;
+  font-weight: 700;
+  color: #b8cde8;
+}
+
+.simce-digito-puesto {
+  font-size: 2.3rem;
+  font-weight: 800;
+  color: #1a2744;
+  position: relative;
+  display: inline-block;
+}
+
+.simce-digito--tachado {
+  color: #8c97a8;
+}
+
+.simce-digito--tachado::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: -15%;
+  right: -15%;
+  height: 3px;
+  background: #d32f2f;
+  transform: rotate(-30deg);
+  border-radius: 2px;
+}
+
+/* Botón interactivo de cambio de signo (+ o −) */
+.simce-btn-signo {
+  width: 48px;
+  height: 48px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 2.4rem;
+  font-weight: 800;
+  border: 2px dashed #b8cde8;
+  border-radius: 8px;
+  background: #f8fbff;
+  cursor: pointer;
+  color: #1a2744;
+  transition: all 0.15s ease;
+  padding: 0;
+  margin-right: 2px;
+}
+
+.simce-btn-signo:hover {
+  background: color-mix(in srgb, var(--eje) 15%, #fff);
+  border-color: var(--eje);
+  transform: scale(1.1);
+}
+
+.simce-btn-signo:active {
+  transform: scale(0.95);
+}
+
+.simce-btn-signo--menos {
+  border-style: solid;
+  border-color: var(--tinta);
+  background: #ffffff;
+  color: #1a2744;
+}
+
+.simce-btn-signo--mas {
+  border-color: #ff9800;
+  color: #e65100;
+  background: #fff8e1;
+}
+
+/* Línea divisoria gruesa de la operación */
+.simce-linea-operacion {
+  width: 100%;
+  height: 4px;
+  background: #1a2744;
+  border-radius: 2px;
+  margin: 8px 0 12px 0;
+}
+
+/* Fila de resultado */
+.simce-fila-resultado {
+  display: flex;
+  align-items: center;
+  width: 100%;
+}
+
+.simce-casilla-resultado {
+  width: 64px;
+  height: 64px;
+  border: 2.5px dashed #8b9db5;
+  border-radius: 16px;
+  background: #ffffff;
+  text-align: center;
+  font-family: inherit;
+  font-size: 2.4rem;
+  font-weight: 800;
+  color: #1a2744;
+  margin: 0 1px;
+  cursor: text;
+  transition: all 0.15s ease;
+  padding: 0;
+  outline: none;
+  caret-color: #2f6be0;
+  box-sizing: border-box;
+}
+
+.simce-casilla-resultado::placeholder {
+  color: #cbd5e1;
+  font-size: 2.2rem;
+  font-weight: 700;
+  line-height: 1;
+}
+
+.simce-casilla-resultado:hover:not(:disabled) {
+  border-color: #2f6be0;
+  background: #f8fbff;
+  transform: scale(1.04);
+}
+
+.simce-casilla-resultado:focus,
+.simce-casilla-resultado--activa {
+  border-color: #2f6be0 !important;
+  border-style: solid !important;
+  background: #edf4ff !important;
+  box-shadow: 0 0 0 4px rgba(47, 107, 224, 0.25) !important;
+  transform: scale(1.06);
+}
+
+.simce-casilla-resultado--bloqueada {
+  opacity: 0.45;
+  cursor: not-allowed;
+  border-style: dashed;
+}
+
+/* Botones de apoyo para el canje */
+.simce-canje-ayudas {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  justify-content: center;
+  width: 100%;
+  max-width: 540px;
+  margin-top: 4px;
+}
+
+.boton-canje-tag {
+  padding: 8px 16px;
+  font-size: 0.95rem;
+  font-weight: 600;
+  border-radius: 8px;
+  border: 1.5px solid var(--borde);
+  background: #ffffff;
+  color: var(--tinta);
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.boton-canje-tag:hover {
+  background: #f0f4ff;
+  border-color: var(--eje);
+  color: var(--eje);
+}
+
+.boton-canje-tag--activo {
+  background: #e8f5e9;
+  border-color: #2e7d32;
+  color: #1b5e20;
+}
+
+/* Teclado táctil en pantalla */
+.simce-teclado-tactil {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  width: 100%;
+  max-width: 360px;
+  padding: 12px;
+  background: color-mix(in srgb, var(--eje) 6%, #fff);
+  border: 1.5px solid var(--borde);
+  border-radius: var(--radio);
+}
+
+.simce-teclado-fila {
+  display: flex;
+  gap: 8px;
+  justify-content: center;
+}
+
+.simce-tecla {
+  flex: 1;
+  min-height: 50px;
+  font-size: 1.6rem;
+  font-weight: 700;
+  color: var(--tinta);
+  background: #ffffff;
+  border: 1.5px solid var(--borde);
+  border-radius: 10px;
+  cursor: pointer;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+  transition: transform 0.1s ease, background-color 0.1s ease;
+  touch-action: manipulation;
+}
+
+.simce-tecla:hover {
+  background: color-mix(in srgb, var(--eje) 15%, #fff);
+  border-color: var(--eje);
+}
+
+.simce-tecla:active {
+  transform: scale(0.94);
+  background: color-mix(in srgb, var(--eje) 25%, #fff);
+}
+
+.simce-tecla--borrar {
+  font-size: 1.3rem;
+  background: #fff3e0;
+  border-color: #ffb74d;
+  color: #e65100;
+}
+
+.simce-tecla--borrar:hover {
+  background: #ffe0b2;
+}
+
+.simce-canicas-interactivo .interactivo-pie {
+  width: 100%;
+  max-width: 520px;
+}
+

@@ -44,72 +44,46 @@ export const EJERCICIOS = [
   {
     "id": "num-resta",
     "eje": "numeros",
-    "enunciado": "Matías tenía 324 láminas y regaló 158 a su hermana. ¿Cuántas láminas le quedan?",
-    "visual": {
-      "tipo": "barras",
-      "total": 324,
-      "parte": 158
+    "tema": "suma-resta",
+    "tipo": "restaColumnas",
+    "enunciado": "Matías tenía un frasco con [[324 canicas]] y regaló [[158]] a su hermana. {{¿Cuántas canicas le quedan en el frasco?}}",
+    "minuendo": 324,
+    "sustraendo": 158,
+    "columnas": ["C", "D", "U"],
+    "errores": {
+      "signo-suma": "Matías regaló canicas a su hermana, así que ahora le quedan menos. La operación debe ser una resta (−). ¡Toca el signo + para cambiarlo a −!",
+      "orden-invertido": "En la resta, el total inicial de canicas (el número mayor: 324) se coloca arriba, y la cantidad que regaló (158) se coloca abajo.",
+      "234": "En cada columna restaste el número menor al mayor (8 − 4 = 4). En la resta siempre es el de arriba menos el de abajo. Si arriba no alcanza, ¡pide prestado a la columna de al lado!",
+      "176": "Pediste prestado en las unidades, pero olvidaste descontar en las decenas: las 2 decenas quedaron en 1 al prestar (1 − 5 necesita pedir prestado a las centenas).",
+      "482": "Sumaste los números. Recuerda que Matías regaló canicas a su hermana, así que ahora le quedan menos en el frasco.",
+      "otro": "Revisa tu cálculo columna por columna empezando por las unidades (U). Recuerda pedir prestado cuando el número de arriba es menor que el de abajo."
     },
-    "opciones": [
-      {
-        "texto": "166",
-        "correcta": true
-      },
-      {
-        "texto": "234",
-        "feedback": "En cada columna restaste el número menor al mayor. Cuando arriba hay menos (4 − 8), tienes que pedir prestado a la columna de al lado."
-      },
-      {
-        "texto": "482",
-        "feedback": "Sumaste los números. Matías regaló láminas, así que ahora tiene menos que antes."
-      },
-      {
-        "texto": "176",
-        "feedback": "Pediste prestado, pero se te olvidó descontarlo en las decenas. Las 2 decenas quedan en 1 después de prestar."
-      }
-    ],
     "pistas": [
-      "Si regaló láminas, ¿tiene más o menos que antes? Eso te dice qué operación usar.",
-      "Calcula 324 − 158. Empieza por las unidades: a 4 no le puedes quitar 8, así que pide 1 decena prestada."
+      "Si regaló canicas, ¿tiene más o menos que antes? Eso te dice que hay que restar.",
+      "Calcula 324 − 158. Empieza por las unidades: a 4 no le puedes quitar 8, así que pide 1 decena prestada (canje)."
     ],
-    "solucion": "324 − 158 = 166. Comprueba: 166 + 158 = 324."
+    "solucion": "324 − 158 = 166. Le quedan 166 canicas en el frasco. Comprueba: 166 + 158 = 324."
   },
   {
-    "id": "num-posicional",
+    "id": "vp-alicia",
     "eje": "numeros",
-    "enunciado": "¿Qué número tiene 4 unidades de mil, 0 centenas, 7 decenas y 2 unidades?",
-    "visual": {
-      "tipo": "posicional",
-      "cifras": [
-        4,
-        0,
-        7,
-        2
-      ]
+    "tema": "valor-posicional",
+    "tipo": "arrastrarPosicional",
+    "enunciado": "El número de la casa de Alicia se forma con [[7 decenas]], [[5 unidades]] y [[2 centenas]]. {{¿Cuál es el número de la casa de Alicia?}}",
+    "columnas": ["C", "D", "U"],
+    "disponibles": [7, 5, 6, 2, 9, 8],
+    "solucionPosicional": [2, 7, 5],
+    "errores": {
+      "752": "Escribiste las cifras en el orden en que aparecen en el texto: 7, 5 y 2. Pero el orden en la tabla lo da el valor: ¿cuántas centenas hay? Esa cifra va en la C.",
+      "257": "El 5 y el 7 quedaron cambiados. ¿Cuál es la cifra de las decenas: el 7 o el 5?",
+      "527": "Las unidades van al final a la derecha en la U. ¿Qué cifra va en las centenas (C)?",
+      "otro": "Revisa qué número representa las centenas (C), cuál las decenas (D) y cuál las unidades (U)."
     },
-    "opciones": [
-      {
-        "texto": "4.072",
-        "correcta": true
-      },
-      {
-        "texto": "472",
-        "feedback": "Te saltaste el 0. Aunque no haya centenas, el 0 tiene que estar para guardar su lugar."
-      },
-      {
-        "texto": "4.702",
-        "feedback": "El 7 quedó en las centenas. Fíjate en la tabla: el 7 va en las decenas."
-      },
-      {
-        "texto": "4.720",
-        "feedback": "Los números quedaron corridos un lugar. Las unidades (2) siempre van al final, a la derecha."
-      }
-    ],
     "pistas": [
-      "Escribe cada número en su columna de la tabla, de izquierda a derecha.",
-      "Lee las columnas en orden: UM, C, D, U. ¿Qué número forman juntas?"
+      "Usa la tabla con C, D y U, y pon cada cifra en su columna.",
+      "2 centenas van en la C, 7 decenas en la D y 5 unidades en la U."
     ],
-    "solucion": "4 UM, 0 C, 7 D y 2 U forman el número 4.072."
+    "solucion": "2 centenas, 7 decenas y 5 unidades forman el 275."
   },
   {
     "id": "num-multiplicacion",

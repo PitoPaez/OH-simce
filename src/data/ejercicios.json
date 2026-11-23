@@ -1,0 +1,826 @@
+[
+  {
+    "id": "num-resta",
+    "eje": "numeros",
+    "enunciado": "Matías tenía 324 láminas y regaló 158 a su hermana. ¿Cuántas láminas le quedan?",
+    "visual": {
+      "tipo": "imagen",
+      "descripcion": "Modelo de barras: 324 láminas en total, divididas en 158 que regaló y una parte con signo de pregunta, las que le quedan."
+    },
+    "opciones": [
+      {
+        "texto": "166",
+        "correcta": true,
+        "feedback": null
+      },
+      {
+        "texto": "234",
+        "correcta": false,
+        "feedback": "En cada columna restaste el número menor al mayor. Cuando arriba hay menos (4 − 8), tienes que pedir prestado a la columna de al lado."
+      },
+      {
+        "texto": "482",
+        "correcta": false,
+        "feedback": "Sumaste los números. Matías regaló láminas, así que ahora tiene menos que antes."
+      },
+      {
+        "texto": "176",
+        "correcta": false,
+        "feedback": "Pediste prestado, pero se te olvidó descontarlo en las decenas. Las 2 decenas quedan en 1 después de prestar."
+      }
+    ],
+    "pistas": [
+      "Si regaló láminas, ¿tiene más o menos que antes? Eso te dice qué operación usar.",
+      "Calcula 324 − 158. Empieza por las unidades: a 4 no le puedes quitar 8, así que pide 1 decena prestada."
+    ],
+    "solucion": "324 − 158 = 166. Comprueba: 166 + 158 = 324."
+  },
+  {
+    "id": "num-posicional",
+    "eje": "numeros",
+    "enunciado": "¿Qué número tiene 4 unidades de mil, 0 centenas, 7 decenas y 2 unidades?",
+    "visual": {
+      "tipo": "imagen",
+      "descripcion": "Tabla de valor posicional: 4 en unidades de mil (UM), 0 en centenas (C), 7 en decenas (D) y 2 en unidades (U)."
+    },
+    "opciones": [
+      {
+        "texto": "4.072",
+        "correcta": true,
+        "feedback": null
+      },
+      {
+        "texto": "472",
+        "correcta": false,
+        "feedback": "Te saltaste el 0. Aunque no haya centenas, el 0 tiene que estar para guardar su lugar."
+      },
+      {
+        "texto": "4.702",
+        "correcta": false,
+        "feedback": "El 7 quedó en las centenas. Fíjate en la tabla: el 7 va en las decenas."
+      },
+      {
+        "texto": "4.720",
+        "correcta": false,
+        "feedback": "Los números quedaron corridos un lugar. Las unidades (2) siempre van al final, a la derecha."
+      }
+    ],
+    "pistas": [
+      "Escribe cada número en su columna de la tabla, de izquierda a derecha.",
+      "Lee las columnas en orden: UM, C, D, U. ¿Qué número forman juntas?"
+    ],
+    "solucion": "4 UM, 0 C, 7 D y 2 U forman el número 4.072."
+  },
+  {
+    "id": "num-multiplicacion",
+    "eje": "numeros",
+    "enunciado": "En la sala hay 6 cajas y cada caja tiene 8 lápices. ¿Cuántos lápices hay en total?",
+    "visual": {
+      "tipo": "imagen",
+      "descripcion": "6 cajas dibujadas en filas, cada una con 8 lápices representados como puntos."
+    },
+    "opciones": [
+      {
+        "texto": "48",
+        "correcta": true,
+        "feedback": null
+      },
+      {
+        "texto": "14",
+        "correcta": false,
+        "feedback": "Sumaste 6 + 8. Pero son 6 grupos de 8 lápices cada uno, así que hay que juntar 8 seis veces."
+      },
+      {
+        "texto": "42",
+        "correcta": false,
+        "feedback": "Ese es 6 × 7. Cada caja tiene 8 lápices, no 7. Cuenta una fila del dibujo."
+      },
+      {
+        "texto": "56",
+        "correcta": false,
+        "feedback": "Ese es 7 × 8. Revisa cuántas cajas hay: son 6 filas en el dibujo."
+      }
+    ],
+    "pistas": [
+      "Cada fila del dibujo es una caja. ¿Cuántas filas hay y cuántos puntos tiene cada una?",
+      "Puedes sumar 8 + 8 + 8 + 8 + 8 + 8, o calcular 6 × 8."
+    ],
+    "solucion": "6 cajas × 8 lápices = 48 lápices."
+  },
+  {
+    "id": "num-fraccion",
+    "eje": "numeros",
+    "enunciado": "Una pizza se cortó en 8 partes iguales y la familia se comió 3. ¿Qué fracción de la pizza se comieron?",
+    "visual": {
+      "tipo": "imagen",
+      "descripcion": "Pizza redonda dividida en 8 partes iguales, con 3 partes pintadas."
+    },
+    "opciones": [
+      {
+        "texto": "3/8",
+        "correcta": true,
+        "feedback": null
+      },
+      {
+        "texto": "5/8",
+        "correcta": false,
+        "feedback": "5/8 es la parte que quedó en la caja. La pregunta es por lo que se comieron."
+      },
+      {
+        "texto": "3/5",
+        "correcta": false,
+        "feedback": "Comparaste lo que se comieron con lo que quedó. El número de abajo tiene que ser el total de partes."
+      },
+      {
+        "texto": "8/3",
+        "correcta": false,
+        "feedback": "Los números están al revés. Abajo va el total de partes y arriba las partes que se comieron."
+      }
+    ],
+    "pistas": [
+      "El número de abajo de una fracción dice en cuántas partes iguales se dividió el entero.",
+      "Cuenta las partes pintadas: esas van arriba."
+    ],
+    "solucion": "Se comieron 3 de 8 partes iguales: 3/8."
+  },
+  {
+    "id": "pat-secuencia",
+    "eje": "patrones",
+    "enunciado": "¿Qué número falta en la secuencia? 7, 11, 15, ___, 23",
+    "visual": {
+      "tipo": "imagen",
+      "descripcion": "Recta numérica con saltos iguales que pasan por 7, 11, 15, un número que falta y 23."
+    },
+    "opciones": [
+      {
+        "texto": "19",
+        "correcta": true,
+        "feedback": null
+      },
+      {
+        "texto": "17",
+        "correcta": false,
+        "feedback": "Sumaste 2. Mira cuánto aumenta de 7 a 11: el salto es más grande."
+      },
+      {
+        "texto": "16",
+        "correcta": false,
+        "feedback": "Sumaste 1 al 15. Revisa cuánto crece la secuencia en cada salto."
+      },
+      {
+        "texto": "22",
+        "correcta": false,
+        "feedback": "Le restaste 1 al 23. El número tiene que seguir el mismo patrón que los demás."
+      }
+    ],
+    "pistas": [
+      "¿Cuánto hay que sumar para pasar de 7 a 11? ¿Y de 11 a 15?",
+      "Siempre se suma 4. Calcula 15 + 4 y revisa que al sumar 4 otra vez llegues a 23."
+    ],
+    "solucion": "La regla es sumar 4: 15 + 4 = 19, y 19 + 4 = 23."
+  },
+  {
+    "id": "pat-ecuacion",
+    "eje": "patrones",
+    "enunciado": "¿Qué número va en el cuadrado para que la balanza quede en equilibrio?",
+    "visual": {
+      "tipo": "imagen",
+      "descripcion": "Balanza en equilibrio: en el lado izquierdo dice □ + 25 y en el derecho dice 60."
+    },
+    "opciones": [
+      {
+        "texto": "35",
+        "correcta": true,
+        "feedback": null
+      },
+      {
+        "texto": "85",
+        "correcta": false,
+        "feedback": "Sumaste 60 + 25. Pero si pones 85 en el cuadrado, el lado izquierdo pesaría 110."
+      },
+      {
+        "texto": "45",
+        "correcta": false,
+        "feedback": "Revisa la resta 60 − 25: a 0 unidades no le puedes quitar 5 sin pedir prestado."
+      },
+      {
+        "texto": "25",
+        "correcta": false,
+        "feedback": "Copiaste el número que ya estaba. Comprueba: 25 + 25 = 50, no 60."
+      }
+    ],
+    "pistas": [
+      "Los dos lados tienen que valer lo mismo. ¿Qué número le sumas a 25 para llegar a 60?",
+      "Puedes calcular 60 − 25, o contar desde 25 hasta 60."
+    ],
+    "solucion": "60 − 25 = 35. Comprueba: 35 + 25 = 60."
+  },
+  {
+    "id": "geo-cubo",
+    "eje": "geometria",
+    "enunciado": "¿Cuántas caras tiene un cubo?",
+    "visual": {
+      "tipo": "imagen",
+      "descripcion": "Dibujo de un cubo. Las aristas que quedan atrás se ven con línea punteada."
+    },
+    "opciones": [
+      {
+        "texto": "6",
+        "correcta": true,
+        "feedback": null
+      },
+      {
+        "texto": "8",
+        "correcta": false,
+        "feedback": "Contaste los vértices, que son las esquinas. Las caras son los cuadrados planos."
+      },
+      {
+        "texto": "12",
+        "correcta": false,
+        "feedback": "Contaste las aristas, que son los bordes. Las caras son los cuadrados planos."
+      },
+      {
+        "texto": "4",
+        "correcta": false,
+        "feedback": "En el dibujo no se ven todas las caras. Piensa en un dado: también tiene cara arriba, abajo y atrás."
+      }
+    ],
+    "pistas": [
+      "Piensa en un dado: ¿cuántos números distintos tiene?",
+      "Cuenta: arriba, abajo, adelante, atrás, izquierda y derecha."
+    ],
+    "solucion": "Un cubo tiene 6 caras cuadradas, como un dado."
+  },
+  {
+    "id": "geo-coordenadas",
+    "eje": "geometria",
+    "enunciado": "En el mapa, ¿en qué posición está la estrella?",
+    "visual": {
+      "tipo": "imagen",
+      "descripcion": "Mapa cuadriculado con columnas de la A a la E (abajo) y filas del 1 al 5 (a la izquierda). En una casilla hay una estrella."
+    },
+    "opciones": [
+      {
+        "texto": "D2",
+        "correcta": true,
+        "feedback": null
+      },
+      {
+        "texto": "D4",
+        "correcta": false,
+        "feedback": "Contaste las filas desde arriba. En este mapa los números empiezan en 1 abajo."
+      },
+      {
+        "texto": "B4",
+        "correcta": false,
+        "feedback": "Intercambiaste la letra y el número. La letra dice la columna y el número dice la fila."
+      },
+      {
+        "texto": "C2",
+        "correcta": false,
+        "feedback": "La fila está bien, pero revisa la columna: sigue la estrella hacia abajo hasta la letra."
+      }
+    ],
+    "pistas": [
+      "Baja con el dedo desde la estrella hasta las letras. Esa es la columna.",
+      "Ahora ve desde la estrella hacia la izquierda hasta los números. Esa es la fila."
+    ],
+    "solucion": "La estrella está en la columna D y en la fila 2: D2."
+  },
+  {
+    "id": "med-regla-goma",
+    "eje": "medicion",
+    "enunciado": "¿Cuánto mide la goma de borrar?",
+    "visual": {
+      "tipo": "imagen",
+      "descripcion": "Regla de 0 a 10 cm. La goma empieza en la marca del 2 y termina en la marca del 7."
+    },
+    "opciones": [
+      {
+        "texto": "5 cm",
+        "correcta": true,
+        "feedback": null
+      },
+      {
+        "texto": "7 cm",
+        "correcta": false,
+        "feedback": "7 es donde termina la goma, pero la goma no empieza en el 0: empieza en el 2. ¿Cuántos centímetros hay del 2 al 7?"
+      },
+      {
+        "texto": "6 cm",
+        "correcta": false,
+        "feedback": "Contaste las rayas del 2 al 7, y son 6. Pero se miden los espacios entre las rayas: del 2 al 7 hay 5 espacios de 1 cm."
+      },
+      {
+        "texto": "2 cm",
+        "correcta": false,
+        "feedback": "2 es donde empieza la goma. Para saber cuánto mide, fíjate también dónde termina."
+      }
+    ],
+    "pistas": [
+      "¿En qué número empieza la goma? ¿Empieza en el 0?",
+      "Fíjate dónde empieza y dónde termina la goma.",
+      "Cuenta los centímetros del 2 al 7, o calcula 7 − 2."
+    ],
+    "solucion": "La goma va del 2 al 7: 7 − 2 = 5. Mide 5 cm."
+  },
+  {
+    "id": "med-regla-lapiz",
+    "eje": "medicion",
+    "enunciado": "Mueve la regla para medir el lápiz. ¿Cuántos centímetros mide?",
+    "visual": {
+      "tipo": "medir",
+      "modo": "mover",
+      "largo": 12,
+      "inicio": -2,
+      "objeto": {
+        "src": "lapiz.png",
+        "largo": 7,
+        "nombre": "El lápiz"
+      },
+      "descripcion": "Un lápiz y una regla de 12 cm que se puede mover. Al comienzo, el 0 de la regla no está en la punta del lápiz.",
+      "mensajeOtro": "Revisa: pon el 0 de la regla justo donde empieza el lápiz y mira en qué número termina."
+    },
+    "opciones": [
+      {
+        "texto": "7",
+        "correcta": true,
+        "feedback": null
+      },
+      {
+        "texto": "9",
+        "correcta": false,
+        "feedback": "Leíste el número donde termina el lápiz, pero el lápiz no empezaba en el 0 de la regla. Mueve la regla para que el 0 quede justo en la punta."
+      },
+      {
+        "texto": "8",
+        "correcta": false,
+        "feedback": "Contaste las rayas largas, incluida la del 0. Para medir se cuentan los espacios de 1 cm que hay entre las rayas."
+      },
+      {
+        "texto": "70",
+        "correcta": false,
+        "feedback": "Contaste las rayas chiquitas: esas son milímetros. La pregunta pide centímetros, que son los números de la regla."
+      }
+    ],
+    "pistas": [
+      "Para medir, el 0 de la regla tiene que estar justo donde empieza el lápiz.",
+      "Arrastra la regla (o usa los botones) hasta que el 0 quede en la punta del lápiz.",
+      "Ahora mira el número de la regla donde termina el lápiz."
+    ],
+    "solucion": "Con el 0 de la regla en la punta, el lápiz termina en el 7: mide 7 cm."
+  },
+  {
+    "id": "med-huincha-cinta",
+    "eje": "medicion",
+    "enunciado": "Para envolver un regalo, Josefa tiene una cinta de 8 cm y necesita 5 cm más. Estira la huincha hasta el largo total de cinta que necesita.",
+    "visual": {
+      "tipo": "medir",
+      "modo": "estirar",
+      "largo": 15,
+      "descripcion": "Huincha de medir que se estira arrastrando su punta, hasta 15 cm.",
+      "mensajeOtro": "Revisa el largo: suma la cinta que tiene y la que le falta, y estira la huincha hasta ese número."
+    },
+    "opciones": [
+      {
+        "texto": "13",
+        "correcta": true,
+        "feedback": null
+      },
+      {
+        "texto": "5",
+        "correcta": false,
+        "feedback": "5 cm es solo lo que le falta. La pregunta pide el largo total: lo que tiene más lo que le falta."
+      },
+      {
+        "texto": "3",
+        "correcta": false,
+        "feedback": "Restaste 8 − 5. Pero Josefa necesita más cinta, no menos: hay que sumar."
+      },
+      {
+        "texto": "8",
+        "correcta": false,
+        "feedback": "8 cm es la cinta que ya tiene. Todavía le faltan 5 cm más."
+      }
+    ],
+    "pistas": [
+      "¿Josefa necesita más o menos cinta de la que tiene?",
+      "Suma: 8 cm + 5 cm.",
+      "Arrastra la punta de la huincha hasta el número que te dio la suma."
+    ],
+    "solucion": "8 cm + 5 cm = 13 cm. La huincha queda estirada hasta el 13."
+  },
+  {
+    "id": "med-perimetro-cuadrado",
+    "eje": "medicion",
+    "enunciado": "Cada lado de este cuadrado mide 6 cm. ¿Cuál es su perímetro?",
+    "visual": {
+      "tipo": "imagen",
+      "descripcion": "Cuadrado con un lado marcado de 6 cm."
+    },
+    "opciones": [
+      {
+        "texto": "24 cm",
+        "correcta": true,
+        "feedback": null
+      },
+      {
+        "texto": "12 cm",
+        "correcta": false,
+        "feedback": "Sumaste solo 2 lados. El perímetro es el borde completo, y el cuadrado tiene 4 lados."
+      },
+      {
+        "texto": "36 cm",
+        "correcta": false,
+        "feedback": "Multiplicaste 6 × 6, y eso es el área: lo que hay adentro. El perímetro es el borde: 6 + 6 + 6 + 6."
+      },
+      {
+        "texto": "18 cm",
+        "correcta": false,
+        "feedback": "Sumaste 3 lados. Recorre todo el borde: son 4 lados."
+      }
+    ],
+    "pistas": [
+      "El perímetro es el largo del borde: la vuelta completa.",
+      "¿Cuántos lados tiene un cuadrado? ¿Cuánto mide cada uno?",
+      "Suma los 4 lados: 6 + 6 + 6 + 6."
+    ],
+    "solucion": "6 + 6 + 6 + 6 = 24 (o 4 × 6 = 24). El perímetro es 24 cm."
+  },
+  {
+    "id": "med-perimetro-cancha",
+    "eje": "medicion",
+    "enunciado": "La cancha del colegio es un rectángulo de 30 m de largo y 15 m de ancho. Vicente da una vuelta completa por el borde. ¿Cuántos metros recorre?",
+    "visual": {
+      "tipo": "imagen",
+      "descripcion": "Cancha rectangular de 30 m de largo y 15 m de ancho."
+    },
+    "opciones": [
+      {
+        "texto": "90 m",
+        "correcta": true,
+        "feedback": null
+      },
+      {
+        "texto": "45 m",
+        "correcta": false,
+        "feedback": "Sumaste un largo y un ancho: eso es media vuelta. Una vuelta completa pasa por los 4 lados: 30 + 15 + 30 + 15."
+      },
+      {
+        "texto": "450 m",
+        "correcta": false,
+        "feedback": "Multiplicaste 30 × 15, y eso es el área de la cancha. Vicente camina por el borde, así que hay que sumar los lados."
+      },
+      {
+        "texto": "60 m",
+        "correcta": false,
+        "feedback": "Sumaste solo los dos lados largos. Faltan los dos anchos de 15 m."
+      }
+    ],
+    "pistas": [
+      "Dar una vuelta por el borde es recorrer el perímetro.",
+      "Un rectángulo tiene 2 lados largos y 2 lados anchos.",
+      "Suma 30 + 15 + 30 + 15."
+    ],
+    "solucion": "30 + 15 + 30 + 15 = 90. Vicente recorre 90 m."
+  },
+  {
+    "id": "med-area",
+    "eje": "medicion",
+    "enunciado": "Este rectángulo está formado por cuadrados iguales. ¿Cuál es su área, medida en cuadrados?",
+    "visual": {
+      "tipo": "imagen",
+      "descripcion": "Rectángulo formado por cuadrados iguales: mide 5 cuadrados de largo y 3 de ancho."
+    },
+    "opciones": [
+      {
+        "texto": "15 cuadrados",
+        "correcta": true,
+        "feedback": null
+      },
+      {
+        "texto": "8 cuadrados",
+        "correcta": false,
+        "feedback": "Sumaste el largo y el ancho (5 + 3). El área es todo el espacio de adentro."
+      },
+      {
+        "texto": "16 cuadrados",
+        "correcta": false,
+        "feedback": "Ese es el perímetro, el borde de la figura. El área es lo que cubre por dentro."
+      },
+      {
+        "texto": "30 cuadrados",
+        "correcta": false,
+        "feedback": "Contaste dos veces. Hay 3 filas de 5 cuadrados."
+      }
+    ],
+    "pistas": [
+      "¿Cuántos cuadrados hay en una fila? ¿Cuántas filas hay?",
+      "Hay 3 filas de 5 cuadrados: calcula 3 × 5 o suma 5 + 5 + 5."
+    ],
+    "solucion": "3 filas × 5 cuadrados = 15 cuadrados."
+  },
+  {
+    "id": "med-tiempo",
+    "eje": "medicion",
+    "enunciado": "La clase de Educación Física empieza a la hora que marca el reloj y dura 45 minutos. ¿A qué hora termina?",
+    "visual": {
+      "tipo": "imagen",
+      "descripcion": "Reloj de manecillas que marca las 10:15."
+    },
+    "opciones": [
+      {
+        "texto": "11:00",
+        "correcta": true,
+        "feedback": null
+      },
+      {
+        "texto": "10:60",
+        "correcta": false,
+        "feedback": "Una hora tiene solo 60 minutos. Cuando llegas a 60, se cambia a la hora siguiente."
+      },
+      {
+        "texto": "10:45",
+        "correcta": false,
+        "feedback": "Esa es la hora en que faltan 15 minutos para terminar. Cuenta los 45 minutos desde las 10:15."
+      },
+      {
+        "texto": "11:45",
+        "correcta": false,
+        "feedback": "Sumaste una hora completa y además 45 minutos. La clase dura menos de una hora."
+      }
+    ],
+    "pistas": [
+      "El reloj marca las 10:15. ¿Cuántos minutos faltan para las 11:00?",
+      "De 10:15 a 11:00 hay exactamente 45 minutos."
+    ],
+    "solucion": "10:15 + 45 minutos = 11:00."
+  },
+  {
+    "id": "med-reloj-recreo",
+    "eje": "medicion",
+    "enunciado": "El recreo empieza a las 10:15. Mueve las manecillas para que el reloj marque esa hora.",
+    "visual": {
+      "tipo": "reloj",
+      "inicio": "12:00",
+      "descripcion": "Reloj de manecillas que se pueden mover. Empieza marcando las 12:00.",
+      "mensajeOtro": "Revisa las dos manecillas: la corta marca la hora y la larga marca los minutos."
+    },
+    "opciones": [
+      {
+        "texto": "10:15",
+        "correcta": true,
+        "feedback": null
+      },
+      {
+        "texto": "3:50",
+        "correcta": false,
+        "feedback": "Pusiste las manecillas al revés. La corta es la de la hora: va en el 10. La larga es la de los minutos: va en el 3, porque 15 minutos son 3 saltos de 5."
+      },
+      {
+        "texto": "10:45",
+        "correcta": false,
+        "feedback": "La manecilla larga quedó en el 9, y eso son 45 minutos. Para 15 minutos, cuenta de 5 en 5 desde el 12: 5, 10, 15. Llegas al 3."
+      },
+      {
+        "texto": "11:15",
+        "correcta": false,
+        "feedback": "La manecilla corta quedó en el 11. A las 10:15 la corta está en el 10, apenas pasadita."
+      }
+    ],
+    "pistas": [
+      "La manecilla corta marca la hora y la larga, los minutos.",
+      "Pon la manecilla corta en el 10.",
+      "Para la larga, cuenta de 5 en 5 desde el 12 hasta llegar a 15."
+    ],
+    "solucion": "La manecilla corta en el 10 y la larga en el 3 (15 minutos): son las 10:15."
+  },
+  {
+    "id": "med-reloj-pelicula",
+    "eje": "medicion",
+    "enunciado": "La película empieza a las 4:30 y dura 1 hora y 15 minutos. Mueve las manecillas para mostrar a qué hora termina.",
+    "visual": {
+      "tipo": "reloj",
+      "inicio": "4:30",
+      "descripcion": "Reloj de manecillas que se pueden mover. Empieza marcando las 4:30, la hora en que comienza la película.",
+      "mensajeOtro": "Revisa: primero avanza 1 hora y después 15 minutos."
+    },
+    "opciones": [
+      {
+        "texto": "5:45",
+        "correcta": true,
+        "feedback": null
+      },
+      {
+        "texto": "4:45",
+        "correcta": false,
+        "feedback": "Sumaste los 15 minutos, pero te faltó la hora. Desde 4:45, avanza 1 hora más."
+      },
+      {
+        "texto": "5:30",
+        "correcta": false,
+        "feedback": "Sumaste la hora, pero te faltaron los 15 minutos. Avanza la manecilla larga 3 números más."
+      },
+      {
+        "texto": "3:15",
+        "correcta": false,
+        "feedback": "Retrocediste el tiempo. La película termina después de empezar: hay que avanzar las manecillas."
+      }
+    ],
+    "pistas": [
+      "La película termina después de las 4:30, así que hay que avanzar.",
+      "Primero avanza 1 hora. ¿Qué hora queda?",
+      "Después avanza 15 minutos: la manecilla larga se mueve 3 números."
+    ],
+    "solucion": "4:30 + 1 hora = 5:30. 5:30 + 15 minutos = 5:45."
+  },
+  {
+    "id": "med-duracion-bus",
+    "eje": "medicion",
+    "enunciado": "El bus sale a las 9:50 y llega a las 11:10. ¿Cuánto dura el viaje?",
+    "visual": {
+      "tipo": "imagen",
+      "descripcion": "Dos relojes digitales: el bus sale a las 9:50 y llega a las 11:10."
+    },
+    "opciones": [
+      {
+        "texto": "1 hora y 20 minutos",
+        "correcta": true,
+        "feedback": null
+      },
+      {
+        "texto": "2 horas y 40 minutos",
+        "correcta": false,
+        "feedback": "Restaste las horas (11 − 9) y los minutos (50 − 10) por separado. Con la hora eso no funciona: avanza desde 9:50 hasta 11:10 por partes."
+      },
+      {
+        "texto": "2 horas y 20 minutos",
+        "correcta": false,
+        "feedback": "Contaste 2 horas porque del 9 al 11 hay 2 números, pero el bus no sale a las 9 en punto. De 9:50 a 10:50 pasa solo 1 hora."
+      },
+      {
+        "texto": "1 hora y 40 minutos",
+        "correcta": false,
+        "feedback": "De 9:50 a 10:50 pasa 1 hora: eso está bien. Pero de 10:50 a 11:10 no son 40 minutos: son 10 minutos hasta las 11:00 y 10 más."
+      }
+    ],
+    "pistas": [
+      "Avanza desde la hora de salida hasta la de llegada, por partes.",
+      "De 9:50 a 10:50 pasa 1 hora.",
+      "¿Cuántos minutos hay de 10:50 a 11:10? Pasa por las 11:00."
+    ],
+    "solucion": "De 9:50 a 10:50 pasa 1 hora. De 10:50 a 11:10 pasan 20 minutos. El viaje dura 1 hora y 20 minutos."
+  },
+  {
+    "id": "med-calendario-dia",
+    "eje": "medicion",
+    "enunciado": "Según el calendario, ¿qué día de la semana es el 25 de mayo?",
+    "visual": {
+      "tipo": "imagen",
+      "descripcion": "Calendario de mayo de 2026. El 1 de mayo es viernes.",
+      "src": "med-calendario-mayo.png"
+    },
+    "opciones": [
+      {
+        "texto": "Lunes",
+        "correcta": true,
+        "feedback": null
+      },
+      {
+        "texto": "Domingo",
+        "correcta": false,
+        "feedback": "Miraste la columna de al lado. Busca el 25 y sube por esa misma columna hasta la letra de arriba."
+      },
+      {
+        "texto": "Viernes",
+        "correcta": false,
+        "feedback": "El viernes es el 1 de mayo. Busca el 25 en el calendario y mira la letra de su columna."
+      },
+      {
+        "texto": "Martes",
+        "correcta": false,
+        "feedback": "Fíjate bien en qué columna está el 25 y sube hasta la letra de arriba. Ojo: hay dos días con M, martes y miércoles."
+      }
+    ],
+    "pistas": [
+      "Busca el número 25 en el calendario.",
+      "Sube por la misma columna del 25 hasta la fila de arriba.",
+      "L es lunes, M martes, M miércoles, J jueves, V viernes, S sábado y D domingo."
+    ],
+    "solucion": "El 25 está en la columna de la L: es lunes."
+  },
+  {
+    "id": "med-calendario-prueba",
+    "eje": "medicion",
+    "enunciado": "Hoy es martes 12 de mayo. La prueba de Matemática es en 9 días más. Toca en el calendario el día de la prueba.",
+    "visual": {
+      "tipo": "calendario",
+      "anio": 2026,
+      "mes": 5,
+      "hoy": 12,
+      "descripcion": "Calendario de mayo de 2026. El martes 12 está marcado como hoy.",
+      "mensajeOtro": "Revisa: parte desde el 12 y avanza 9 días, sin contar el 12."
+    },
+    "opciones": [
+      {
+        "texto": "21",
+        "correcta": true,
+        "feedback": null
+      },
+      {
+        "texto": "20",
+        "correcta": false,
+        "feedback": "Contaste el 12 como el primer día. «En 9 días más» se empieza a contar desde mañana: 13, 14, 15… hasta completar 9."
+      },
+      {
+        "texto": "19",
+        "correcta": false,
+        "feedback": "Avanzaste solo una semana, que son 7 días. Faltan 2 días más."
+      },
+      {
+        "texto": "3",
+        "correcta": false,
+        "feedback": "Restaste 12 − 9. La prueba es después de hoy, así que hay que avanzar en el calendario."
+      }
+    ],
+    "pistas": [
+      "«En 9 días más» quiere decir que empiezas a contar desde mañana.",
+      "Una semana son 7 días: el martes 19 es una semana después del 12.",
+      "Desde el 19, avanza 2 días más."
+    ],
+    "solucion": "12 + 9 = 21. La prueba es el jueves 21 de mayo."
+  },
+  {
+    "id": "dat-diferencia",
+    "eje": "datos",
+    "enunciado": "El gráfico muestra la fruta favorita del 4° B. ¿Cuántos estudiantes más prefieren manzana que naranja?",
+    "visual": {
+      "tipo": "imagen",
+      "descripcion": "Gráfico de barras «Fruta favorita del 4° B»: manzana 8, plátano 5, naranja 3 y uva 6."
+    },
+    "opciones": [
+      {
+        "texto": "5",
+        "correcta": true,
+        "feedback": null
+      },
+      {
+        "texto": "11",
+        "correcta": false,
+        "feedback": "Sumaste manzana y naranja. \"Cuántos más\" se responde con una resta."
+      },
+      {
+        "texto": "8",
+        "correcta": false,
+        "feedback": "Ese es solo el total de manzana. Falta compararlo con la naranja."
+      },
+      {
+        "texto": "3",
+        "correcta": false,
+        "feedback": "Ese es solo el total de naranja. Falta compararlo con la manzana."
+      }
+    ],
+    "pistas": [
+      "Lee en el gráfico cuántos eligieron manzana y cuántos eligieron naranja.",
+      "Para saber \"cuántos más\", resta el número menor al mayor."
+    ],
+    "solucion": "Manzana 8, naranja 3: 8 − 3 = 5 estudiantes más."
+  },
+  {
+    "id": "dat-total",
+    "eje": "datos",
+    "enunciado": "Según el mismo gráfico, ¿cuántos estudiantes respondieron la encuesta?",
+    "visual": {
+      "tipo": "imagen",
+      "descripcion": "Gráfico de barras «Fruta favorita del 4° B»: manzana 8, plátano 5, naranja 3 y uva 6.",
+      "src": "dat-diferencia.png"
+    },
+    "opciones": [
+      {
+        "texto": "22",
+        "correcta": true,
+        "feedback": null
+      },
+      {
+        "texto": "8",
+        "correcta": false,
+        "feedback": "Ese es el valor de la barra más alta. Cada estudiante está en una de las barras."
+      },
+      {
+        "texto": "4",
+        "correcta": false,
+        "feedback": "Contaste cuántas frutas hay. La pregunta es por la cantidad de estudiantes."
+      },
+      {
+        "texto": "19",
+        "correcta": false,
+        "feedback": "Te faltó sumar una barra. Revisa que sumaste las cuatro frutas."
+      }
+    ],
+    "pistas": [
+      "Cada estudiante eligió una fruta. ¿Qué tienes que hacer con los números de todas las barras?",
+      "Suma las cuatro barras: 8 + 5 + 3 + 6."
+    ],
+    "solucion": "8 + 5 + 3 + 6 = 22 estudiantes."
+  }
+]

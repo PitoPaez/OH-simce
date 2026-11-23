@@ -2,49 +2,40 @@ import { useEffect, useMemo, useRef, useState } from 'react';
 import { EJES } from '../data/ejercicios.js';
 import Cuadritos from './Cuadritos.jsx';
 import Visual from './Visual.jsx';
+import { callar, hablar, mezclar, puedeHablar } from '../utilidades.js';
 
 const LETRAS = ['A', 'B', 'C', 'D'];
-const puedeHablar = typeof window !== 'undefined' && 'speechSynthesis' in window;
 
-function hablar(texto) {
-  if (!puedeHablar) return;
-  window.speechSynthesis.cancel();
-  const voz = new SpeechSynthesisUtterance(texto);
-  voz.lang = 'es-CL';
-  voz.rate = 0.9;
-  window.speechSynthesis.speak(voz);
-}
-
-function mezclar(lista) {
-  const copia = [...lista];
-  for (let i = copia.length - 1; i > 0; i--) {
-    const j = Math.floor(Math.random() * (i + 1));
-    [copia[i], copia[j]] = [copia[j], copia[i]];
-  }
-  return copia;
-}
-
+// Una pregunta. Si visual es una herramienta (reloj, regla...), el estudiante
+// responde con ella; si no, elige una alternativa. En los dos casos la
+// respuesta se busca en las opciones: la correcta resuelve la pregunta y las
+// otras muestran su feedback. Tras dos errores aparece «Ver cómo se resuelve».
 function Pregunta({ ejercicio, esUltima, onSiguiente }) {
   const opciones = useMemo(() => mezclar(ejercicio.opciones), [ejercicio]);
-  const [descartadas, setDescartadas] = useState([]);
+  const conHerramienta = ejercicio.visual && ejercicio.visual.tipo !== 'imagen';
+  const [errores, setErrores] = useState([]); // [{ respuesta, feedback }]
   const [pistas, setPistas] = useState(0);
   const [resuelto, setResuelto] = useState(false);
   const [mostroSolucion, setMostroSolucion] = useState(false);
   const panelRef = useRef(null);
 
-  const ultimoError = descartadas.at(-1);
-  const primerIntento = resuelto && descartadas.length === 0 && !mostroSolucion;
+  const ultimoError = errores.at(-1);
+  const descartadas = errores.map((e) => e.respuesta);
+  const primerIntento = resuelto && errores.length === 0 && !mostroSolucion;
 
+  // Lleva el foco al mensaje nuevo, para que lo anuncie el lector de pantalla.
   useEffect(() => {
-    if (ultimoError || resuelto) panelRef.current?.focus();
-  }, [ultimoError, resuelto]);
+    if (errores.length || resuelto) panelRef.current?.focus();
+  }, [errores.length, resuelto]);
 
-  useEffect(() => () => puedeHablar && window.speechSynthesis.cancel(), []);
+  useEffect(() => callar, []);
 
-  function elegir(opcion) {
+  function responder(respuesta) {
     if (resuelto) return;
-    if (opcion.correcta) setResuelto(true);
-    else setDescartadas((prev) => [...prev, opcion.texto]);
+    const opcion = ejercicio.opciones.find((o) => o.texto === respuesta);
+    if (opcion?.correcta) return setResuelto(true);
+    const feedback = opcion?.feedback ?? ejercicio.visual?.mensajeOtro ?? 'Todavía no está bien. Revisa con calma.';
+    setErrores((prev) => [...prev, { respuesta, feedback }]);
   }
 
   function verSolucion() {
@@ -52,9 +43,9 @@ function Pregunta({ ejercicio, esUltima, onSiguiente }) {
     setResuelto(true);
   }
 
-  const lectura = `${ejercicio.enunciado} ${opciones
-    .map((o, i) => `${LETRAS[i]}: ${o.texto}.`)
-    .join(' ')}`;
+  const lectura = conHerramienta
+    ? ejercicio.enunciado
+    : `${ejercicio.enunciado} ${opciones.map((o, i) => `${LETRAS[i]}: ${o.texto}.`).join(' ')}`;
 
   return (
     <>
@@ -72,35 +63,39 @@ function Pregunta({ ejercicio, esUltima, onSiguiente }) {
           )}
         </div>
 
-        <Visual visual={ejercicio.visual} />
+        <Visual ejercicio={ejercicio} bloqueado={resuelto} onResponder={responder} />
 
-        <div className="opciones" role="group" aria-label="Alternativas">
-          {opciones.map((opcion, i) => {
-            const descartada = descartadas.includes(opcion.texto);
-            const esCorrecta = resuelto && opcion.correcta;
-            return (
-              <button
-                key={opcion.texto}
-                type="button"
-                className={`opcion${descartada ? ' opcion--descartada' : ''}${esCorrecta ? ' opcion--correcta' : ''}`}
-                onClick={() => elegir(opcion)}
-                disabled={descartada || resuelto}
-                aria-label={`${LETRAS[i]}: ${opcion.texto}${descartada ? ', descartada' : ''}${esCorrecta ? ', correcta' : ''}`}
-              >
-                <span className="opcion__letra">{LETRAS[i]}</span>
-                <span className="opcion__texto">{opcion.texto}</span>
-              </button>
-            );
-          })}
-        </div>
+        {!conHerramienta && (
+          <div className="opciones" role="group" aria-label="Alternativas">
+            {opciones.map((opcion, i) => {
+              const descartada = descartadas.includes(opcion.texto);
+              const esCorrecta = resuelto && opcion.correcta;
+              return (
+                <button
+                  key={opcion.texto}
+                  type="button"
+                  className={`opcion${descartada ? ' opcion--descartada' : ''}${esCorrecta ? ' opcion--correcta' : ''}`}
+                  onClick={() => responder(opcion.texto)}
+                  disabled={descartada || resuelto}
+                  aria-label={`${LETRAS[i]}: ${opcion.texto}${descartada ? ', descartada' : ''}${esCorrecta ? ', correcta' : ''}`}
+                >
+                  <span className="opcion__letra">{LETRAS[i]}</span>
+                  <span className="opcion__texto">{opcion.texto}</span>
+                </button>
+              );
+            })}
+          </div>
+        )}
       </div>
 
       <div className="apoyo" aria-live="polite">
         {!resuelto && ultimoError && (
           <div className="panel panel--revisar" ref={panelRef} tabIndex={-1}>
             <h2>Revisemos tu respuesta</h2>
-            <p>{ejercicio.opciones.find((o) => o.texto === ultimoError).feedback}</p>
-            <p className="panel__nota">Intenta otra vez con las alternativas que quedan.</p>
+            <p>{ultimoError.feedback}</p>
+            <p className="panel__nota">
+              {conHerramienta ? 'Corrige y vuelve a comprobar.' : 'Intenta otra vez con las alternativas que quedan.'}
+            </p>
             {descartadas.length >= 2 && (
               <button type="button" className="boton boton--suave" onClick={verSolucion}>
                 Ver cómo se resuelve

@@ -301,15 +301,10 @@
   justify-content: center;
 }
 
-.visual svg {
-  width: 100%;
-  max-width: 480px;
+.visual img {
+  display: block;
+  max-width: min(100%, 480px);
   max-height: 280px;
-  font-family: inherit;
-}
-
-.visual .v-cuadrado {
-  max-width: 260px;
 }
 
 .opciones {
@@ -457,103 +452,222 @@
   margin-right: 4px;
 }
 
-/* ---------- Dibujos (SVG) ---------- */
-.v-relleno {
-  fill: color-mix(in srgb, var(--eje) 16%, #fff);
+/* ---------- Herramientas interactivas (components/herramientas/) ---------- */
+.herramienta {
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
 }
 
-.v-linea {
-  fill: #fff;
-  stroke: var(--tinta);
-  stroke-width: 2;
+.herramienta__dibujo {
+  width: 100%;
+  max-width: 680px;
+  overflow: visible;
+  touch-action: none;
+  user-select: none;
 }
 
-.v-incognita {
-  fill: #fff;
-  stroke: var(--eje);
-  stroke-width: 3;
-  stroke-dasharray: 8 6;
+.herramienta__controles,
+.herramienta__respuesta {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
 }
 
-.v-pintado {
-  fill: var(--eje);
-  stroke: var(--tinta);
-  stroke-width: 2;
-}
-
-.v-punto {
-  fill: var(--eje);
-}
-
-.v-num {
-  font-size: 26px;
-  font-weight: 700;
-  fill: var(--tinta);
-  text-anchor: middle;
-}
-
-.v-grande {
-  font-size: 42px;
-}
-
-.v-acento {
-  fill: var(--eje);
-}
-
-.v-etq {
-  font-size: 18px;
-  fill: var(--tinta-suave);
-  text-anchor: middle;
-}
-
-.v-fuerte {
-  fill: var(--tinta);
+.herramienta__respuesta {
   font-weight: 700;
 }
 
-.v-chica {
-  font-size: 14px;
+.herramienta__ayuda {
+  color: var(--tinta-suave);
+  font-size: 0.95rem;
+  text-align: center;
 }
 
-.v-trazo {
+.movible {
+  cursor: grab;
+}
+
+.campo {
+  width: 5em;
+  min-height: 48px;
+  padding: 8px;
+  border: 2px solid var(--borde);
+  border-radius: 10px;
+  font: inherit;
+  font-size: 1.3rem;
+  font-weight: 700;
+  text-align: center;
+  color: var(--tinta);
+}
+
+/* Escala en cm (regla y huincha) */
+.escala__cm,
+.escala__mm {
   stroke: var(--tinta);
-  stroke-width: 3;
-  stroke-linecap: round;
+  stroke-width: 1.2;
 }
 
-.v-trazo-fino {
+.escala__cm {
+  stroke-width: 2;
+}
+
+.escala__numero {
+  fill: var(--tinta);
+  font-size: 20px;
+  font-weight: 700;
+  text-anchor: middle;
+}
+
+.regla {
+  fill: #fff6d8;
   stroke: var(--tinta);
   stroke-width: 2;
 }
 
-.v-salto {
-  fill: none;
-  stroke: var(--eje);
+.huincha__caja {
+  fill: var(--eje);
+  stroke: var(--tinta);
   stroke-width: 3;
 }
 
-.v-oculta {
-  fill: none;
-  stroke: var(--tinta-suave);
+.huincha__centro {
+  fill: #fff;
+  stroke: var(--tinta);
+  stroke-width: 3;
+}
+
+.huincha__cinta {
+  fill: #f6d54a;
+  stroke: var(--tinta);
   stroke-width: 2;
-  stroke-dasharray: 6 5;
 }
 
-.v-guia {
-  stroke: var(--cuadricula);
-  stroke-width: 1.5;
-}
-
-.v-manecilla {
+.huincha__punta {
+  fill: #9aa6bd;
   stroke: var(--tinta);
-  stroke-width: 4;
+  stroke-width: 2;
+}
+
+.huincha__tirador {
+  fill: var(--tinta);
+}
+
+/* Reloj */
+.reloj {
+  max-width: 300px;
+}
+
+.reloj__borde {
+  fill: var(--eje);
+}
+
+.reloj__cara {
+  fill: #fff;
+}
+
+.reloj__marca {
+  stroke: var(--tinta);
+  stroke-width: 2;
+}
+
+.reloj__numero {
+  fill: var(--tinta);
+  font-size: 24px;
+  font-weight: 700;
+  text-anchor: middle;
+}
+
+.reloj__corta,
+.reloj__larga {
+  stroke: var(--tinta);
   stroke-linecap: round;
 }
 
-.v-manecilla-hora {
-  stroke: var(--tinta);
-  stroke-width: 7;
-  stroke-linecap: round;
+.reloj__corta {
+  stroke-width: 10;
+}
+
+.reloj__larga {
+  stroke-width: 6;
+}
+
+/* Zona invisible más ancha, para agarrar la manecilla con el dedo. */
+.reloj__agarre {
+  stroke: transparent;
+  stroke-width: 34;
+}
+
+.reloj__centro {
+  fill: var(--tinta);
+}
+
+/* Calendario */
+.calendario__titulo {
+  font-size: 1.3rem;
+  font-weight: 700;
+}
+
+.calendario {
+  display: grid;
+  grid-template-columns: repeat(7, minmax(0, 56px));
+  gap: 4px;
+  width: 100%;
+  justify-content: center;
+}
+
+.calendario__semana {
+  padding: 6px 0;
+  border-radius: 6px;
+  background: var(--eje);
+  color: #fff;
+  font-weight: 700;
+  text-align: center;
+  text-decoration: none;
+}
+
+.calendario__dia {
+  position: relative;
+  min-height: 48px;
+  border: 2px solid var(--borde);
+  border-radius: 8px;
+  background: #fff;
+  font: inherit;
+  font-weight: 700;
+  color: var(--tinta);
+  cursor: pointer;
+}
+
+.calendario__dia--hoy {
+  border-color: var(--tinta);
+  border-style: dashed;
+}
+
+.calendario__hoy {
+  position: absolute;
+  inset: auto 0 1px;
+  font-size: 0.65rem;
+  line-height: 1;
+  color: var(--tinta-suave);
+}
+
+.calendario__dia--elegido {
+  border: 2px solid var(--eje);
+  background: color-mix(in srgb, var(--eje) 25%, #fff);
+  box-shadow: inset 0 0 0 2px var(--eje);
+}
+
+@media (max-width: 520px) {
+  .herramienta {
+    padding: 14px 10px;
+  }
+
+  /* El dibujo se achica en el celular: los números se agrandan para leerse. */
+  .escala__numero {
+    font-size: 30px;
+  }
 }
 
 /* ---------- Resumen ---------- */

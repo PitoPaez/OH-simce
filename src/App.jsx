@@ -4,35 +4,11 @@ import { EJES, EJERCICIOS } from './data/ejercicios.js';
 import Inicio from './components/Inicio.jsx';
 import Practica from './components/Practica.jsx';
 import Resumen from './components/Resumen.jsx';
+import { guardarProgreso, leerProgreso, mezclar } from './utilidades.js';
 
-const CLAVE_PROGRESO = 'oh-simce-progreso';
 const PREGUNTAS_MIXTA = 6;
 
-function leerProgreso() {
-  try {
-    return JSON.parse(localStorage.getItem(CLAVE_PROGRESO)) ?? {};
-  } catch {
-    return {};
-  }
-}
-
-function guardarProgreso(progreso) {
-  try {
-    localStorage.setItem(CLAVE_PROGRESO, JSON.stringify(progreso));
-  } catch {
-    // Sin almacenamiento (modo privado): el progreso dura solo esta visita.
-  }
-}
-
-function mezclar(lista) {
-  const copia = [...lista];
-  for (let i = copia.length - 1; i > 0; i--) {
-    const j = Math.floor(Math.random() * (i + 1));
-    [copia[i], copia[j]] = [copia[j], copia[i]];
-  }
-  return copia;
-}
-
+// Por eje: los ejercicios en el orden del JSON. Mixta: 6 al azar.
 function crearSesion(ejeId) {
   if (ejeId) {
     const eje = EJES.find((e) => e.id === ejeId);

@@ -1,17 +1,62 @@
-Proyecto Open Humbolt - practica simce
+<div align="center">
 
-OH Simce es una práctica de Matemática para 4° básico pensada para preparar el
-SIMCE. Tiene 18 temas con un ejemplo resuelto cada uno, 111 ejercicios (47 de
-ellos interactivos), un ensayo tipo SIMCE y una lista de preguntas para repasar.
+<img src="./docs/img/icon.png" alt="Oh-Simce Icon" height="150">
 
-```bash
-npm install
-npm run dev
-```
+# Oh-Simce: Prueba Matemáticas 4° Básico
 
-Luego abre la dirección local indicada por Vite, normalmente http://localhost:5173/.
+[![React](https://img.shields.io/badge/React-61DAFB?logo=react&logoColor=black)](https://react.dev/)
 
-Antes de subir cambios a los ejercicios, revisa que estén completos:
+**¡Prepárate para el SIMCE de una manera interactiva y entretenida!**
+
+<a href="https://PitoPaez.github.io/oh-simce/" rel="noopener">
+  <img src="./docs/img/banner-oh-simce.png" alt="Oh-Simce Banner">
+</a>
+
+## 📑 Contenidos
+
+- [¿Qué es Oh-Simce?](#about)
+- [Características del Proyecto](#features)
+- [Instalación y Desarrollo](#dev)
+- [Validación de Contenido](#validation)
+- [Cómo está pensada](#cómo-está-pensada)
+- [Panel docente](#panel-docente)
+  - [Cómo viajan los datos sin servidor](#cómo-viajan-los-datos-sin-servidor)
+- [Dónde está cada cosa](#dónde-está-cada-cosa)
+- [Enlaces directos](#enlaces-directos)
+
+
+# ¿Qué es Oh-Simce? <a name="about"></a>
+
+**Oh-Simce** es una plataforma de práctica de Matemáticas diseñada específicamente para estudiantes de 4° básico. El objetivo principal es brindar una herramienta de apoyo efectiva y dinámica para que los niños se preparen para el **SIMCE**, reduciendo la ansiedad frente a la prueba y reforzando los conceptos clave a través de la práctica guiada.
+
+## Características del Proyecto <a name="features"></a>
+
+El proyecto ofrece un camino de aprendizaje estructurado que incluye:
+
+- **18 Temas fundamentales**: Cada uno con un ejemplo resuelto para facilitar la comprensión.
+- **111 Ejercicios**: Una mezcla de desafíos tradicionales y **47 actividades interactivas**.
+- **Ensayo Tipo SIMCE**: Una simulación real para medir el progreso y familiarizarse con el formato.
+- **Guía de Repaso**: Una lista curada de preguntas esenciales para un repaso final rápido.
+
+## Instalación y uso <a name="dev"></a>
+
+Para ejecutar el proyecto localmente, sigue estos pasos:
+
+1. **Instala las dependencias:**
+   ```bash
+   npm install
+   ```
+
+2. **Inicia el servidor de desarrollo:**
+   ```bash
+   npm run dev
+   ```
+
+3. **Accede al sitio:** Abre la dirección local indicada por Vite (normalmente `http://localhost:5173/`).
+
+## Validación de Contenido <a name="validation"></a>
+
+Para asegurar la calidad educativa y evitar errores en los ejercicios antes de subir cualquier cambio al repositorio, es obligatorio ejecutar la herramienta de validación:
 
 ```bash
 npm run validar

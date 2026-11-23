@@ -44,138 +44,87 @@ export const EJERCICIOS = [
   {
     "id": "num-resta",
     "eje": "numeros",
-    "enunciado": "Matías tenía 324 láminas y regaló 158 a su hermana. ¿Cuántas láminas le quedan?",
-    "visual": {
-      "tipo": "barras",
-      "total": 324,
-      "parte": 158
+    "tema": "suma-resta",
+    "tipo": "restaColumnas",
+    "enunciado": "Matías tenía un frasco con [[324 canicas]] y regaló [[158]] a su hermana. {{¿Cuántas canicas le quedan en el frasco?}}",
+    "minuendo": 324,
+    "sustraendo": 158,
+    "columnas": ["C", "D", "U"],
+    "errores": {
+      "signo-suma": "Matías regaló canicas a su hermana, así que ahora le quedan menos. La operación debe ser una resta (−). ¡Toca el signo + para cambiarlo a −!",
+      "orden-invertido": "En la resta, el total inicial de canicas (el número mayor: 324) se coloca arriba, y la cantidad que regaló (158) se coloca abajo.",
+      "234": "En cada columna restaste el número menor al mayor (8 − 4 = 4). En la resta siempre es el de arriba menos el de abajo. Si arriba no alcanza, ¡pide prestado a la columna de al lado!",
+      "176": "Pediste prestado en las unidades, pero olvidaste descontar en las decenas: las 2 decenas quedaron en 1 al prestar (1 − 5 necesita pedir prestado a las centenas).",
+      "482": "Sumaste los números. Recuerda que Matías regaló canicas a su hermana, así que ahora le quedan menos en el frasco.",
+      "otro": "Revisa tu cálculo columna por columna empezando por las unidades (U). Recuerda pedir prestado cuando el número de arriba es menor que el de abajo."
     },
-    "opciones": [
-      {
-        "texto": "166",
-        "correcta": true
-      },
-      {
-        "texto": "234",
-        "feedback": "En cada columna restaste el número menor al mayor. Cuando arriba hay menos (4 − 8), tienes que pedir prestado a la columna de al lado."
-      },
-      {
-        "texto": "482",
-        "feedback": "Sumaste los números. Matías regaló láminas, así que ahora tiene menos que antes."
-      },
-      {
-        "texto": "176",
-        "feedback": "Pediste prestado, pero se te olvidó descontarlo en las decenas. Las 2 decenas quedan en 1 después de prestar."
-      }
-    ],
     "pistas": [
-      "Si regaló láminas, ¿tiene más o menos que antes? Eso te dice qué operación usar.",
-      "Calcula 324 − 158. Empieza por las unidades: a 4 no le puedes quitar 8, así que pide 1 decena prestada."
+      "Si regaló canicas, ¿tiene más o menos que antes? Eso te dice que hay que restar.",
+      "Calcula 324 − 158. Empieza por las unidades: a 4 no le puedes quitar 8, así que pide 1 decena prestada (canje)."
     ],
-    "solucion": "324 − 158 = 166. Comprueba: 166 + 158 = 324."
+    "solucion": "324 − 158 = 166. Le quedan 166 canicas en el frasco. Comprueba: 166 + 158 = 324."
   },
   {
-    "id": "num-posicional",
+    "id": "vp-alicia",
     "eje": "numeros",
-    "enunciado": "¿Qué número tiene 4 unidades de mil, 0 centenas, 7 decenas y 2 unidades?",
-    "visual": {
-      "tipo": "posicional",
-      "cifras": [
-        4,
-        0,
-        7,
-        2
-      ]
+    "tema": "valor-posicional",
+    "tipo": "arrastrarPosicional",
+    "enunciado": "El número de la casa de Alicia se forma con [[7 decenas]], [[5 unidades]] y [[2 centenas]]. {{¿Cuál es el número de la casa de Alicia?}}",
+    "columnas": ["C", "D", "U"],
+    "disponibles": [7, 5, 6, 2, 9, 8],
+    "solucionPosicional": [2, 7, 5],
+    "errores": {
+      "752": "Escribiste las cifras en el orden en que aparecen en el texto: 7, 5 y 2. Pero el orden en la tabla lo da el valor: ¿cuántas centenas hay? Esa cifra va en la C.",
+      "257": "El 5 y el 7 quedaron cambiados. ¿Cuál es la cifra de las decenas: el 7 o el 5?",
+      "527": "Las unidades van al final a la derecha en la U. ¿Qué cifra va en las centenas (C)?",
+      "otro": "Revisa qué número representa las centenas (C), cuál las decenas (D) y cuál las unidades (U)."
     },
-    "opciones": [
-      {
-        "texto": "4.072",
-        "correcta": true
-      },
-      {
-        "texto": "472",
-        "feedback": "Te saltaste el 0. Aunque no haya centenas, el 0 tiene que estar para guardar su lugar."
-      },
-      {
-        "texto": "4.702",
-        "feedback": "El 7 quedó en las centenas. Fíjate en la tabla: el 7 va en las decenas."
-      },
-      {
-        "texto": "4.720",
-        "feedback": "Los números quedaron corridos un lugar. Las unidades (2) siempre van al final, a la derecha."
-      }
-    ],
     "pistas": [
-      "Escribe cada número en su columna de la tabla, de izquierda a derecha.",
-      "Lee las columnas en orden: UM, C, D, U. ¿Qué número forman juntas?"
+      "Usa la tabla con C, D y U, y pon cada cifra en su columna.",
+      "2 centenas van en la C, 7 decenas en la D y 5 unidades en la U."
     ],
-    "solucion": "4 UM, 0 C, 7 D y 2 U forman el número 4.072."
+    "solucion": "2 centenas, 7 decenas y 5 unidades forman el 275."
   },
   {
     "id": "num-multiplicacion",
     "eje": "numeros",
-    "enunciado": "En la sala hay 6 cajas y cada caja tiene 8 lápices. ¿Cuántos lápices hay en total?",
-    "visual": {
-      "tipo": "arreglo",
-      "filas": 6,
-      "columnas": 8
+    "tipo": "cajasLapices",
+    "enunciado": "En la sala hay [[6 cajas]] y cada caja tiene [[8 lápices]]. {{¿Cuántos lápices hay en total?}}",
+    "cajas": 6,
+    "lapicesPorCaja": 8,
+    "solucionValor": "48",
+    "errores": {
+      "14": "Sumaste 6 + 8 = 14. Pero son 6 cajas y CADA una tiene 8 lápices, por lo que debes contar o sumar el 8 seis veces (6 × 8).",
+      "42": "Ese resultado es 6 × 7. Cuenta los lápices de una caja: hay 8 lápices en cada caja.",
+      "56": "Ese resultado es 7 × 8. Revisa cuántas cajas hay: son 6 cajas en la sala.",
+      "otro": "Cuenta los lápices en las cajas o calcula 6 × 8 para saber el total."
     },
-    "opciones": [
-      {
-        "texto": "48",
-        "correcta": true
-      },
-      {
-        "texto": "14",
-        "feedback": "Sumaste 6 + 8. Pero son 6 grupos de 8 lápices cada uno, así que hay que juntar 8 seis veces."
-      },
-      {
-        "texto": "42",
-        "feedback": "Ese es 6 × 7. Cada caja tiene 8 lápices, no 7. Cuenta una fila del dibujo."
-      },
-      {
-        "texto": "56",
-        "feedback": "Ese es 7 × 8. Revisa cuántas cajas hay: son 6 filas en el dibujo."
-      }
-    ],
     "pistas": [
-      "Cada fila del dibujo es una caja. ¿Cuántas filas hay y cuántos puntos tiene cada una?",
-      "Puedes sumar 8 + 8 + 8 + 8 + 8 + 8, o calcular 6 × 8."
+      "Cada caja tiene 8 lápices. Si llenas las 6 cajas, ¿cuántos lápices tienes en total?",
+      "Puedes sumar de 8 en 8 (8 + 8 + 8 + 8 + 8 + 8) o calcular directamente 6 × 8."
     ],
-    "solucion": "6 cajas × 8 lápices = 48 lápices."
+    "solucion": "6 cajas × 8 lápices = 48 lápices en total."
   },
   {
     "id": "num-fraccion",
     "eje": "numeros",
-    "enunciado": "Una pizza se cortó en 8 partes iguales y la familia se comió 3. ¿Qué fracción de la pizza se comieron?",
-    "visual": {
-      "tipo": "fraccion",
-      "partes": 8,
-      "pintadas": 3
+    "tipo": "cortarPizza",
+    "enunciado": "Una pizza se cortó en [[8 partes iguales]] y la familia se comió [[3 trozos]]. {{¿Qué fracción de la pizza se comieron?}}",
+    "partes": 8,
+    "comidas": 3,
+    "solucionValor": "3/8",
+    "errores": {
+      "cortes-incompletos": "La pizza debe cortarse en 8 partes iguales. Usa el cuchillo para hacer los 4 cortes.",
+      "sin-comer": "Aún no se ha comido ningún trozo. Toca 3 trozos de pizza para retirarlos.",
+      "5/8": "5/8 es la fracción que QUEDÓ en la mesa. Pero la pregunta es: ¿qué fracción se COMIERON? Debes contar los trozos comidos.",
+      "otra-cantidad": "La familia se comió exactamente 3 trozos. Toca los trozos para que queden 3 comidos.",
+      "otro": "Corta la pizza en 8 partes iguales con el cuchillo y come 3 trozos para formar la fracción 3/8."
     },
-    "opciones": [
-      {
-        "texto": "3/8",
-        "correcta": true
-      },
-      {
-        "texto": "5/8",
-        "feedback": "5/8 es la parte que quedó en la caja. La pregunta es por lo que se comieron."
-      },
-      {
-        "texto": "3/5",
-        "feedback": "Comparaste lo que se comieron con lo que quedó. El número de abajo tiene que ser el total de partes."
-      },
-      {
-        "texto": "8/3",
-        "feedback": "Los números están al revés. Abajo va el total de partes y arriba las partes que se comieron."
-      }
-    ],
     "pistas": [
-      "El número de abajo de una fracción dice en cuántas partes iguales se dividió el entero.",
-      "Cuenta las partes pintadas: esas van arriba."
+      "El número de abajo (denominador) indica en cuántas partes iguales se cortó la pizza: 8.",
+      "El número de arriba (numerador) indica cuántas partes se comieron: 3. Así se forma 3/8."
     ],
-    "solucion": "Se comieron 3 de 8 partes iguales: 3/8."
+    "solucion": "Se cortó en 8 partes iguales y se comieron 3: la fracción es 3/8."
   },
   {
     "id": "sr-bolitas",

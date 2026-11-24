@@ -305,6 +305,15 @@
   display: block;
   max-width: min(100%, 480px);
   max-height: 280px;
+.visual svg {
+  width: 100%;
+  max-width: 480px;
+  max-height: 280px;
+  font-family: inherit;
+}
+
+.visual .v-cuadrado {
+  max-width: 260px;
 }
 
 .opciones {
@@ -739,3 +748,2654 @@
   flex-wrap: wrap;
   gap: 12px;
 }
+
+.panel {
+  display: grid;
+  gap: 10px;
+  justify-items: start;
+  padding: 20px 24px;
+  border-radius: var(--radio);
+  border-left: 8px solid;
+}
+
+.panel:focus {
+  outline: none;
+}
+
+.panel h2 {
+  font-size: 1.3rem;
+}
+
+.panel--revisar {
+  background: var(--revisar-fondo);
+  border-color: var(--revisar);
+}
+
+.panel--revisar h2 {
+  color: var(--revisar);
+}
+
+.panel--logrado {
+  background: var(--logrado-fondo);
+  border-color: var(--logrado);
+}
+
+.panel--logrado h2 {
+  color: var(--logrado);
+}
+
+.panel__solucion {
+  font-size: 1.3rem;
+  font-weight: 700;
+}
+
+.panel__nota {
+  color: var(--tinta-suave);
+}
+
+.panel .boton {
+  margin-top: 6px;
+}
+
+.pistas {
+  display: grid;
+  gap: 10px;
+  justify-items: start;
+}
+
+.pista {
+  max-width: 40em;
+  padding: 12px 16px;
+  background: #fffbe0;
+  border: 2px solid #f0de8a;
+  border-radius: 4px;
+  box-shadow: 2px 3px 0 rgba(34, 48, 90, 0.1);
+}
+
+.pista__num {
+  font-weight: 700;
+  margin-right: 4px;
+}
+
+/* ---------- Dibujos (SVG) ---------- */
+.v-relleno {
+  fill: color-mix(in srgb, var(--eje) 16%, #fff);
+}
+
+.v-linea {
+  fill: #fff;
+  stroke: var(--tinta);
+  stroke-width: 2;
+}
+
+.v-incognita {
+  fill: #fff;
+  stroke: var(--eje);
+  stroke-width: 3;
+  stroke-dasharray: 8 6;
+}
+
+.v-pintado {
+  fill: var(--eje);
+  stroke: var(--tinta);
+  stroke-width: 2;
+}
+
+.v-punto {
+  fill: var(--eje);
+}
+
+.v-num {
+  font-size: 26px;
+  font-weight: 700;
+  fill: var(--tinta);
+  text-anchor: middle;
+}
+
+.v-grande {
+  font-size: 42px;
+}
+
+.v-acento {
+  fill: var(--eje);
+}
+
+.v-etq {
+  font-size: 18px;
+  fill: var(--tinta-suave);
+  text-anchor: middle;
+}
+
+.v-fuerte {
+  fill: var(--tinta);
+  font-weight: 700;
+}
+
+.v-chica {
+  font-size: 14px;
+}
+
+.v-trazo {
+  stroke: var(--tinta);
+  stroke-width: 3;
+  stroke-linecap: round;
+}
+
+.v-trazo-fino {
+  stroke: var(--tinta);
+  stroke-width: 2;
+}
+
+.v-salto {
+  fill: none;
+  stroke: var(--eje);
+  stroke-width: 3;
+}
+
+.v-oculta {
+  fill: none;
+  stroke: var(--tinta-suave);
+  stroke-width: 2;
+  stroke-dasharray: 6 5;
+}
+
+.v-guia {
+  stroke: var(--cuadricula);
+  stroke-width: 1.5;
+}
+
+.v-manecilla {
+  stroke: var(--tinta);
+  stroke-width: 4;
+  stroke-linecap: round;
+}
+
+.v-manecilla-hora {
+  stroke: var(--tinta);
+  stroke-width: 7;
+  stroke-linecap: round;
+}
+
+/* ---------- Resumen ---------- */
+.resumen h1 {
+  font-size: clamp(1.75rem, 5vw, 2.25rem);
+  line-height: 1.2;
+  margin-bottom: 28px;
+}
+
+.resumen__cuadritos {
+  display: grid;
+  gap: 10px;
+  justify-items: start;
+  margin-bottom: 20px;
+}
+
+.resumen__cuadritos .cuadrito {
+  width: 40px;
+  height: 40px;
+  border-width: 3px;
+  margin-left: -3px;
+}
+
+.resumen__cuadritos .cuadrito:first-child {
+  margin-left: 0;
+}
+
+.resumen__cuadritos p {
+  font-size: 1.25rem;
+}
+
+.resumen__mensaje {
+  max-width: 34em;
+  margin-bottom: 36px;
+}
+
+.repasar {
+  margin-bottom: 36px;
+}
+
+.repasar h2 {
+  font-size: 1.3rem;
+  margin-bottom: 12px;
+}
+
+.repasar ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 12px;
+}
+
+.repasar li {
+  display: grid;
+  gap: 6px;
+  padding: 16px 20px;
+  border: 2px solid var(--borde);
+  border-radius: var(--radio);
+  background: #fff;
+}
+
+.repasar__solucion {
+  font-weight: 700;
+}
+
+.resumen__acciones {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+
+/* Fracción vertical en el texto. */
+.frac-mixta {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.15em;
+  vertical-align: middle;
+}
+
+.frac {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  font-size: 0.85em;
+  line-height: 1.1;
+  margin: 0 0.1em;
+}
+
+.frac-num {
+  padding: 0 0.15em;
+  border-bottom: 2px solid currentColor;
+}
+
+.frac-den {
+  padding: 0 0.15em;
+}
+
+/* =========================================================
+   Alternativas
+   ========================================================= */
+.opciones {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 12px;
+}
+
+.opciones--una-columna {
+  grid-template-columns: 1fr;
+}
+
+/* =========================================================
+   Dibujos (SVG y HTML)
+   ========================================================= */
+.v-relleno {
+  fill: color-mix(in srgb, var(--eje) 16%, #fff);
+}
+
+.v-relleno-borde {
+  fill: color-mix(in srgb, var(--eje) 16%, #fff);
+  stroke: var(--tinta);
+  stroke-width: 2.5;
+  stroke-linejoin: round;
+}
+
+.v-sin-borde {
+  stroke: none;
+}
+
+.v-borde-solo {
+  fill: none;
+  stroke: var(--tinta);
+  stroke-width: 2.5;
+}
+
+.v-linea {
+  fill: var(--blanco);
+  stroke: var(--tinta);
+  stroke-width: 2.5;
+  stroke-linejoin: round;
+}
+
+.v-celda {
+  fill: var(--blanco);
+  stroke: var(--borde);
+  stroke-width: 2;
+}
+
+.v-celda-vacia {
+  fill: #f5f7fb;
+  stroke: var(--borde);
+  stroke-width: 1;
+}
+
+.v-borde {
+  stroke: var(--tinta);
+  stroke-width: 1.5;
+}
+
+.v-incognita {
+  fill: var(--blanco);
+  stroke: var(--eje);
+  stroke-width: 3;
+  stroke-dasharray: 8 6;
+}
+
+.v-diferencia {
+  fill: none;
+  stroke: var(--tinta-suave);
+  stroke-width: 2;
+  stroke-dasharray: 4 4;
+}
+
+.v-pintado {
+  fill: var(--eje);
+  stroke: var(--tinta);
+  stroke-width: 2.5;
+  stroke-linejoin: round;
+}
+
+.v-pintado-2 {
+  fill: color-mix(in srgb, var(--eje) 40%, #fff);
+  stroke: var(--tinta);
+  stroke-width: 2.5;
+}
+
+.v-pintado-suave {
+  fill: var(--eje);
+  stroke: var(--tinta);
+  stroke-width: 1.5;
+}
+
+.v-punto {
+  fill: var(--eje);
+}
+
+.v-num {
+  font-size: 26px;
+  font-weight: 700;
+  fill: var(--tinta);
+  text-anchor: middle;
+}
+
+.v-chico {
+  font-size: 20px;
+}
+
+.v-claro {
+  fill: var(--blanco);
+}
+
+.v-acento {
+  fill: var(--eje);
+}
+
+.v-etq {
+  font-size: 18px;
+  fill: var(--tinta-suave);
+  text-anchor: middle;
+}
+
+.v-fuerte {
+  fill: var(--tinta);
+  font-weight: 700;
+}
+
+.v-der {
+  text-anchor: end;
+}
+
+.v-izq {
+  text-anchor: start;
+}
+
+.v-chica {
+  font-size: 15px;
+}
+
+.v-acento-texto {
+  fill: var(--tinta);
+  font-weight: 700;
+}
+
+.v-trazo {
+  stroke: var(--tinta);
+  stroke-width: 3;
+  stroke-linecap: round;
+}
+
+.v-trazo-fino {
+  stroke: var(--tinta);
+  stroke-width: 2;
+}
+
+.v-salto {
+  fill: none;
+  stroke: var(--eje);
+  stroke-width: 3;
+}
+
+.v-oculta {
+  fill: none;
+  stroke: var(--tinta-suave);
+  stroke-width: 2;
+  stroke-dasharray: 6 5;
+}
+
+.v-guia {
+  stroke: var(--cuadricula);
+  stroke-width: 1.5;
+}
+
+.v-pivote {
+  fill: var(--tinta);
+}
+
+.v-hilo {
+  stroke: var(--tinta-suave);
+  stroke-width: 1.5;
+}
+
+.v-caja {
+  fill: var(--resaltador);
+  stroke: var(--tinta);
+  stroke-width: 2.5;
+}
+
+.v-pesa {
+  fill: var(--tinta-suave);
+  stroke: var(--tinta);
+  stroke-width: 2;
+}
+
+.v-bolita {
+  fill: #9aa7c4;
+  stroke: var(--tinta);
+  stroke-width: 1.5;
+}
+
+.v-platillo {
+  fill: color-mix(in srgb, var(--eje) 22%, #fff);
+  stroke: var(--tinta);
+  stroke-width: 2.5;
+}
+
+.v-tronco {
+  fill: #c98a4b;
+  stroke: #6b4120;
+  stroke-width: 2;
+}
+
+.v-tronco-centro {
+  fill: none;
+  stroke: #6b4120;
+  stroke-width: 1.5;
+}
+
+.v-camino line {
+  stroke: var(--eje);
+  stroke-width: 3;
+  stroke-dasharray: 6 5;
+}
+
+.v-esfera {
+  stroke-width: 3;
+}
+
+.v-manecilla {
+  stroke: var(--tinta);
+  stroke-width: 4;
+  stroke-linecap: round;
+}
+
+.v-manecilla-hora {
+  stroke: var(--tinta);
+  stroke-width: 7;
+  stroke-linecap: round;
+}
+
+.v-manecilla--resaltada {
+  stroke: var(--eje);
+}
+
+.v-reloj--chico {
+  width: 120px;
+  height: 120px;
+}
+
+.v-lado-resaltado {
+  stroke: var(--eje);
+  stroke-width: 7;
+  stroke-linecap: round;
+}
+
+.v-angulo-recto {
+  fill: none;
+  stroke: var(--tinta);
+  stroke-width: 2;
+}
+
+.v-eje-simetria {
+  stroke: var(--rojo-eje);
+  stroke-width: 3;
+  stroke-dasharray: 8 5;
+}
+
+.v-cubo-arriba {
+  fill: color-mix(in srgb, var(--eje) 40%, #fff);
+  stroke: var(--tinta);
+  stroke-width: 1.5;
+  stroke-linejoin: round;
+}
+
+.v-cubo-frente {
+  fill: var(--eje);
+  stroke: var(--tinta);
+  stroke-width: 1.5;
+  stroke-linejoin: round;
+}
+
+.v-cubo-lado {
+  fill: color-mix(in srgb, var(--eje) 70%, #000);
+  stroke: var(--tinta);
+  stroke-width: 1.5;
+  stroke-linejoin: round;
+}
+
+.v-barra-editable {
+  fill: color-mix(in srgb, var(--eje) 55%, #fff);
+  stroke: var(--tinta);
+  stroke-width: 2.5;
+  stroke-dasharray: 6 4;
+  transition: all 0.2s;
+}
+
+/* Tabla de valor posicional */
+.v-tabla-posicional {
+  border-collapse: collapse;
+  font-size: 1.3rem;
+}
+
+.v-tabla-posicional th,
+.v-tabla-posicional td {
+  width: 72px;
+  border: 2px solid var(--tinta);
+  text-align: center;
+}
+
+.v-tabla-posicional th {
+  padding: 6px;
+  background: color-mix(in srgb, var(--eje) 16%, #fff);
+}
+
+.v-tabla-posicional td {
+  height: 68px;
+  font-size: 2.2rem;
+  font-weight: 700;
+}
+
+.v-tabla-posicional .resaltada {
+  background: color-mix(in srgb, var(--eje) 35%, #fff);
+}
+
+/* Número con una cifra destacada */
+.v-numero-destacado {
+  font-size: 3.2rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+}
+
+.cifra--destacada {
+  color: var(--eje);
+  text-decoration: underline;
+  text-decoration-thickness: 5px;
+  text-underline-offset: 8px;
+}
+
+.cifra-espacio {
+  display: inline-block;
+  width: 0.35em;
+}
+
+/* Algoritmo en columnas */
+.v-columnas {
+  display: grid;
+  font-size: 2rem;
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+}
+
+.v-columnas-fila {
+  display: grid;
+  grid-template-columns: 1.2em repeat(var(--ancho), 1.5em);
+  align-items: center;
+}
+
+.v-columnas .col {
+  text-align: center;
+  line-height: 1.35;
+}
+
+.v-columnas .col--resaltada {
+  background: color-mix(in srgb, var(--eje) 18%, #fff);
+}
+
+.v-columnas-encabezado {
+  font-size: 0.85rem;
+  color: var(--tinta-suave);
+}
+
+.v-columnas-arriba {
+  font-size: 1.1rem;
+  color: var(--revisar);
+  min-height: 1.4em;
+}
+
+.v-columnas-ultima {
+  border-bottom: 3px solid var(--tinta);
+}
+
+.v-columnas-resultado {
+  color: var(--eje);
+  min-height: 1.4em;
+}
+
+.tachada {
+  text-decoration: line-through;
+  text-decoration-color: var(--revisar);
+  text-decoration-thickness: 3px;
+}
+
+/* Secuencias y patrones */
+.v-secuencia {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 10px 0;
+}
+
+.v-secuencia-item {
+  display: grid;
+  grid-template-columns: auto auto;
+  grid-template-areas: 'salto caja' '. etq';
+  align-items: center;
+  justify-items: center;
+}
+
+.v-secuencia-salto {
+  grid-area: salto;
+  padding: 0 8px;
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: var(--tinta-suave);
+}
+
+.v-secuencia-caja {
+  grid-area: caja;
+  min-width: 64px;
+  padding: 10px 12px;
+  border: 2px solid var(--tinta);
+  border-radius: 8px;
+  font-size: 1.4rem;
+  font-weight: 700;
+  text-align: center;
+  background: var(--blanco);
+}
+
+.v-secuencia-caja--vacia {
+  border: 3px dashed var(--eje);
+  color: var(--eje);
+}
+
+.v-secuencia-etq {
+  grid-area: etq;
+  font-size: 0.9rem;
+  color: var(--tinta-suave);
+}
+
+.v-etapas {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: flex-end;
+  gap: 14px 18px;
+}
+
+.v-etapa {
+  display: grid;
+  justify-items: center;
+  gap: 6px;
+}
+
+.v-etapa svg {
+  width: 120px;
+  max-height: 140px;
+}
+
+.v-etapa-etq {
+  font-weight: 700;
+  font-size: 0.95rem;
+}
+
+/* Precios */
+.v-precios {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 12px;
+}
+
+.v-precio {
+  display: grid;
+  justify-items: center;
+  gap: 4px;
+  width: 126px;
+  padding: 10px 8px;
+  border: 2px solid var(--borde);
+  border-radius: 10px;
+  text-align: center;
+}
+
+.v-producto-icono {
+  width: 48px;
+  height: 48px;
+}
+
+.v-precio-nombre {
+  font-size: 0.95rem;
+  line-height: 1.2;
+}
+
+.v-precio-valor {
+  padding: 2px 10px;
+  border-radius: 6px;
+  background: var(--resaltador);
+  font-weight: 700;
+  font-size: 1.15rem;
+}
+
+.v-prod-a {
+  fill: #5b8def;
+  stroke: var(--tinta);
+  stroke-width: 2;
+}
+.v-prod-b {
+  fill: #f2b705;
+  stroke: var(--tinta);
+  stroke-width: 2;
+}
+.v-prod-c {
+  fill: #f28b9a;
+  stroke: var(--tinta);
+  stroke-width: 2;
+}
+.v-prod-d {
+  fill: #3fb28f;
+  stroke: var(--tinta);
+  stroke-width: 2;
+}
+.v-prod-linea {
+  stroke: var(--tinta);
+  stroke-width: 2;
+  fill: none;
+}
+.v-prod-linea-relleno {
+  fill: var(--tinta);
+}
+.v-prod-rojo {
+  fill: #e2483d;
+  stroke: var(--tinta);
+  stroke-width: 2;
+}
+.v-prod-verde {
+  fill: #4f9a3a;
+  stroke: var(--tinta);
+  stroke-width: 2;
+}
+.v-prod-cafe {
+  fill: #8a5a2b;
+}
+.v-prod-naranjo {
+  fill: #f08a24;
+  stroke: var(--tinta);
+  stroke-width: 2;
+}
+.v-prod-linea-verde {
+  stroke: #4f9a3a;
+  stroke-width: 3;
+  stroke-linecap: round;
+}
+
+/* Tablas */
+.v-tabla {
+  border-collapse: collapse;
+  font-size: 1.1rem;
+  min-width: min(100%, 320px);
+}
+
+.v-tabla caption {
+  font-weight: 700;
+  padding-bottom: 8px;
+}
+
+.v-tabla th,
+.v-tabla td {
+  padding: 8px 14px;
+  border: 2px solid var(--tinta);
+  text-align: center;
+}
+
+.v-tabla th {
+  background: color-mix(in srgb, var(--eje) 16%, #fff);
+}
+
+/* Varios dibujos juntos */
+.v-grupo {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  gap: 16px;
+  width: 100%;
+}
+
+.v-grupo > svg {
+  width: 100%;
+  max-width: 360px;
+}
+
+/* Geometría */
+.v-sala {
+  display: grid;
+  gap: 10px;
+  justify-items: center;
+}
+
+.v-sala-pizarra {
+  width: 80%;
+  padding: 6px;
+  border-radius: 6px;
+  background: #2f5a46;
+  color: var(--blanco);
+  text-align: center;
+  font-weight: 700;
+}
+
+.v-sala-fila {
+  display: flex;
+  gap: 12px;
+}
+
+.v-sala-puesto {
+  display: grid;
+  place-items: center;
+  width: 96px;
+  height: 56px;
+  border: 2px solid var(--tinta);
+  border-radius: 8px;
+  background: color-mix(in srgb, var(--eje) 16%, #fff);
+  font-weight: 700;
+}
+
+.v-sala-nota {
+  font-size: 0.95rem;
+  color: var(--tinta-suave);
+}
+
+.v-cuerpo {
+  width: 100%;
+  max-width: 220px;
+}
+
+.v-cuerpo--chico {
+  max-width: 120px;
+}
+
+.v-figuras {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 16px;
+}
+
+.v-figuras li {
+  display: grid;
+  justify-items: center;
+  gap: 4px;
+}
+
+.v-figura {
+  width: 130px;
+  height: auto;
+}
+
+.v-figuras-etq {
+  font-weight: 700;
+}
+
+.v-red {
+  width: 100%;
+  max-width: 180px;
+}
+
+.v-poligono {
+  width: 100%;
+  max-width: 360px;
+}
+
+/* Medición */
+.v-longitudes {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 12px;
+  width: 100%;
+}
+
+.v-longitudes li {
+  display: grid;
+  gap: 4px;
+}
+
+.v-longitud-etq {
+  font-weight: 700;
+}
+
+.v-longitud-barra {
+  display: flex;
+  align-items: center;
+  width: var(--largo);
+  min-height: 36px;
+  padding: 0 10px;
+  border: 2px solid var(--tinta);
+  border-radius: 4px;
+  background: repeating-linear-gradient(90deg, color-mix(in srgb, var(--eje) 25%, #fff) 0 9px, var(--tinta) 9px 10px);
+  font-weight: 700;
+}
+
+.v-longitud-barra span {
+  padding: 0 6px;
+  background: var(--blanco);
+  border-radius: 4px;
+}
+
+.v-cubos-contenedor {
+  display: grid;
+  justify-items: center;
+  gap: 12px;
+  width: 100%;
+}
+
+.v-cubos {
+  width: 100%;
+  max-width: 300px;
+  max-height: 240px;
+}
+
+.v-pisos {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 16px;
+}
+
+.v-pisos li {
+  display: grid;
+  justify-items: center;
+  gap: 4px;
+}
+
+.v-pisos svg {
+  width: 90px;
+}
+
+/* Datos */
+.v-pictograma {
+  display: grid;
+  gap: 8px;
+}
+
+.v-pictograma-titulo {
+  font-weight: 700;
+  text-align: center;
+}
+
+.v-pictograma table {
+  border-collapse: collapse;
+}
+
+.v-pictograma th,
+.v-pictograma td {
+  padding: 6px 10px;
+  border: 2px solid var(--tinta);
+}
+
+.v-pictograma th {
+  text-align: left;
+  background: color-mix(in srgb, var(--eje) 16%, #fff);
+}
+
+.v-pictograma td {
+  min-width: 200px;
+}
+
+.v-picto {
+  width: 28px;
+  height: 28px;
+  vertical-align: middle;
+}
+
+.v-picto-relleno {
+  fill: var(--eje);
+  stroke: var(--tinta);
+  stroke-width: 1.5;
+}
+
+.v-picto-cono {
+  fill: #e0b26a;
+  stroke: var(--tinta);
+  stroke-width: 1.5;
+}
+
+.v-picto-detalle {
+  fill: var(--tinta);
+}
+
+.v-picto-trazo {
+  fill: none;
+  stroke: var(--tinta);
+  stroke-width: 2;
+  stroke-linecap: round;
+}
+
+.v-pictograma-clave {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-weight: 700;
+}
+
+.v-bolsas {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 16px;
+}
+
+.v-bolsas li {
+  display: grid;
+  justify-items: center;
+  gap: 2px;
+  width: 140px;
+  text-align: center;
+}
+
+.v-bolsas--una li {
+  width: 260px;
+}
+
+.v-bolsa-dibujo {
+  width: 100%;
+}
+
+.v-bolsa-tela {
+  fill: #efe3cf;
+  stroke: var(--tinta);
+  stroke-width: 2;
+}
+
+.v-bolsa-etq {
+  font-weight: 700;
+}
+
+.v-bolsa-detalle {
+  font-size: 0.9rem;
+  color: var(--tinta-suave);
+  line-height: 1.3;
+}
+
+.v-bolita-roja {
+  fill: #e2483d;
+  stroke: var(--tinta);
+  stroke-width: 1.5;
+}
+.v-bolita-azul {
+  fill: #2f6be0;
+  stroke: var(--tinta);
+  stroke-width: 1.5;
+}
+.v-bolita-amarilla {
+  fill: #f6c21c;
+  stroke: var(--tinta);
+  stroke-width: 1.5;
+}
+.v-bolita-verde {
+  fill: #2f9e5b;
+  stroke: var(--tinta);
+  stroke-width: 1.5;
+}
+
+/* =========================================================
+   Marcas del enunciado (Datos y preguntas destacadas)
+   ========================================================= */
+.marca-dato {
+  transition: background-color 0.2s, box-shadow 0.2s;
+}
+
+.marca-dato--activa {
+  box-shadow: inset 0 -0.18em 0 var(--eje);
+}
+
+.marca-pregunta--activa {
+  background: var(--resaltador, #fff0a6);
+  box-decoration-break: clone;
+  -webkit-box-decoration-break: clone;
+  padding: 0 0.1em;
+  border-radius: 3px;
+}
+
+/* =========================================================
+   Ejercicios interactivos (Pie y botones)
+   ========================================================= */
+.interactivo-pie {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px 20px;
+  margin-top: 16px;
+}
+
+.boton-comprobar {
+  min-width: 160px;
+}
+
+/* =========================================================
+   Arrastrar valor posicional (Drag and Drop)
+   ========================================================= */
+.arrastrar-posicional {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 18px;
+  padding: 24px;
+  border: 2px solid var(--borde);
+  border-radius: var(--radio);
+  background: var(--blanco);
+  width: 100%;
+  max-width: 720px;
+  margin: 0 auto;
+}
+
+.arrastrar-tabla-wrapper {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+}
+
+.arrastrar-tabla {
+  border-collapse: collapse;
+}
+
+.arrastrar-tabla th {
+  width: 90px;
+}
+
+.arrastrar-celda {
+  width: 90px;
+  height: 90px;
+  border: 2px solid var(--tinta);
+  text-align: center;
+  vertical-align: middle;
+  background: #ffffff;
+  transition: background-color 0.15s ease, border-color 0.15s ease;
+  cursor: pointer;
+  user-select: none;
+}
+
+.arrastrar-celda--over {
+  background: color-mix(in srgb, var(--eje) 20%, #fff);
+  border-color: var(--eje);
+  border-style: dashed;
+}
+
+.arrastrar-celda--ocupada {
+  background: #ffffff;
+}
+
+.arrastrar-celda-placeholder {
+  color: #c0c6d4;
+  font-size: 2rem;
+  line-height: 1;
+}
+
+.arrastrar-numero-puesto {
+  font-size: 2.6rem;
+  font-weight: 700;
+  color: var(--tinta);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+  cursor: grab;
+}
+
+.arrastrar-numero-puesto:active {
+  cursor: grabbing;
+}
+
+.arrastrar-instruccion {
+  font-size: 1.05rem;
+  color: var(--tinta-suave);
+  margin: 0;
+  text-align: center;
+}
+
+/* Caja de números dispersos (caja abierta arriba con borde oscuro) */
+.arrastrar-caja-numeros {
+  width: 100%;
+  max-width: 520px;
+  height: 240px;
+  border-left: 3px solid #111;
+  border-right: 3px solid #111;
+  border-bottom: 3px solid #111;
+  position: relative;
+  background: rgba(255, 255, 255, 0.4);
+  border-radius: 0 0 6px 6px;
+  margin-top: 6px;
+}
+
+.arrastrar-numeros-dispersos {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+
+/* Fichas con números flotantes */
+.arrastrar-ficha {
+  position: absolute;
+  font-size: 2.2rem;
+  font-weight: 700;
+  color: #1a1a1a;
+  cursor: grab;
+  user-select: none;
+  touch-action: none;
+  padding: 6px 14px;
+  border-radius: 8px;
+  transition: transform 0.15s ease, opacity 0.2s ease, box-shadow 0.15s ease;
+}
+
+.arrastrar-ficha:hover {
+  transform: scale(1.15);
+  color: var(--eje, #1f5cc0);
+}
+
+.arrastrar-ficha:active {
+  cursor: grabbing;
+}
+
+.arrastrar-ficha--seleccionada {
+  background: color-mix(in srgb, var(--eje) 15%, #fff);
+  border: 2px dashed var(--eje);
+  transform: scale(1.1);
+}
+
+.arrastrar-ficha--oculta {
+  opacity: 0;
+  pointer-events: none;
+}
+
+/* Posiciones orgánicas semejantes al diseño: 
+   7 arriba a la derecha, 5 centro izquierda, 6 medio bajo izquierda, 
+   2 centro derecha, 9 abajo centro-izq, 8 abajo der */
+.arrastrar-pos-0 { top: 12%; left: 52%; } /* 7 */
+.arrastrar-pos-1 { top: 26%; left: 24%; } /* 5 */
+.arrastrar-pos-2 { top: 52%; left: 20%; } /* 6 */
+.arrastrar-pos-3 { top: 48%; left: 48%; } /* 2 */
+.arrastrar-pos-4 { top: 72%; left: 32%; } /* 9 */
+.arrastrar-pos-5 { top: 68%; left: 55%; } /* 8 */
+
+.arrastrar-posicional .interactivo-pie {
+  width: 100%;
+  max-width: 520px;
+}
+
+/* =========================================================
+   Resta interactiva con Frascos de Canicas (Formato Simce)
+   ========================================================= */
+.simce-canicas-interactivo {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+  padding: 24px;
+  border: 2px solid var(--borde);
+  border-radius: var(--radio);
+  background: #ffffff;
+  width: 100%;
+  max-width: 820px;
+  margin: 0 auto;
+}
+
+.simce-guia-instruccion {
+  font-size: 1.05rem;
+  color: var(--tinta-suave);
+  text-align: center;
+  max-width: 620px;
+  margin: 0;
+  font-weight: 500;
+}
+
+/* Distribución horizontal: Frascos a la izquierda, Tabla a la derecha */
+.simce-pantalla-flex {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 56px;
+  width: 100%;
+  flex-wrap: wrap;
+  padding: 10px 0;
+}
+
+/* Panel izquierdo: Frascos con número debajo */
+.simce-frascos-grupo {
+  display: flex;
+  gap: 36px;
+  align-items: flex-end;
+  justify-content: center;
+}
+
+.simce-frasco-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  cursor: grab;
+  user-select: none;
+  padding: 12px 14px;
+  border-radius: 16px;
+  border: 2px dashed transparent;
+  transition: transform 0.2s ease, background-color 0.2s ease, border-color 0.2s ease;
+}
+
+.simce-frasco-item:hover {
+  transform: translateY(-5px);
+  background: color-mix(in srgb, var(--eje) 8%, #fff);
+  border-color: var(--eje);
+}
+
+.simce-frasco-item:active {
+  cursor: grabbing;
+  transform: scale(0.96);
+}
+
+.simce-frasco-item--colocado {
+  opacity: 0.45;
+  filter: grayscale(30%);
+}
+
+.simce-frasco-item--seleccionado {
+  border-color: var(--eje) !important;
+  background: color-mix(in srgb, var(--eje) 14%, #fff) !important;
+  transform: scale(1.06);
+}
+
+.simce-frasco-img-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 120px;
+}
+
+.simce-frasco-img {
+  height: 125px;
+  width: auto;
+  object-fit: contain;
+  filter: drop-shadow(0 6px 8px rgba(0, 0, 0, 0.12));
+  transition: transform 0.2s ease;
+}
+
+.simce-frasco-img--158 {
+  height: 96px;
+}
+
+.simce-check-badge {
+  position: absolute;
+  top: -4px;
+  right: -6px;
+  background: #2e7d32;
+  color: #fff;
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  font-size: 0.85rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.simce-frasco-label {
+  font-size: 1.8rem;
+  font-weight: 800;
+  color: var(--tinta);
+  letter-spacing: 0.02em;
+}
+
+/* Panel derecho: Tabla de cálculo */
+.simce-tabla-columna {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  user-select: none;
+}
+
+/* Fila de reservas / canjes */
+.simce-fila-reservas {
+  display: flex;
+  height: 30px;
+  width: 100%;
+  align-items: flex-end;
+}
+
+.simce-spacer-signo {
+  width: 48px;
+  display: inline-block;
+}
+
+.simce-reserva-slot {
+  width: 66px;
+  text-align: center;
+  display: flex;
+  justify-content: center;
+}
+
+.simce-num-reserva {
+  font-size: 1.25rem;
+  font-weight: 800;
+  color: #d32f2f;
+  background: #ffebee;
+  border-radius: 6px;
+  padding: 1px 6px;
+  line-height: 1.1;
+  border: 1px solid #ffcdd2;
+  animation: canjePop 0.2s ease-out;
+}
+
+/* Cabecera C D U */
+.simce-header-cdu {
+  display: flex;
+  width: 100%;
+  align-items: center;
+}
+
+.simce-th-letra {
+  width: 66px;
+  text-align: center;
+  font-size: 1.6rem;
+  font-weight: 800;
+  color: #2f6be0;
+}
+
+.simce-linea-azul {
+  width: 100%;
+  height: 2.5px;
+  background: #9ec1f9;
+  margin-top: 2px;
+  margin-bottom: 10px;
+  border-radius: 2px;
+}
+
+/* Filas de datos */
+.simce-fila-datos {
+  display: flex;
+  align-items: center;
+  margin: 3px 0;
+  border-radius: 8px;
+  transition: background-color 0.15s ease;
+}
+
+.simce-fila-datos--dragover {
+  background: rgba(47, 107, 224, 0.1);
+}
+
+.simce-fila-datos--vacia {
+  cursor: pointer;
+}
+
+.simce-casilla-cuadro {
+  width: 64px;
+  height: 64px;
+  border: 2px dashed #b8cde8;
+  border-radius: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 1px;
+  background: #ffffff;
+  transition: all 0.15s ease;
+}
+
+.simce-casilla-cuadro--ocupada {
+  border-style: solid;
+  border-color: #cbd8e8;
+  background: #ffffff;
+}
+
+.simce-placeholder-letra {
+  font-size: 1.45rem;
+  font-weight: 700;
+  color: #b8cde8;
+}
+
+.simce-digito-puesto {
+  font-size: 2.3rem;
+  font-weight: 800;
+  color: #1a2744;
+  position: relative;
+  display: inline-block;
+}
+
+.simce-digito--tachado {
+  color: #8c97a8;
+}
+
+.simce-digito--tachado::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: -15%;
+  right: -15%;
+  height: 3px;
+  background: #d32f2f;
+  transform: rotate(-30deg);
+  border-radius: 2px;
+}
+
+/* Botón interactivo de cambio de signo (+ o −) */
+.simce-btn-signo {
+  width: 48px;
+  height: 48px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 2.4rem;
+  font-weight: 800;
+  border: 2px dashed #b8cde8;
+  border-radius: 8px;
+  background: #f8fbff;
+  cursor: pointer;
+  color: #1a2744;
+  transition: all 0.15s ease;
+  padding: 0;
+  margin-right: 2px;
+}
+
+.simce-btn-signo:hover {
+  background: color-mix(in srgb, var(--eje) 15%, #fff);
+  border-color: var(--eje);
+  transform: scale(1.1);
+}
+
+.simce-btn-signo:active {
+  transform: scale(0.95);
+}
+
+.simce-btn-signo--menos {
+  border-style: solid;
+  border-color: var(--tinta);
+  background: #ffffff;
+  color: #1a2744;
+}
+
+.simce-btn-signo--mas {
+  border-color: #ff9800;
+  color: #e65100;
+  background: #fff8e1;
+}
+
+/* Línea divisoria gruesa de la operación */
+.simce-linea-operacion {
+  width: 100%;
+  height: 4px;
+  background: #1a2744;
+  border-radius: 2px;
+  margin: 8px 0 12px 0;
+}
+
+/* Fila de resultado */
+.simce-fila-resultado {
+  display: flex;
+  align-items: center;
+  width: 100%;
+}
+
+.simce-casilla-resultado {
+  width: 64px;
+  height: 64px;
+  border: 2.5px dashed #8b9db5;
+  border-radius: 16px;
+  background: #ffffff;
+  text-align: center;
+  font-family: inherit;
+  font-size: 2.4rem;
+  font-weight: 800;
+  color: #1a2744;
+  margin: 0 1px;
+  cursor: text;
+  transition: all 0.15s ease;
+  padding: 0;
+  outline: none;
+  caret-color: #2f6be0;
+  box-sizing: border-box;
+}
+
+.simce-casilla-resultado::placeholder {
+  color: #cbd5e1;
+  font-size: 2.2rem;
+  font-weight: 700;
+  line-height: 1;
+}
+
+.simce-casilla-resultado:hover:not(:disabled) {
+  border-color: #2f6be0;
+  background: #f8fbff;
+  transform: scale(1.04);
+}
+
+.simce-casilla-resultado:focus,
+.simce-casilla-resultado--activa {
+  border-color: #2f6be0 !important;
+  border-style: solid !important;
+  background: #edf4ff !important;
+  box-shadow: 0 0 0 4px rgba(47, 107, 224, 0.25) !important;
+  transform: scale(1.06);
+}
+
+.simce-casilla-resultado--bloqueada {
+  opacity: 0.45;
+  cursor: not-allowed;
+  border-style: dashed;
+}
+
+/* Botones de apoyo para el canje */
+.simce-canje-ayudas {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  justify-content: center;
+  width: 100%;
+  max-width: 540px;
+  margin-top: 4px;
+}
+
+.boton-canje-tag {
+  padding: 8px 16px;
+  font-size: 0.95rem;
+  font-weight: 600;
+  border-radius: 8px;
+  border: 1.5px solid var(--borde);
+  background: #ffffff;
+  color: var(--tinta);
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.boton-canje-tag:hover {
+  background: #f0f4ff;
+  border-color: var(--eje);
+  color: var(--eje);
+}
+
+.boton-canje-tag--activo {
+  background: #e8f5e9;
+  border-color: #2e7d32;
+  color: #1b5e20;
+}
+
+/* Teclado táctil en pantalla */
+.simce-teclado-tactil {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  width: 100%;
+  max-width: 360px;
+  padding: 12px;
+  background: color-mix(in srgb, var(--eje) 6%, #fff);
+  border: 1.5px solid var(--borde);
+  border-radius: var(--radio);
+}
+
+.simce-teclado-fila {
+  display: flex;
+  gap: 8px;
+  justify-content: center;
+}
+
+.simce-tecla {
+  flex: 1;
+  min-height: 50px;
+  font-size: 1.6rem;
+  font-weight: 700;
+  color: var(--tinta);
+  background: #ffffff;
+  border: 1.5px solid var(--borde);
+  border-radius: 10px;
+  cursor: pointer;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+  transition: transform 0.1s ease, background-color 0.1s ease;
+  touch-action: manipulation;
+}
+
+.simce-tecla:hover {
+  background: color-mix(in srgb, var(--eje) 15%, #fff);
+  border-color: var(--eje);
+}
+
+.simce-tecla:active {
+  transform: scale(0.94);
+  background: color-mix(in srgb, var(--eje) 25%, #fff);
+}
+
+.simce-tecla--borrar {
+  font-size: 1.3rem;
+  background: #fff3e0;
+  border-color: #ffb74d;
+  color: #e65100;
+}
+
+.simce-tecla--borrar:hover {
+  background: #ffe0b2;
+}
+
+.simce-canicas-interactivo .interactivo-pie {
+  width: 100%;
+  max-width: 520px;
+}
+
+/* ==========================================================================
+   EJERCICIO INTERACTIVO: CAJAS Y LÁPICES (MULTIPLICACIÓN)
+   ========================================================================== */
+
+.cajas-lapices-interactivo {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+  width: 100%;
+  max-width: 760px;
+  margin: 0 auto;
+  user-select: none;
+  -webkit-user-select: none;
+}
+
+/* Panel de suministro / origen del manojo */
+.cajas-lapices-suministro-panel {
+  width: 100%;
+  background: color-mix(in srgb, var(--eje) 6%, #ffffff);
+  border: 2px dashed color-mix(in srgb, var(--eje) 35%, #0000);
+  border-radius: var(--radio);
+  padding: 14px 18px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+}
+
+.cajas-lapices-suministro-header {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 12px;
+}
+
+.suministro-badge {
+  font-weight: 800;
+  font-size: 0.95rem;
+  color: var(--eje);
+  background: #ffffff;
+  padding: 4px 10px;
+  border-radius: 20px;
+  border: 1px solid color-mix(in srgb, var(--eje) 30%, #fff);
+}
+
+.suministro-guia {
+  font-size: 0.92rem;
+  color: var(--tinta-suave);
+}
+
+.cajas-lapices-suministro-cuerpo {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+.manojo-draggable {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 8px 16px 8px 10px;
+  background: #ffffff;
+  border: 2px solid var(--borde);
+  border-radius: 14px;
+  cursor: grab;
+  transition: transform 0.15s ease, box-shadow 0.15s ease, border-color 0.15s ease;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
+  touch-action: manipulation;
+}
+
+.manojo-draggable:hover {
+  transform: translateY(-2px);
+  border-color: var(--eje);
+  box-shadow: 0 6px 16px rgba(47, 107, 224, 0.15);
+}
+
+.manojo-draggable:active {
+  cursor: grabbing;
+}
+
+.manojo-draggable--arrastrando {
+  opacity: 0.5;
+  transform: scale(0.95);
+}
+
+.manojo-draggable--seleccionado {
+  border-color: var(--eje);
+  background: color-mix(in srgb, var(--eje) 12%, #fff);
+  box-shadow: 0 0 0 4px color-mix(in srgb, var(--eje) 25%, transparent);
+  animation: pulsoSeleccion 1.5s infinite alternate;
+}
+
+.manojo-img-container {
+  width: 74px;
+  height: 64px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.manojo-img {
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
+  pointer-events: none;
+}
+
+.manojo-etiqueta {
+  display: flex;
+  flex-direction: column;
+}
+
+.manojo-etiqueta strong {
+  font-size: 1.05rem;
+  color: var(--tinta);
+}
+
+.manojo-etiqueta span {
+  font-size: 0.82rem;
+  color: var(--tinta-suave);
+}
+
+.cajas-lapices-acciones-rapidas {
+  display: flex;
+  gap: 8px;
+}
+
+.cajas-btn-secundario {
+  background: #ffffff;
+  border: 1.5px solid var(--borde);
+  color: var(--tinta);
+  font-size: 0.88rem;
+  font-weight: 600;
+  padding: 8px 12px;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.12s, border-color 0.12s;
+}
+
+.cajas-btn-secundario:hover:not(:disabled) {
+  background: color-mix(in srgb, var(--eje) 10%, #fff);
+  border-color: var(--eje);
+}
+
+.cajas-btn-secundario:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+/* Cuadrícula de Cajas */
+.cajas-grid-contenedor {
+  width: 100%;
+  background: #ffffff;
+  border: 1.5px solid var(--borde);
+  border-radius: var(--radio);
+  padding: 18px;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.04);
+}
+
+.cajas-grid-titulo {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 16px;
+  font-weight: 700;
+  color: var(--tinta);
+  font-size: 1.05rem;
+}
+
+.cajas-grid-subtitulo {
+  font-size: 0.88rem;
+  font-weight: 500;
+  color: var(--eje);
+}
+
+.cajas-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+}
+
+@media (max-width: 640px) {
+  .cajas-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 12px;
+  }
+}
+
+.caja-slot {
+  position: relative;
+  min-height: 140px;
+  background: #fafbfc;
+  border: 2px dashed #cbd5e1;
+  border-radius: 12px;
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  cursor: pointer;
+  transition: all 0.18s ease;
+  touch-action: manipulation;
+}
+
+.caja-slot:hover {
+  border-color: var(--eje);
+  background: #f0f7ff;
+}
+
+.caja-slot-numero {
+  position: absolute;
+  top: 8px;
+  left: 10px;
+  font-size: 0.78rem;
+  font-weight: 800;
+  color: var(--tinta-suave);
+  background: rgba(255, 255, 255, 0.9);
+  padding: 2px 8px;
+  border-radius: 10px;
+  border: 1px solid #e2e8f0;
+  z-index: 2;
+}
+
+.caja-slot--esperando {
+  border-color: var(--eje);
+  border-style: solid;
+  background: color-mix(in srgb, var(--eje) 8%, #fff);
+  animation: pulsoSeleccion 1.5s infinite alternate;
+}
+
+.caja-slot--dragover {
+  border-color: #10b981;
+  border-style: solid;
+  background: #ecfdf5;
+  transform: scale(1.02);
+}
+
+.caja-slot--llena {
+  border-style: solid;
+  border-color: #94a3b8;
+  background: #ffffff;
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.05);
+}
+
+.caja-slot-contenido {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 14px;
+}
+
+.caja-llena-vista {
+  position: relative;
+  width: 100%;
+  height: 100px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.caja-manojo-img {
+  max-width: 100%;
+  max-height: 95px;
+  object-fit: contain;
+  filter: drop-shadow(0 4px 6px rgba(0, 0, 0, 0.08));
+  transition: transform 0.15s ease;
+}
+
+.caja-llena-vista:hover .caja-manojo-img {
+  transform: scale(1.04);
+}
+
+.caja-quitar-btn {
+  position: absolute;
+  top: -12px;
+  right: -4px;
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  background: #ef4444;
+  color: #ffffff;
+  border: 2px solid #ffffff;
+  font-size: 0.72rem;
+  font-weight: 800;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+  transition: transform 0.1s;
+}
+
+.caja-quitar-btn:hover {
+  transform: scale(1.15);
+  background: #dc2626;
+}
+
+.caja-vacia-vista {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  opacity: 0.75;
+}
+
+.caja-vacia-img {
+  max-width: 90px;
+  max-height: 65px;
+  object-fit: contain;
+}
+
+.caja-vacia-texto {
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: #94a3b8;
+}
+
+/* Panel de cálculo y respuesta */
+.cajas-calculo-panel {
+  width: 100%;
+  background: #ffffff;
+  border: 1.5px solid var(--borde);
+  border-radius: var(--radio);
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 18px;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.04);
+}
+
+.cajas-calculo-formula {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 12px;
+  font-size: 1.35rem;
+  color: var(--tinta);
+}
+
+.formula-factor {
+  background: #f1f5f9;
+  padding: 6px 14px;
+  border-radius: 10px;
+  font-size: 1.15rem;
+}
+
+.formula-factor strong {
+  font-size: 1.4rem;
+  color: var(--eje);
+}
+
+.formula-signo {
+  font-size: 1.8rem;
+  font-weight: 800;
+  color: var(--tinta-suave);
+}
+
+.formula-input-wrapper {
+  display: inline-flex;
+}
+
+.cajas-input-resultado {
+  width: 90px;
+  height: 60px;
+  border: 2.5px dashed var(--eje);
+  border-radius: 12px;
+  background: #f8faff;
+  font-size: 2rem;
+  font-weight: 800;
+  text-align: center;
+  color: var(--eje);
+  outline: none;
+  transition: all 0.15s ease;
+  box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.04);
+}
+
+.cajas-input-resultado:focus {
+  border-style: solid;
+  border-color: var(--eje);
+  background: #ffffff;
+  box-shadow: 0 0 0 4px color-mix(in srgb, var(--eje) 25%, transparent);
+}
+
+.cajas-input-resultado--con-valor {
+  border-style: solid;
+  background: #ffffff;
+}
+
+.cajas-input-resultado:disabled {
+  background: #f1f5f9;
+  border-color: #10b981;
+  color: #047857;
+  cursor: default;
+}
+
+.formula-unidad {
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: var(--tinta);
+}
+
+/* Teclado numérico táctil */
+.cajas-teclado-tactil {
+  width: 100%;
+  max-width: 440px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: 10px;
+  background: #f8fafc;
+  border: 1.5px solid #e2e8f0;
+  border-radius: 12px;
+}
+
+.cajas-teclado-fila {
+  display: flex;
+  gap: 8px;
+  justify-content: center;
+}
+
+.teclado-btn {
+  flex: 1;
+  min-height: 48px;
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--tinta);
+  background: #ffffff;
+  border: 1.5px solid var(--borde);
+  border-radius: 10px;
+  cursor: pointer;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+  transition: transform 0.1s ease, background-color 0.1s ease;
+  touch-action: manipulation;
+}
+
+.teclado-btn:hover {
+  background: color-mix(in srgb, var(--eje) 15%, #fff);
+  border-color: var(--eje);
+}
+
+.teclado-btn:active {
+  transform: scale(0.94);
+  background: color-mix(in srgb, var(--eje) 25%, #fff);
+}
+
+.teclado-btn--borrar {
+  font-size: 1.3rem;
+  background: #fff3e0;
+  border-color: #ffb74d;
+  color: #e65100;
+}
+
+.teclado-btn--borrar:hover {
+  background: #ffe0b2;
+}
+
+.cajas-lapices-interactivo .interactivo-pie {
+  width: 100%;
+  max-width: 440px;
+}
+
+/* ==========================================================================
+   EJERCICIO INTERACTIVO: CORTAR PIZZA (FRACCIONES)
+   ========================================================================== */
+
+.cortar-pizza-interactivo {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+  width: 100%;
+  max-width: 800px;
+  margin: 0 auto;
+  user-select: none;
+  -webkit-user-select: none;
+}
+
+/* Barra de guía y progreso */
+.cortar-pizza-guia {
+  width: 100%;
+}
+
+.guia-paso {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 18px;
+  border-radius: var(--radio);
+  font-size: 0.96rem;
+  line-height: 1.4;
+  border: 1.5px solid transparent;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.03);
+}
+
+.guia-icono {
+  font-size: 1.5rem;
+  flex-shrink: 0;
+}
+
+.guia-paso--cortar {
+  background: color-mix(in srgb, var(--eje) 8%, #ffffff);
+  border-color: color-mix(in srgb, var(--eje) 35%, #fff);
+  color: var(--tinta);
+}
+
+.guia-paso--comer {
+  background: #fffbeb;
+  border-color: #fcd34d;
+  color: #92400e;
+}
+
+.guia-paso--listo {
+  background: #ecfdf5;
+  border-color: #6ee7b7;
+  color: #065f46;
+}
+
+.guia-paso--exceso {
+  background: #fef2f2;
+  border-color: #fca5a5;
+  color: #991b1b;
+}
+
+/* Escenario principal con cuchillo, mesa de pizza y fracción */
+.cortar-pizza-escenario {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  gap: 24px;
+  width: 100%;
+}
+
+/* Herramientas (Cuchillo) */
+.cortar-pizza-herramientas {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  min-width: 160px;
+}
+
+.herramienta-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  padding: 16px;
+  background: #ffffff;
+  border: 1.5px solid var(--borde);
+  border-radius: var(--radio);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.04);
+  width: 100%;
+}
+
+.herramienta-titulo {
+  font-size: 0.88rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  color: var(--tinta-suave);
+  letter-spacing: 0.5px;
+}
+
+.cuchillo-item {
+  width: 110px;
+  height: 90px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #ffffff;
+  border: 2px dashed #cbd5e1;
+  border-radius: 14px;
+  cursor: grab;
+  transition: transform 0.18s ease, border-color 0.18s ease, box-shadow 0.18s ease;
+  touch-action: manipulation;
+}
+
+.cuchillo-item:hover:not(.cuchillo-item--deshabilitado) {
+  border-color: var(--eje);
+  transform: rotate(-8deg) scale(1.04);
+  box-shadow: 0 6px 16px rgba(47, 107, 224, 0.15);
+}
+
+.cuchillo-item:active:not(.cuchillo-item--deshabilitado) {
+  cursor: grabbing;
+}
+
+.cuchillo-item--seleccionado {
+  border-color: var(--eje);
+  border-style: solid;
+  background: color-mix(in srgb, var(--eje) 10%, #fff);
+  box-shadow: 0 0 0 4px color-mix(in srgb, var(--eje) 25%, transparent);
+  animation: pulsoSeleccion 1.5s infinite alternate;
+}
+
+.cuchillo-item--arrastrando {
+  opacity: 0.4;
+  transform: scale(0.9);
+}
+
+.cuchillo-item--deshabilitado {
+  opacity: 0.45;
+  cursor: not-allowed;
+  border-style: solid;
+  background: #f1f5f9;
+}
+
+.cuchillo-img {
+  max-width: 85%;
+  max-height: 85%;
+  object-fit: contain;
+  filter: drop-shadow(0 3px 5px rgba(0, 0, 0, 0.15));
+  pointer-events: none;
+}
+
+.corte-boton {
+  background: var(--eje);
+  color: #ffffff;
+  font-size: 0.88rem;
+  font-weight: 700;
+  padding: 8px 14px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: transform 0.1s, opacity 0.15s, background-color 0.15s;
+  box-shadow: 0 2px 6px rgba(47, 107, 224, 0.3);
+}
+
+.corte-boton:hover:not(:disabled) {
+  transform: translateY(-1px);
+  filter: brightness(1.08);
+}
+
+.corte-boton:active:not(:disabled) {
+  transform: scale(0.96);
+}
+
+.corte-boton:disabled {
+  background: #94a3b8;
+  cursor: not-allowed;
+  box-shadow: none;
+}
+
+.corte-contador {
+  font-size: 0.84rem;
+  color: var(--tinta-suave);
+}
+
+.cortar-pizza-btn-reiniciar {
+  background: #ffffff;
+  border: 1.5px solid var(--borde);
+  color: var(--tinta);
+  font-size: 0.85rem;
+  font-weight: 600;
+  padding: 7px 12px;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.12s, border-color 0.12s;
+}
+
+.cortar-pizza-btn-reiniciar:hover:not(:disabled) {
+  background: #fee2e2;
+  border-color: #fca5a5;
+  color: #b91c1c;
+}
+
+.cortar-pizza-btn-reiniciar:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+/* Mesa y SVG de la Pizza */
+.pizza-mesa-contenedor {
+  position: relative;
+  width: 310px;
+  height: 310px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  transition: transform 0.15s ease, filter 0.15s ease;
+  touch-action: manipulation;
+}
+
+.pizza-mesa--dragover {
+  transform: scale(1.04);
+  filter: drop-shadow(0 0 16px rgba(47, 107, 224, 0.4));
+}
+
+.pizza-svg-wrapper {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.pizza-svg {
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+}
+
+.pizza-slice {
+  transition: transform 0.18s cubic-bezier(0.34, 1.56, 0.64, 1);
+  outline: none;
+}
+
+.pizza-slice--interactivo {
+  cursor: pointer;
+}
+
+.pizza-slice--interactivo:hover {
+  filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.25));
+}
+
+.hueco-comido {
+  cursor: pointer;
+  transition: opacity 0.15s;
+}
+
+.hueco-comido:hover {
+  opacity: 0.8;
+}
+
+.trozo-comido-etiqueta {
+  font-size: 11px;
+  font-weight: 800;
+  fill: #94a3b8;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  pointer-events: none;
+}
+
+.pizza-corte-linea {
+  stroke-dasharray: 4 3;
+  filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.5));
+  pointer-events: none;
+}
+
+/* Efecto y animación de corte */
+.cuchillo-slash-overlay {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  pointer-events: none;
+  z-index: 10;
+}
+
+.cuchillo-slash-img {
+  width: 110px;
+  animation: animCuchilloCorte 0.45s ease-out forwards;
+}
+
+@keyframes animCuchilloCorte {
+  0% {
+    transform: translate(-60px, -60px) rotate(-35deg) scale(0.8);
+    opacity: 0;
+  }
+  40% {
+    transform: translate(0, 0) rotate(15deg) scale(1.2);
+    opacity: 1;
+  }
+  100% {
+    transform: translate(60px, 60px) rotate(45deg) scale(0.9);
+    opacity: 0;
+  }
+}
+
+/* Panel de Fracción Dinámica */
+.cortar-pizza-fraccion-panel {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 14px;
+  padding: 20px 24px;
+  background: #ffffff;
+  border: 1.5px solid var(--borde);
+  border-radius: var(--radio);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.05);
+  min-width: 210px;
+}
+
+.fraccion-card-titulo {
+  font-size: 0.92rem;
+  font-weight: 800;
+  color: var(--tinta);
+  text-align: center;
+}
+
+.fraccion-display-box {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  background: #f8fafc;
+  border: 1.5px solid #e2e8f0;
+  border-radius: 14px;
+  padding: 14px 20px;
+  width: 100%;
+}
+
+.fraccion-elemento {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.fraccion-numero {
+  font-size: 2.8rem;
+  font-weight: 900;
+  line-height: 1;
+  color: var(--tinta);
+  transition: transform 0.15s ease, color 0.15s ease;
+}
+
+.fraccion-numero--activo {
+  color: #d97706; /* Ámbar cálido para partes comidas */
+  transform: scale(1.08);
+}
+
+.fraccion-numero--completo {
+  color: var(--eje);
+}
+
+.fraccion-barra-linea {
+  width: 90px;
+  height: 5px;
+  background: var(--tinta);
+  border-radius: 4px;
+  margin: 4px 0;
+}
+
+.fraccion-etiqueta {
+  font-size: 0.76rem;
+  font-weight: 700;
+  color: var(--tinta-suave);
+  text-transform: uppercase;
+  letter-spacing: 0.3px;
+  margin-top: 2px;
+}
+
+.fraccion-explicacion {
+  font-size: 0.88rem;
+  text-align: center;
+  color: var(--tinta);
+  background: #f1f5f9;
+  padding: 8px 12px;
+  border-radius: 8px;
+  line-height: 1.35;
+}
+
+.cortar-pizza-interactivo .interactivo-pie {
+  width: 100%;
+  max-width: 440px;
+}
+

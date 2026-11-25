@@ -48,6 +48,11 @@ function Pregunta({ ejercicio, esUltima, onSiguiente }) {
   const panelRef = useRef(null);
 
   const Interactivo = INTERACTIVOS[ejercicio.tipo];
+  const conHerramienta = Boolean(
+    ejercicio.visual &&
+      ['medir', 'reloj', 'calendario'].includes(ejercicio.visual.tipo) &&
+      (ejercicio.visual.tipo !== 'reloj' || ejercicio.visual.inicio !== undefined)
+  );
   const ultimoError = descartadas.at(-1);
   const primerIntento = resuelto && descartadas.length === 0 && intentosInteractivo === 0 && !mostroSolucion;
 
@@ -61,6 +66,22 @@ function Pregunta({ ejercicio, esUltima, onSiguiente }) {
     if (resuelto) return;
     if (opcion.correcta) setResuelto(true);
     else setDescartadas((prev) => [...prev, opcion.texto]);
+  }
+
+  function responderHerramienta(respuesta) {
+    if (resuelto) return;
+    const opcion = ejercicio.opciones?.find((o) => o.texto === String(respuesta));
+    if (opcion?.correcta) {
+      setErrorInteractivo(null);
+      setResuelto(true);
+    } else {
+      const feedback =
+        opcion?.feedback ??
+        ejercicio.visual?.mensajeOtro ??
+        'Todavía no está bien. Revisa con calma.';
+      setErrorInteractivo(feedback);
+      setIntentosInteractivo((prev) => prev + 1);
+    }
   }
 
   function responderInteractivo(resultado) {
@@ -86,9 +107,11 @@ function Pregunta({ ejercicio, esUltima, onSiguiente }) {
   }
 
   const enunciadoLimpio = textoPlano(ejercicio.enunciado);
-  const lectura = opciones.length
-    ? `${enunciadoLimpio} ${opciones.map((o, i) => `${LETRAS[i]}: ${o.texto}.`).join(' ')}`
-    : enunciadoLimpio;
+  const lectura = conHerramienta
+    ? enunciadoLimpio
+    : opciones.length
+      ? `${enunciadoLimpio} ${opciones.map((o, i) => `${LETRAS[i]}: ${o.texto}.`).join(' ')}`
+      : enunciadoLimpio;
 
   return (
     <>
@@ -108,11 +131,16 @@ function Pregunta({ ejercicio, esUltima, onSiguiente }) {
           )}
         </div>
 
-        <Visual visual={ejercicio.visual} />
+        <Visual
+          visual={ejercicio.visual}
+          ejercicio={ejercicio}
+          bloqueado={resuelto}
+          onResponder={responderHerramienta}
+        />
 
         {Interactivo ? (
           <Interactivo ejercicio={ejercicio} resuelto={resuelto} onResponder={responderInteractivo} />
-        ) : (
+        ) : conHerramienta ? null : (
           <div className="opciones" role="group" aria-label="Alternativas">
             {opciones.map((opcion, i) => {
               const descartada = descartadas.includes(opcion.texto);
@@ -145,7 +173,9 @@ function Pregunta({ ejercicio, esUltima, onSiguiente }) {
             </p>
             <p className="panel__nota">
               {errorInteractivo
-                ? 'Mueve o cambia las cifras en la tabla y vuelve a comprobar.'
+                ? conHerramienta
+                  ? 'Ajusta tu respuesta con la herramienta y vuelve a comprobar.'
+                  : 'Mueve o cambia las cifras en la tabla y vuelve a comprobar.'
                 : 'Intenta otra vez con las alternativas que quedan.'}
             </p>
             {(descartadas.length >= 2 || intentosInteractivo >= 2) && (

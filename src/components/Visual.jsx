@@ -4,8 +4,12 @@
 
 import { Arreglo, Balanza as BalanzaAvanzada, Barras as BarrasAvanzadas, FraccionVisual, Posicional as PosicionalAvanzada, Recta, Secuencia, Tabla } from './visuales/numeros.jsx';
 import { Coordenadas as CoordenadasAvanzadas, Cuerpo, Figuras, Plano, Sala } from './visuales/geometria.jsx';
-import { Area, Poligono, Reloj } from './visuales/medicion.jsx';
+import { Area, Poligono, Reloj as RelojEstatico } from './visuales/medicion.jsx';
 import { Bolsas, Grafico, Pictograma } from './visuales/datos.jsx';
+
+import Calendario from './herramientas/Calendario.jsx';
+import Medir from './herramientas/Medir.jsx';
+import RelojHerramienta from './herramientas/Reloj.jsx';
 
 function Barras(props) {
   if (props.partes || props.comparar) {
@@ -147,7 +151,7 @@ const TIPOS = {
   cuerpo: Cuerpo,
   coordenadas: Coordenadas,
   area: Area,
-  reloj: Reloj,
+  reloj: RelojEstatico,
   grafico: Grafico,
   secuencia: Secuencia,
   tabla: Tabla,
@@ -159,13 +163,48 @@ const TIPOS = {
   bolsas: Bolsas,
 };
 
-export default function Visual({ visual }) {
+const HERRAMIENTAS = {
+  medir: Medir,
+  reloj: RelojHerramienta,
+  calendario: Calendario,
+};
+
+export default function Visual({ visual: visualProp, ejercicio, bloqueado, onResponder }) {
+  const visual = visualProp ?? ejercicio?.visual;
+  const id = ejercicio?.id;
   if (!visual || !visual.tipo) return null;
+
+  // 1. Imagen PNG
+  if (visual.tipo === 'imagen') {
+    return (
+      <figure className="visual">
+        <img
+          src={`${import.meta.env.BASE_URL}imagenes/${visual.src ?? `${id}.png`}`}
+          alt={visual.descripcion || ''}
+        />
+      </figure>
+    );
+  }
+
+  // 2. Herramientas interactivas (medir, reloj con manecillas, calendario)
+  const Herramienta = HERRAMIENTAS[visual.tipo];
+  if (Herramienta && (onResponder || visual.tipo === 'medir' || visual.tipo === 'calendario' || visual.inicio !== undefined)) {
+    return (
+      <div className="visual herramienta" role="group" aria-label={visual.descripcion || ''}>
+        <Herramienta visual={visual} bloqueado={bloqueado} onResponder={onResponder} />
+      </div>
+    );
+  }
+
+  // 3. Representación pictórica SVG de dev
   const Componente = TIPOS[visual.tipo];
-  if (!Componente) return null;
-  return (
-    <figure className="visual">
-      <Componente {...visual} />
-    </figure>
-  );
+  if (Componente) {
+    return (
+      <figure className="visual">
+        <Componente {...visual} />
+      </figure>
+    );
+  }
+
+  return null;
 }

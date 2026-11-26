@@ -1,6 +1,7 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import './App.css';
 import { EJES, EJERCICIOS } from './data/ejercicios.js';
+import { combinarEjercicios, pedirEjercicios } from './lib/api.js';
 import Inicio from './components/Inicio.jsx';
 import Practica from './components/Practica.jsx';
 import Resumen from './components/Resumen.jsx';
@@ -33,20 +34,20 @@ function mezclar(lista) {
   return copia;
 }
 
-function crearSesion(ejeId) {
+function crearSesion(ejeId, ejercicios) {
   if (ejeId) {
     const eje = EJES.find((e) => e.id === ejeId);
     return {
       ejeId,
       titulo: eje.nombre,
-      ejercicios: EJERCICIOS.filter((e) => e.eje === ejeId),
+      ejercicios: ejercicios.filter((e) => e.eje === ejeId),
       clave: Date.now(),
     };
   }
   return {
     ejeId: null,
     titulo: 'Práctica mixta',
-    ejercicios: mezclar(EJERCICIOS).slice(0, PREGUNTAS_MIXTA),
+    ejercicios: mezclar(ejercicios).slice(0, PREGUNTAS_MIXTA),
     clave: Date.now(),
   };
 }
@@ -56,9 +57,23 @@ function App() {
   const [sesion, setSesion] = useState(null);
   const [resultados, setResultados] = useState([]);
   const [dominados, setDominados] = useState(leerProgreso);
+  // Parte con las preguntas del frontend; si el backend responde, se combinan con las suyas.
+  const [ejercicios, setEjercicios] = useState(EJERCICIOS);
+
+  useEffect(() => {
+    pedirEjercicios()
+      .then((remotos) => {
+        if (remotos.length > 0) {
+          setEjercicios(combinarEjercicios(EJERCICIOS, remotos, EJES.map((e) => e.id)));
+        }
+      })
+      .catch((error) => {
+        console.info('Backend no disponible: se usan las preguntas del frontend.', error.message);
+      });
+  }, []);
 
   function empezar(ejeId) {
-    setSesion(crearSesion(ejeId));
+    setSesion(crearSesion(ejeId, ejercicios));
     setPantalla('practica');
     window.scrollTo({ top: 0 });
   }
@@ -93,6 +108,7 @@ function App() {
   return (
     <Inicio
       dominados={dominados}
+      ejercicios={ejercicios}
       onElegirEje={empezar}
       onPracticaMixta={() => empezar(null)}
     />

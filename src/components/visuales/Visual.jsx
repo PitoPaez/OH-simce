@@ -3,7 +3,10 @@
 import { Arreglo, Balanza, Barras, Columnas, Etapas, FraccionVisual, NumeroDestacado, Posicional, Precios, Recta, Secuencia, Tabla } from './numeros.jsx';
 import { Angulos, Coordenadas, Cuerpo, Figura2D, Figuras, Plano, Red, Sala } from './geometria.jsx';
 import { Area, Cubos, CubosConPisos, Longitudes, Poligono, Reloj } from './medicion.jsx';
-import { Bolsas, Grafico, Pictograma } from './datos.jsx';
+import { Caja, Grafico, GraficoIconos, MaquinaPeluches, Pictograma } from './datos.jsx';
+import { Bolsas } from './BolsasCanicas.jsx';
+import { Tienda } from './TiendaMermeladas.jsx';
+import { Dado3D } from './Dado3D.jsx';
 
 const TIPOS = {
   posicional: Posicional,
@@ -35,6 +38,11 @@ const TIPOS = {
   grafico: Grafico,
   pictograma: Pictograma,
   bolsas: Bolsas,
+  tienda: Tienda,
+  caja: Caja,
+  maquinaPeluches: MaquinaPeluches,
+  graficoIconos: GraficoIconos,
+  dado3d: Dado3D,
 };
 
 // Varios dibujos juntos (por ejemplo, un reloj y una tabla).

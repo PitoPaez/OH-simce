@@ -1546,67 +1546,1074 @@
   font-weight: 700;
 }
 
-.v-bolsas {
+/* =========================================================
+   Ejercicios de la PPT (Datos y probabilidades)
+   ========================================================= */
+
+/* ---------- Caja de colaciones ---------- */
+/* Vista desde arriba (abierta) → se cierran las tapas → gira y se ve de frente
+   → una mano saca una colación al azar. */
+.v-colaciones {
+  width: 100%;
+  max-width: 560px;
+  display: grid;
+  justify-items: center;
+  gap: 10px;
+}
+
+.v-colaciones__escena {
+  display: grid;
+  width: 100%;
+  perspective: 1100px;
+}
+
+.v-colaciones__arriba,
+.v-colaciones__frente {
+  grid-area: 1 / 1;
+}
+
+.v-colaciones__arriba {
+  padding: 64px 70px;
+  perspective: 1400px;
+  transform-origin: 50% 100%;
+  transition: transform 0.8s ease-in, opacity 0.8s ease-in;
+}
+
+.v-colaciones--frente .v-colaciones__arriba,
+.v-colaciones--mano .v-colaciones__arriba,
+.v-colaciones--listo .v-colaciones__arriba {
+  transform: rotateX(70deg);
+  opacity: 0;
+  pointer-events: none;
+}
+
+.v-colaciones__caja {
+  position: relative;
+  width: min(100%, 400px);
+  margin: 0 auto;
+  aspect-ratio: 3 / 2;
+  transform-style: preserve-3d;
+}
+
+/* fondo de la caja visto desde arriba: paredes gruesas y sombra interior */
+.v-colaciones__interior {
+  position: absolute;
+  inset: 0;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  background: radial-gradient(ellipse at 50% 40%, #e8c08a, #c99a5e 85%);
+  border: 12px solid #b98a4e;
+  border-radius: 6px;
+  box-shadow:
+    inset 0 0 0 2px #9c6f38,
+    inset 0 10px 18px rgba(80, 50, 15, 0.45),
+    0 6px 14px rgba(34, 48, 90, 0.18);
+}
+
+.v-colaciones__unidad {
+  position: absolute;
+  width: 14%;
+  transform: translate(-50%, -50%) rotate(var(--giro, 0deg));
+}
+
+.v-colaciones__unidad img {
+  display: block;
+  width: 100%;
+  aspect-ratio: 1;
+  object-fit: contain;
+  filter: drop-shadow(0 3px 2px rgba(60, 35, 10, 0.4));
+}
+
+/* Tapas: abiertas, quedan paradas hacia afuera; al cerrar giran sobre su borde. */
+.v-colaciones__tapa {
+  position: absolute;
+  background: linear-gradient(#e9c48f, #ddb27a);
+  border: 2px solid #9c6f38;
+  border-radius: 4px;
+  backface-visibility: visible;
+  transition: transform 0.6s cubic-bezier(0.5, 0, 0.3, 1);
+}
+
+.v-colaciones__tapa--arriba { top: 0; left: 0; right: 0; height: 50%; transform-origin: 50% 0; transform: rotateX(112deg); }
+.v-colaciones__tapa--abajo  { bottom: 0; left: 0; right: 0; height: 50%; transform-origin: 50% 100%; transform: rotateX(-112deg); }
+.v-colaciones__tapa--izq    { top: 0; bottom: 0; left: 0; width: 50%; transform-origin: 0 50%; transform: rotateY(-108deg); }
+.v-colaciones__tapa--der    { top: 0; bottom: 0; right: 0; width: 50%; transform-origin: 100% 50%; transform: rotateY(108deg); }
+
+.v-colaciones:not(.v-colaciones--abierta) .v-colaciones__tapa--arriba,
+.v-colaciones:not(.v-colaciones--abierta) .v-colaciones__tapa--abajo {
+  transform: translateZ(1px) rotateX(0deg);
+}
+
+.v-colaciones:not(.v-colaciones--abierta) .v-colaciones__tapa--izq,
+.v-colaciones:not(.v-colaciones--abierta) .v-colaciones__tapa--der {
+  transform: translateZ(2px) rotateY(0deg);
+  transition-delay: 0.55s;
+}
+
+/* Vista de frente */
+.v-colaciones__frente {
+  display: grid;
+  place-items: center;
+  transform-origin: 50% 0;
+  animation: v-colaciones-girar 0.8s ease-out both;
+}
+
+@keyframes v-colaciones-girar {
+  from { transform: rotateX(-70deg); opacity: 0; }
+  to { transform: none; opacity: 1; }
+}
+
+.visual .v-caja-frente {
+  display: block;
+  max-height: 400px;
+  width: min(100%, 400px);
+  overflow: hidden;
+}
+
+.v-caja-frente__rotulo {
+  font-size: 22px;
+  font-weight: 800;
+  fill: var(--tinta);
+}
+
+.v-caja-frente__mano {
+  animation: v-mano-sacar 3s ease-in-out forwards;
+}
+
+.v-caja-frente__premio {
+  opacity: 0;
+  animation: v-premio-aparecer 3s linear forwards;
+}
+
+@keyframes v-mano-sacar {
+  0% { transform: translateY(-220px); }
+  38% { transform: translateY(140px); }
+  55% { transform: translateY(140px); }
+  100% { transform: translateY(10px); }
+}
+
+@keyframes v-premio-aparecer {
+  0%, 46% { opacity: 0; }
+  48%, 100% { opacity: 1; }
+}
+
+/* Cantidades y resultado */
+.v-colaciones__leyenda {
   list-style: none;
   margin: 0;
   padding: 0;
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
-  gap: 16px;
+  gap: 8px 18px;
 }
 
-.v-bolsas li {
-  display: grid;
-  justify-items: center;
-  gap: 2px;
-  width: 140px;
-  text-align: center;
-}
-
-.v-bolsas--una li {
-  width: 260px;
-}
-
-.v-bolsa-dibujo {
-  width: 100%;
-}
-
-.v-bolsa-tela {
-  fill: #efe3cf;
-  stroke: var(--tinta);
-  stroke-width: 2;
-}
-
-.v-bolsa-etq {
+.v-colaciones__leyenda li {
+  display: flex;
+  align-items: center;
+  gap: 6px;
   font-weight: 700;
 }
 
-.v-bolsa-detalle {
+.v-colaciones__leyenda img {
+  width: 30px;
+  height: 30px;
+  object-fit: contain;
+}
+
+.v-colaciones__resultado {
+  min-height: 1.5em;
+  display: grid;
+  justify-items: center;
+  gap: 8px;
+  text-align: center;
+}
+
+.v-colaciones__resultado p {
+  margin: 0;
+  font-size: 1.15rem;
+}
+
+.v-colaciones__prob {
+  color: var(--tinta-suave);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .v-colaciones__arriba,
+  .v-colaciones__tapa {
+    transition-duration: 0.01s;
+    transition-delay: 0s !important;
+  }
+  .v-colaciones__frente,
+  .v-caja-frente__mano,
+  .v-caja-frente__premio {
+    animation-duration: 0.01s;
+  }
+}
+
+/* ---------- Máquina de peluches ---------- */
+.v-garra {
+  width: 100%;
+  max-width: 420px;
+  display: grid;
+  justify-items: center;
+  gap: 10px;
+}
+
+.visual .v-garra__svg {
+  display: block;
+  width: 100%;
+  max-width: 420px;
+  max-height: 600px;
+  height: auto;
+}
+
+.v-garra__tobogan {
+  font-size: 18px;
+  font-weight: 800;
+  letter-spacing: 2px;
+  fill: #a3245a;
+  opacity: 0.6;
+}
+
+.v-garra__tenaza {
+  transition: transform 0.35s ease-in-out;
+}
+
+.v-garra__premio--destacado {
+  filter: drop-shadow(0 0 6px #ffd84d) drop-shadow(0 0 3px #ffd84d);
+}
+
+.v-garra__mensaje {
+  margin: 0;
+  min-height: 1.5em;
+  text-align: center;
+  font-size: 1.1rem;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .v-garra__tenaza {
+    transition-duration: 0.01s;
+  }
+}
+
+.v-maquina__conteo {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 8px 18px;
+  font-weight: 700;
+}
+
+.v-maquina__conteo li {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.v-maquina__conteo img {
+  width: 32px;
+  height: 32px;
+  object-fit: contain;
+}
+
+/* ---------- Escena del quiosco con pizarra que crece ---------- */
+.v-escena {
+  position: relative;
+  width: 100%;
+  max-width: 640px;
+  aspect-ratio: 8 / 5;
+  container-type: inline-size;
+}
+
+.v-escena--ejercicio {
+  aspect-ratio: auto;
+}
+
+.v-escena__fondo {
+  position: absolute;
+  inset: 0;
+  display: block;
+  width: 100%;
+  height: 100%;
+  border-radius: 10px;
+  transition: opacity 0.9s ease;
+}
+
+.v-escena--creciendo .v-escena__fondo {
+  opacity: 0;
+}
+
+/* pizarra blanca colgada en la pared (coincide con el cordel de la imagen) */
+.v-escena__pizarra {
+  position: absolute;
+  left: 72.5%;
+  top: 14%;
+  width: 25%;
+  height: 34%;
+  display: grid;
+  place-items: center;
+  background: #ffffff;
+  border: 6px solid #b8c0cc;
+  border-radius: 8px;
+  box-shadow: 0 6px 14px rgba(34, 48, 90, 0.25);
+  overflow: hidden;
+  transition: left 0.9s ease-in-out, top 0.9s ease-in-out, width 0.9s ease-in-out, height 0.9s ease-in-out,
+    box-shadow 0.9s ease;
+}
+
+.v-escena--creciendo .v-escena__pizarra {
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  box-shadow: 0 0 0 rgba(34, 48, 90, 0);
+}
+
+.v-escena--ejercicio .v-escena__pizarra {
+  position: relative;
+  left: auto;
+  top: auto;
+  width: 100%;
+  height: auto;
+  padding: 14px 12px 10px;
+  box-shadow: none;
+}
+
+.v-escena--ejercicio .v-gicono {
+  animation: v-escena-aparecer 0.45s ease-out both;
+}
+
+@keyframes v-escena-aparecer {
+  from { opacity: 0; transform: scale(0.97); }
+  to { opacity: 1; transform: none; }
+}
+
+/* resumen escrito con plumón en la pizarra pequeña */
+.v-escena__resumen {
+  width: 100%;
+  height: 100%;
+  display: grid;
+  align-content: center;
+  justify-items: center;
+  gap: 1.2cqw;
+  padding: 1cqw;
+  border: none;
+  background: transparent;
+  color: #1f4fbf;
+  font-family: 'Segoe Print', 'Comic Sans MS', 'Chalkboard SE', cursive;
+  cursor: pointer;
+}
+
+.v-escena__titulo {
+  font-size: 2.5cqw;
+  font-weight: 700;
+  color: #d83a3a;
+  border-bottom: 2px solid #d83a3a;
+  line-height: 1.2;
+}
+
+.v-escena__lista {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.8cqw 2.4cqw;
+}
+
+.v-escena__item {
+  display: flex;
+  align-items: center;
+  gap: 0.6cqw;
+  font-size: 3cqw;
+  font-weight: 700;
+}
+
+.v-escena__item img {
+  width: 4.6cqw;
+  height: 4.6cqw;
+  object-fit: contain;
+}
+
+/* escena dibujada del kiosco (misma calle y vendedor que la tienda de mermeladas):
+   la pizarra cuelga a la izquierda, del cordel dibujado */
+.v-escena--kiosco {
+  max-width: none;
+  aspect-ratio: 1000 / 760;
+}
+
+.v-escena--kiosco.v-escena--ejercicio {
+  aspect-ratio: auto;
+}
+
+.v-escena--kiosco .v-escena__fondo {
+  overflow: hidden;
+}
+
+.v-escena--kiosco .v-escena__fondo svg {
+  display: block;
+  width: 100%;
+  max-width: none;
+  height: 100%;
+  max-height: none;
+}
+
+.v-escena--kiosco.v-escena--escena .v-escena__pizarra {
+  left: 3%;
+  top: 27.6%;
+  width: 26%;
+  height: 27%;
+  border-width: 5px;
+}
+
+.tienda__producto {
+  font-size: 17px;
+  font-weight: 900;
+  fill: #111;
+  text-anchor: middle;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .v-escena__fondo,
+  .v-escena__pizarra {
+    transition-duration: 0.01s;
+  }
+}
+
+/* ---------- Gráfico de barras con íconos ---------- */
+.v-gicono {
+  width: 100%;
+  max-width: 520px;
+  display: grid;
+  gap: 6px;
+}
+
+.v-gicono__titulo {
+  text-align: center;
+  font-weight: 700;
+}
+
+.v-gicono__area {
+  display: grid;
+  grid-template-columns: 32px 1fr;
+  height: 240px;
+  margin-top: 20px;
+}
+
+.v-gicono__escala {
+  position: relative;
+}
+
+.v-gicono__escala span {
+  position: absolute;
+  right: 6px;
+  transform: translateY(50%);
+  font-size: 0.85rem;
+  color: var(--tinta-suave);
+}
+
+.v-gicono__barras {
+  position: relative;
+  display: grid;
+  grid-auto-flow: column;
+  grid-auto-columns: 1fr;
+  align-items: end;
+  border-left: 2px solid var(--tinta);
+  border-bottom: 2px solid var(--tinta);
+}
+
+.v-gicono__guia {
+  position: absolute;
+  left: 0;
+  right: 0;
+  border-top: 1px dashed var(--borde);
+}
+
+.v-gicono__col {
+  position: relative;
+  height: 100%;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+}
+
+.v-gicono__barra {
+  position: relative;
+  width: min(56px, 60%);
+  display: flex;
+  justify-content: center;
+  background: color-mix(in srgb, var(--eje) 30%, #fff);
+  border: 2px solid var(--eje);
+  border-bottom: none;
+  border-radius: 6px 6px 0 0;
+}
+
+.v-gicono__barra span {
+  position: absolute;
+  bottom: 100%;
+  font-weight: 700;
+}
+
+.v-gicono__barra--falta {
+  background: repeating-linear-gradient(45deg, #fff, #fff 6px, #fdeef4 6px, #fdeef4 12px);
+  border-style: dashed;
+  align-items: center;
+}
+
+.v-gicono__barra--falta span {
+  position: static;
+  font-size: 1.8rem;
+  color: var(--eje);
+}
+
+.v-gicono__barra--nueva {
+  background: color-mix(in srgb, var(--logrado) 30%, #fff);
+  border-color: var(--logrado);
+  transform-origin: bottom;
+  animation: barra-crece 0.6s ease;
+}
+
+@keyframes barra-crece {
+  from {
+    transform: scaleY(0);
+  }
+  to {
+    transform: scaleY(1);
+  }
+}
+
+.v-gicono__etiquetas {
+  display: grid;
+  grid-template-columns: 32px repeat(4, 1fr);
+}
+
+.v-gicono__etq {
+  display: grid;
+  justify-items: center;
+  font-size: 0.9rem;
+  font-weight: 700;
+  text-align: center;
+  line-height: 1.2;
+}
+
+.v-gicono__etq img {
+  width: 48px;
+  height: 48px;
+  object-fit: contain;
+}
+
+/* ---------- Ordenar tarjetas ---------- */
+.ordenar {
+  display: grid;
+  gap: 14px;
+}
+
+.ordenar__ayuda {
+  color: var(--tinta-suave);
+}
+
+.ordenar__banco {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  min-height: 90px;
+  padding: 12px;
+  border: 2px dashed var(--borde);
+  border-radius: var(--radio);
+  background: #fff;
+}
+
+.ordenar__banco--vacio {
+  align-items: center;
+  justify-content: center;
+}
+
+.ordenar__nota {
+  color: var(--tinta-suave);
+}
+
+.ordenar__tarjeta {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  min-height: 64px;
+  padding: 6px 14px 6px 8px;
+  border: 2px solid var(--borde);
+  border-radius: 12px;
+  background: #fff;
+  font-weight: 700;
+  text-align: left;
+  cursor: grab;
+  box-shadow: 0 2px 0 rgba(34, 48, 90, 0.12);
+  transition: border-color 0.15s, transform 0.15s;
+}
+
+.ordenar__tarjeta:hover:not(:disabled) {
+  border-color: var(--eje);
+}
+
+.ordenar__tarjeta:disabled {
+  cursor: default;
+}
+
+.ordenar__tarjeta--elegida {
+  border-color: var(--eje);
+  background: color-mix(in srgb, var(--eje) 12%, #fff);
+  transform: translateY(-2px);
+}
+
+.ordenar__tarjeta img {
+  width: 44px;
+  height: 44px;
+  object-fit: contain;
+}
+
+.ordenar__casillas {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 10px;
+}
+
+@media (max-width: 640px) {
+  .ordenar__casillas {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+.ordenar__casilla {
+  display: grid;
+  align-content: start;
+  gap: 8px;
+  min-height: 130px;
+  padding: 10px;
+  border: 2px solid var(--borde);
+  border-radius: var(--radio);
+  background: color-mix(in srgb, var(--eje) 6%, #fff);
+}
+
+.ordenar__casilla--lista {
+  border-color: var(--eje);
+  border-style: dashed;
+}
+
+.ordenar__casilla--correcta {
+  border-color: var(--logrado);
+  background: var(--logrado-fondo);
+}
+
+.ordenar__casilla .ordenar__tarjeta {
+  width: 100%;
+}
+
+.ordenar__nombre {
+  font-weight: 700;
+  font-size: 0.95rem;
+}
+
+.ordenar__num {
+  display: inline-grid;
+  place-items: center;
+  width: 26px;
+  height: 26px;
+  margin-right: 4px;
+  border-radius: 50%;
+  background: var(--tinta);
+  color: #fff;
+  font-size: 0.85rem;
+}
+
+.ordenar__hueco {
+  min-height: 64px;
+  border: 2px dashed var(--borde);
+  border-radius: 12px;
+  background: transparent;
+  color: var(--tinta-suave);
+  cursor: pointer;
+}
+
+.ordenar__hueco:disabled {
+  cursor: default;
+}
+
+.ordenar__escala {
+  position: relative;
+  display: flex;
+  justify-content: space-between;
+  padding: 4px 6px 0;
+  border-top: 3px solid var(--eje);
   font-size: 0.9rem;
   color: var(--tinta-suave);
+}
+
+.ordenar__escala::after {
+  content: '';
+  position: absolute;
+  right: -2px;
+  top: -9px;
+  border: 7px solid transparent;
+  border-left: 10px solid var(--eje);
+}
+
+.ordenar__acciones {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  gap: 10px;
+}
+
+.ordenar .boton:disabled,
+.numerica .boton:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+}
+
+/* ---------- Respuesta numérica por pasos ---------- */
+.numerica {
+  display: grid;
+  gap: 12px;
+}
+
+.numerica__hecho {
+  padding: 10px 14px;
+  border-radius: 10px;
+  background: var(--logrado-fondo);
+  border: 2px solid var(--logrado);
+}
+
+.numerica__check {
+  margin-right: 8px;
+  color: var(--logrado);
+  font-weight: 700;
+}
+
+.numerica__form {
+  display: grid;
+  gap: 10px;
+  padding: 16px;
+  border: 2px solid var(--borde);
+  border-radius: var(--radio);
+  background: #fff;
+}
+
+.numerica__pregunta {
+  display: grid;
+  gap: 4px;
+  font-size: 1.2rem;
+  font-weight: 700;
+}
+
+.numerica__paso {
+  font-size: 0.9rem;
+  color: var(--eje);
+}
+
+.numerica__fila {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 12px;
+}
+
+.numerica__campo {
+  width: 7ch;
+  min-height: 56px;
+  padding: 6px 12px;
+  border: 2px solid var(--tinta);
+  border-radius: 10px;
+  font: inherit;
+  font-size: 1.6rem;
+  font-weight: 700;
+  text-align: center;
+  color: var(--tinta);
+}
+
+.numerica__unidad {
+  font-weight: 700;
+}
+
+/* hoja de borrador y casilla de respuesta escritas a mano */
+.numerica__hoja,
+.numerica__respuesta {
+  display: grid;
+  gap: 6px;
+}
+
+.numerica__cabecera {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  font-weight: 700;
+  color: var(--tinta-suave);
+}
+
+.lienzo {
+  display: block;
+  touch-action: none;
+  cursor: crosshair;
+  border-radius: 10px;
+  background-color: #fff;
+}
+
+/* hoja cuadriculada, como un cuaderno */
+.lienzo--borrador {
+  width: 100%;
+  height: 220px;
+  border: 2px dashed var(--borde);
+  background-image:
+    linear-gradient(var(--cuadricula) 1px, transparent 1px),
+    linear-gradient(90deg, var(--cuadricula) 1px, transparent 1px);
+  background-size: 22px 22px;
+}
+
+.lienzo--respuesta {
+  width: min(100%, 300px);
+  height: 120px;
+  border: 3px solid var(--tinta);
+  background-image: linear-gradient(transparent 92px, var(--borde) 92px, var(--borde) 94px, transparent 94px);
+}
+
+.numerica__lectura {
+  min-height: 1.6em;
+  font-size: 1.1rem;
+}
+
+.numerica__leido {
+  font-size: 1.6rem;
+  letter-spacing: 2px;
+  color: var(--eje);
+}
+
+.numerica__ayuda {
+  color: var(--tinta-suave);
+}
+
+.numerica__duda {
+  color: var(--revisar);
+  font-weight: 700;
+}
+
+.numerica__acciones {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  gap: 10px;
+}
+
+/* ---------- Dado 3D (girable) ---------- */
+.dado3d {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  padding: 8px 0;
+}
+
+.dado3d__escena {
+  --lado: 150px;
+  --mitad: 75px;
+  width: 240px;
+  height: 220px;
+  display: grid;
+  place-items: center;
+  perspective: 700px;
+  cursor: grab;
+  touch-action: none;
+  user-select: none;
+  border-radius: 16px;
+}
+
+.dado3d__escena:active {
+  cursor: grabbing;
+}
+
+.dado3d__escena:focus-visible {
+  outline: 3px solid var(--tinta);
+  outline-offset: 4px;
+}
+
+.dado3d__cubo {
+  position: relative;
+  width: var(--lado);
+  height: var(--lado);
+  transform-style: preserve-3d;
+}
+
+.dado3d__cubo--animado {
+  transition: transform 0.5s ease;
+}
+
+.dado3d__cara {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: repeat(3, 1fr);
+  padding: 16px;
+  background: #fffdf7;
+  border: 3px solid #d9d2c0;
+  border-radius: 20px;
+  box-shadow: inset 0 0 18px rgba(0, 0, 0, 0.08);
+  backface-visibility: hidden;
+}
+
+.dado3d__cara > span {
+  display: grid;
+  place-items: center;
+}
+
+.dado3d__punto::after {
+  content: '';
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  background: #1f2a4d;
+  box-shadow: inset 0 -3px 0 rgba(255, 255, 255, 0.15);
+}
+
+.dado3d__ayuda {
+  margin: 0;
+  font-size: 0.95rem;
+  opacity: 0.8;
+  text-align: center;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .dado3d__cubo--animado {
+    transition: none;
+  }
+}
+
+/* ---------- Bolsas de malla con canicas (probabilidades) ---------- */
+.visual--bolsas {
+  padding: 16px 12px;
+}
+
+.bc {
+  width: 100%;
+}
+
+.visual .bc-defs {
+  position: absolute;
+  width: 0;
+  height: 0;
+  overflow: hidden;
+}
+
+.visual .bc-escena {
+  display: block;
+  width: 100%;
+  max-width: 100%;
+  max-height: none;
+  height: auto;
+}
+
+.bc-etiqueta {
+  font-size: 15px;
+  font-weight: 800;
+  fill: #5a3a1a;
+}
+
+/* mesa: cada bolsa es la respuesta */
+.bc-bolsa {
+  cursor: pointer;
+  outline: none;
+  transform-box: fill-box;
+  transform-origin: 50% 100%;
+  transition: transform 0.2s ease, opacity 0.2s ease;
+}
+
+.bc-bolsa:hover,
+.bc-bolsa:focus-visible {
+  transform: translateY(-8px);
+}
+
+.bc-bolsa:focus-visible .bc-bolsa__zona {
+  stroke: var(--tinta);
+  stroke-width: 4;
+  stroke-dasharray: 10 6;
+}
+
+.bc-bolsa--descartada {
+  opacity: 0.4;
+}
+
+/* sellos CORRECTO / INCORRECTO: el centro del sello queda justo en la esquina
+   de arriba a la derecha del recuadro (por eso el recuadro es la referencia) */
+.visual--bolsas {
+  position: relative;
+}
+
+.sello {
+  --sello-x: 50%;
+  position: absolute;
+  top: -2px;
+  right: -2px;
+  z-index: 2;
+  width: clamp(108px, 21%, 167px);
+  pointer-events: none;
+  transform: translate(var(--sello-x), -50%) rotate(-12deg);
+}
+
+/* en pantallas angostas se corre hacia adentro para no salirse de la pantalla */
+@media (max-width: 760px) {
+  .sello {
+    --sello-x: 0%;
+  }
+}
+
+.sello img {
+  display: block;
+  width: 100%;
+  max-width: none;
+  max-height: none;
+  height: auto;
+}
+
+
+.sello--animado {
+  animation: sello-timbrar 0.55s cubic-bezier(0.3, 1.4, 0.5, 1) both;
+}
+
+@keyframes sello-timbrar {
+  0% {
+    transform: translate(var(--sello-x), -50%) rotate(-12deg) scale(2.2);
+    opacity: 0;
+  }
+  60% {
+    transform: translate(var(--sello-x), -50%) rotate(-12deg) scale(0.92);
+    opacity: 1;
+  }
+  100% {
+    transform: translate(var(--sello-x), -50%) rotate(-12deg) scale(1);
+    opacity: 1;
+  }
+}
+
+/* en la mesa se deja espacio arriba para que el sello no tape la última bolsa */
+.bc-mesa--sello {
+  padding-top: 34px;
+}
+
+.bc-conteo {
+  list-style: none;
+  margin: 4px 0 0;
+  padding: 0;
+  display: grid;
+  text-align: center;
+  font-size: 0.95rem;
   line-height: 1.3;
 }
 
-.v-bolita-roja {
-  fill: #e2483d;
-  stroke: var(--tinta);
-  stroke-width: 1.5;
-}
-.v-bolita-azul {
-  fill: #2f6be0;
-  stroke: var(--tinta);
-  stroke-width: 1.5;
-}
-.v-bolita-amarilla {
-  fill: #f6c21c;
-  stroke: var(--tinta);
-  stroke-width: 1.5;
-}
-.v-bolita-verde {
-  fill: #2f9e5b;
-  stroke: var(--tinta);
-  stroke-width: 1.5;
+.bc-conteo li {
+  display: grid;
+  justify-items: center;
+  gap: 2px;
 }
 
 /* =========================================================
@@ -3330,5 +4337,222 @@
 
   .escala__numero {
     font-size: 30px;
+  }
+}
+
+.bc-conteo__item {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  white-space: nowrap;
+}
+
+.bc-conteo__item svg {
+  width: 20px;
+  height: 20px;
+}
+
+/* bolsa elegida: la vista se acerca a la bolsa */
+.bc-foco--entrada .bc-foco__bolsa {
+  transform-box: fill-box;
+  transform-origin: 50% 100%;
+  animation: bc-acercar 0.75s cubic-bezier(0.2, 0.8, 0.3, 1) both;
+}
+
+.bc-foco--entrada .bc-foco__mesa {
+  animation: bc-aparecer 0.6s ease both;
+}
+
+@keyframes bc-acercar {
+  from {
+    transform: scale(0.6) translateY(30px);
+    opacity: 0.3;
+  }
+  to {
+    transform: none;
+    opacity: 1;
+  }
+}
+
+@keyframes bc-aparecer {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+/* gráfico circular hueco */
+.bc-anillo {
+  animation: bc-aparecer 0.4s ease both;
+}
+
+.bc-anillo__rojo {
+  transition: stroke-dasharray 0.9s ease-out;
+}
+
+.bc-anillo__titulo {
+  font-size: 22px;
+  font-weight: 800;
+  fill: var(--tinta);
+}
+
+.bc-anillo__numero {
+  font-size: 34px;
+  font-weight: 800;
+  fill: var(--tinta);
+}
+
+.bc-anillo__sub {
+  font-size: 18px;
+  fill: var(--tinta-suave);
+}
+
+.bc-ayuda {
+  margin: 10px 0 0;
+  text-align: center;
+  font-weight: 700;
+  color: var(--tinta-suave);
+}
+
+.bc-resultado {
+  min-height: 1.5em;
+  display: grid;
+  justify-items: center;
+  gap: 10px;
+  text-align: center;
+}
+
+.bc-resultado p {
+  margin: 0;
+  font-size: 1.1rem;
+}
+
+.bc-resultado__botones {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 8px;
+}
+
+.bc-color--roja {
+  color: #c62a21;
+}
+
+.bc-color--azul {
+  color: #2457d0;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .bc-bolsa,
+  .bc-anillo__rojo {
+    transition: none;
+  }
+  .sello--animado,
+  .bc-foco--entrada .bc-foco__bolsa,
+  .bc-foco--entrada .bc-foco__mesa,
+  .bc-anillo {
+    animation: none;
+  }
+}
+
+/* recuadro que lleva un sello CORRECTO / INCORRECTO en su esquina de arriba a la derecha */
+.con-sello {
+  position: relative;
+}
+
+/* ---------- tienda de mermeladas (pregunta de probabilidades) ---------- */
+.visual--tienda {
+  padding: 14px;
+}
+
+.tienda {
+  width: 100%;
+  min-width: 0;
+}
+
+.visual .tienda-escena {
+  display: block;
+  width: 100%;
+  max-width: none;
+  max-height: none;
+  height: auto;
+  border-radius: 10px;
+}
+
+.tienda-escena text {
+  font-family: inherit;
+}
+
+.tienda__titulo {
+  font-size: 30px;
+  font-weight: 800;
+  fill: #fff;
+  text-anchor: middle;
+  letter-spacing: 3px;
+}
+
+.tienda__cartel {
+  font-size: 20px;
+  font-weight: 800;
+  fill: #fdf3c4;
+  text-anchor: middle;
+  letter-spacing: 2px;
+}
+
+.tienda__sabor {
+  font-size: 21px;
+  font-weight: 900;
+  fill: #111;
+  text-anchor: middle;
+}
+
+.tienda__a-mano {
+  font-family: 'Comic Sans MS', 'Segoe Print', 'Bradley Hand', cursive;
+  font-size: 17px;
+  font-weight: 700;
+  fill: #3a2410;
+  text-anchor: middle;
+}
+
+.tienda__snack {
+  font-size: 12px;
+  font-weight: 800;
+  text-anchor: middle;
+}
+
+.tienda__cifra {
+  font-size: 14px;
+  font-weight: 800;
+  fill: #1c1f27;
+  text-anchor: middle;
+}
+
+
+/* lista de sabores: solo en pantallas chicas, donde los letreros se leen mal */
+.tienda__lista {
+  display: none;
+  list-style: none;
+  margin: 10px 0 0;
+  padding: 0;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 4px 12px;
+  font-size: 0.95rem;
+}
+
+.tienda__punto {
+  display: inline-block;
+  width: 10px;
+  height: 10px;
+  margin-right: 6px;
+  border-radius: 50%;
+  vertical-align: middle;
+}
+
+@media (max-width: 600px) {
+  .tienda__lista {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
   }
 }

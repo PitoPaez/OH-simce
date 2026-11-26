@@ -4,17 +4,30 @@ import { textoPlano } from '../lib/formato.js';
 import Cuadritos from './Cuadritos.jsx';
 import Visual from './Visual.jsx';
 import Texto from './ui/Texto.jsx';
+import Sello from './Sello.jsx';
 import ArrastrarPosicional from './interactivos/ArrastrarPosicional.jsx';
 import RestaColumnas from './interactivos/RestaColumnas.jsx';
 import CajasLapices from './interactivos/CajasLapices.jsx';
 import CortarPizza from './interactivos/CortarPizza.jsx';
+import Ordenar from './interactivos/Ordenar.jsx';
+import Numerica from './interactivos/Numerica.jsx';
+import { mezclarBolsas } from '../lib/mezclarBolsas.js';
 
+// Ejercicios que se responden con su propio componente (según ejercicio.tipo).
 const INTERACTIVOS = {
   arrastrarPosicional: ArrastrarPosicional,
   restaColumnas: RestaColumnas,
   cajasLapices: CajasLapices,
   cortarPizza: CortarPizza,
 };
+
+// Herramientas que reemplazan a las alternativas (medir, reloj con manecillas, calendario).
+const usaHerramienta = (visual) =>
+  Boolean(
+    visual &&
+    ['medir', 'reloj', 'calendario'].includes(visual.tipo) &&
+    (visual.tipo !== 'reloj' || visual.inicio !== undefined),
+  );
 
 const LETRAS = ['A', 'B', 'C', 'D'];
 const puedeHablar = typeof window !== 'undefined' && 'speechSynthesis' in window;
@@ -37,81 +50,154 @@ function mezclar(lista) {
   return copia;
 }
 
-function Pregunta({ ejercicio, esUltima, onSiguiente }) {
-  const opciones = useMemo(() => (ejercicio.opciones ? mezclar(ejercicio.opciones) : []), [ejercicio]);
-  const [descartadas, setDescartadas] = useState([]);
+// Tipo de respuesta de cada ejercicio:
+// - "interactivo": componente propio según ejercicio.tipo (tabla posicional, resta en columnas...).
+// - "herramienta": se responde con la herramienta del dibujo (medir, reloj, calendario).
+// - "ordenar" (tarjetas en casillas) o "numerica" (escribir un número, por pasos).
+// - "alternativas" (por defecto).
+function tipoDe(ejercicio) {
+  if (INTERACTIVOS[ejercicio.tipo]) return 'interactivo';
+  if (usaHerramienta(ejercicio.visual)) return 'herramienta';
+  return ejercicio.interaccion ?? 'alternativas';
+}
+
+function Pregunta({ ejercicio: original, esUltima, onSiguiente }) {
+  // Se prepara una sola vez cada vez que se abre la pregunta (por ejemplo, las
+  // bolsas se reparten al azar y no cambian mientras se responde).
+  const [ejercicio] = useState(() => mezclarBolsas(original));
+  const tipo = tipoDe(ejercicio);
+  const Interactivo = INTERACTIVOS[ejercicio.tipo];
+  const opciones = useMemo(() => mezclar(ejercicio.opciones ?? []), [ejercicio]);
+  // Cada error guarda qué respondió (clave), su explicación y en qué paso ocurrió.
+  const [errores, setErrores] = useState([]);
   const [pistas, setPistas] = useState(0);
+  const [paso, setPaso] = useState(0);
   const [resuelto, setResuelto] = useState(false);
   const [mostroSolucion, setMostroSolucion] = useState(false);
-  const [errorInteractivo, setErrorInteractivo] = useState(null);
-  const [intentosInteractivo, setIntentosInteractivo] = useState(0);
+  const [eleccion, setEleccion] = useState(null); // última alternativa elegida: { texto, n }
   const panelRef = useRef(null);
 
-  const Interactivo = INTERACTIVOS[ejercicio.tipo];
-  const conHerramienta = Boolean(
-    ejercicio.visual &&
-      ['medir', 'reloj', 'calendario'].includes(ejercicio.visual.tipo) &&
-      (ejercicio.visual.tipo !== 'reloj' || ejercicio.visual.inicio !== undefined)
-  );
-  const ultimoError = descartadas.at(-1);
-  const primerIntento = resuelto && descartadas.length === 0 && intentosInteractivo === 0 && !mostroSolucion;
+  const descartadas = errores.map((e) => e.clave);
+  const ultimoError = errores.at(-1);
+  const errorVisible = ultimoError && ultimoError.paso === paso ? ultimoError : null;
+  const primerIntento = resuelto && errores.length === 0 && !mostroSolucion;
 
   useEffect(() => {
-    if (ultimoError || errorInteractivo || resuelto) panelRef.current?.focus();
-  }, [ultimoError, errorInteractivo, resuelto]);
+    if (errores.length > 0 || resuelto) panelRef.current?.focus();
+  }, [errores.length, resuelto]);
 
   useEffect(() => () => puedeHablar && window.speechSynthesis.cancel(), []);
 
-  function elegir(opcion) {
-    if (resuelto) return;
-    if (opcion.correcta) setResuelto(true);
-    else setDescartadas((prev) => [...prev, opcion.texto]);
+  function anotarError(clave, feedback) {
+    setErrores((prev) => [...prev, { clave, feedback, paso }]);
   }
 
-  function responderHerramienta(respuesta) {
+  function elegir(opcion) {
     if (resuelto) return;
-    const opcion = ejercicio.opciones?.find((o) => o.texto === String(respuesta));
-    if (opcion?.correcta) {
-      setErrorInteractivo(null);
-      setResuelto(true);
+    setEleccion((e) => ({ texto: opcion.texto, n: (e?.n ?? 0) + 1 }));
+    if (opcion.correcta) setResuelto(true);
+    else anotarError(opcion.texto, opcion.feedback);
+  }
+
+  // Si el ejercicio tiene "responderEnDibujo", se responde tocando el dibujo (por
+  // ejemplo, las bolsas) y no se muestran las alternativas A, B, C, D.
+  // Si esa opción ya se descartó o la pregunta está resuelta, solo se vuelve a mostrar.
+  function elegirDesdeDibujo(texto) {
+    const opcion = ejercicio.opciones?.find((o) => o.texto === texto);
+    if (opcion && !resuelto && !descartadas.includes(texto)) elegir(opcion);
+    else setEleccion((e) => ({ texto, n: (e?.n ?? 0) + 1 }));
+  }
+
+  function comprobarOrden(correcto, clave, feedback) {
+    if (correcto) setResuelto(true);
+    else anotarError(clave, feedback);
+  }
+
+  function responderNumero(correcto, clave, feedback) {
+    if (!correcto) {
+      anotarError(clave, feedback);
+    } else if (paso + 1 < ejercicio.pasos.length) {
+      setPaso(paso + 1);
     } else {
-      const feedback =
-        opcion?.feedback ??
-        ejercicio.visual?.mensajeOtro ??
-        'Todavía no está bien. Revisa con calma.';
-      setErrorInteractivo(feedback);
-      setIntentosInteractivo((prev) => prev + 1);
+      setResuelto(true);
     }
   }
 
+  // Respuesta dada con una herramienta (medir, reloj, calendario).
+  function responderHerramienta(respuesta) {
+    if (resuelto) return;
+    const opcion = ejercicio.opciones?.find((o) => o.texto === String(respuesta));
+    if (opcion?.correcta) setResuelto(true);
+    else
+      anotarError(
+        String(respuesta),
+        opcion?.feedback ?? ejercicio.visual?.mensajeOtro ?? 'Todavía no está bien. Revisa con calma.',
+      );
+  }
+
+  // Respuesta de un ejercicio interactivo: { correcta, clave }.
   function responderInteractivo(resultado) {
     if (resuelto) return;
     if (resultado.correcta) {
-      setErrorInteractivo(null);
       setResuelto(true);
     } else {
       const mapa = ejercicio.errores ?? {};
-      const mensaje =
+      anotarError(
+        resultado.clave,
         mapa[resultado.clave] ??
-        mapa.otro ??
-        'Revisa qué número representa las centenas (C), cuál las decenas (D) y cuál las unidades (U).';
-      setErrorInteractivo(mensaje);
-      setIntentosInteractivo((prev) => prev + 1);
+          mapa.otro ??
+          'Revisa qué número representa las centenas (C), cuál las decenas (D) y cuál las unidades (U).',
+      );
     }
   }
 
   function verSolucion() {
     setMostroSolucion(true);
-    setErrorInteractivo(null);
     setResuelto(true);
   }
 
-  const enunciadoLimpio = textoPlano(ejercicio.enunciado);
-  const lectura = conHerramienta
-    ? enunciadoLimpio
-    : opciones.length
-      ? `${enunciadoLimpio} ${opciones.map((o, i) => `${LETRAS[i]}: ${o.texto}.`).join(' ')}`
-      : enunciadoLimpio;
+  const enDibujo = tipo === 'alternativas' && Boolean(ejercicio.responderEnDibujo);
+
+  // Sello CORRECTO / INCORRECTO en las preguntas de datos y probabilidades.
+  // Con alternativas va en la esquina del dibujo (o de las alternativas, si no hay
+  // dibujo). Al ordenar o escribir un número va en la esquina de esa respuesta,
+  // que es lo que se está mirando al comprobar.
+  // Las bolsas ponen su propio sello después de sacar la canica.
+  const conSello = ejercicio.eje === 'datos' && !enDibujo;
+  const sello = !conSello ? null : resuelto ? (mostroSolucion ? null : 'correcto') : errorVisible ? 'incorrecto' : null;
+  // cambia en cada respuesta, para que el sello vuelva a timbrar
+  const marcaSello = `${sello}-${errores.length}-${paso}`;
+  const tieneDibujo = Boolean(ejercicio.visual?.tipo);
+  const selloEnDibujo = tieneDibujo && tipo === 'alternativas';
+  const selloAqui = (lugar) =>
+    sello && (lugar === 'dibujo') === selloEnDibujo ? <Sello key={marcaSello} tipo={sello} animado /> : null;
+
+  let lectura = textoPlano(ejercicio.enunciado);
+  if (tipo === 'alternativas' && !enDibujo) {
+    lectura += ` ${opciones.map((o, i) => `${LETRAS[i]}: ${o.texto}.`).join(' ')}`;
+  } else if (tipo === 'numerica' && !resuelto) {
+    lectura += ` ${ejercicio.pasos[paso].pregunta}`;
+  }
+
+  // La barra oculta del gráfico aparece cuando se completa el primer paso.
+  const estadoVisual = {
+    paso,
+    resuelto,
+    revelar: resuelto || paso > 0,
+    intentos: errores.length,
+    eleccion,
+    elegir: enDibujo ? elegirDesdeDibujo : undefined,
+    descartadas,
+    correcta: ejercicio.opciones?.find((o) => o.correcta)?.texto,
+  };
+
+  const notaError = {
+    alternativas: enDibujo
+      ? 'Intenta otra vez con otra de las que quedan.'
+      : 'Intenta otra vez con las alternativas que quedan.',
+    herramienta: 'Ajusta tu respuesta con la herramienta y vuelve a comprobar.',
+    interactivo: 'Mueve o cambia las cifras y vuelve a comprobar.',
+  };
 
   return (
     <>
@@ -131,54 +217,62 @@ function Pregunta({ ejercicio, esUltima, onSiguiente }) {
           )}
         </div>
 
-        <Visual
-          visual={ejercicio.visual}
-          ejercicio={ejercicio}
-          bloqueado={resuelto}
-          onResponder={responderHerramienta}
-        />
-
-        {Interactivo ? (
-          <Interactivo ejercicio={ejercicio} resuelto={resuelto} onResponder={responderInteractivo} />
-        ) : conHerramienta ? null : (
-          <div className="opciones" role="group" aria-label="Alternativas">
-            {opciones.map((opcion, i) => {
-              const descartada = descartadas.includes(opcion.texto);
-              const esCorrecta = resuelto && opcion.correcta;
-              return (
-                <button
-                  key={opcion.texto}
-                  type="button"
-                  className={`opcion${descartada ? ' opcion--descartada' : ''}${esCorrecta ? ' opcion--correcta' : ''}`}
-                  onClick={() => elegir(opcion)}
-                  disabled={descartada || resuelto}
-                  aria-label={`${LETRAS[i]}: ${opcion.texto}${descartada ? ', descartada' : ''}${esCorrecta ? ', correcta' : ''}`}
-                >
-                  <span className="opcion__letra">{LETRAS[i]}</span>
-                  <span className="opcion__texto">{opcion.texto}</span>
-                </button>
-              );
-            })}
+        {tieneDibujo && (
+          <div className="con-sello">
+            <Visual
+              visual={ejercicio.visual}
+              ejercicio={ejercicio}
+              bloqueado={resuelto}
+              onResponder={responderHerramienta}
+              estado={estadoVisual}
+            />
+            {selloAqui('dibujo')}
           </div>
         )}
+
+        <div className={selloEnDibujo ? undefined : 'con-sello'}>
+          {tipo === 'alternativas' && !enDibujo && (
+            <div className="opciones" role="group" aria-label="Alternativas">
+              {opciones.map((opcion, i) => {
+                const descartada = descartadas.includes(opcion.texto);
+                const esCorrecta = resuelto && opcion.correcta;
+                return (
+                  <button
+                    key={opcion.texto}
+                    type="button"
+                    className={`opcion${descartada ? ' opcion--descartada' : ''}${esCorrecta ? ' opcion--correcta' : ''}`}
+                    onClick={() => elegir(opcion)}
+                    disabled={descartada || resuelto}
+                    aria-label={`${LETRAS[i]}: ${opcion.texto}${descartada ? ', descartada' : ''}${esCorrecta ? ', correcta' : ''}`}
+                  >
+                    <span className="opcion__letra">{LETRAS[i]}</span>
+                    <span className="opcion__texto">{opcion.texto}</span>
+                  </button>
+                );
+              })}
+            </div>
+          )}
+
+          {tipo === 'interactivo' && (
+            <Interactivo ejercicio={ejercicio} resuelto={resuelto} onResponder={responderInteractivo} />
+          )}
+
+          {tipo === 'ordenar' && <Ordenar datos={ejercicio.ordenar} resuelto={resuelto} onComprobar={comprobarOrden} />}
+
+          {tipo === 'numerica' && (
+            <Numerica pasos={ejercicio.pasos} paso={paso} resuelto={resuelto} onResponder={responderNumero} />
+          )}
+          {selloAqui('respuesta')}
+        </div>
       </div>
 
       <div className="apoyo" aria-live="polite">
-        {!resuelto && (ultimoError || errorInteractivo) && (
+        {!resuelto && errorVisible && (
           <div className="panel panel--revisar" ref={panelRef} tabIndex={-1}>
             <h2>Revisemos tu respuesta</h2>
-            <p>
-              {errorInteractivo ??
-                ejercicio.opciones?.find((o) => o.texto === ultimoError)?.feedback}
-            </p>
-            <p className="panel__nota">
-              {errorInteractivo
-                ? conHerramienta
-                  ? 'Ajusta tu respuesta con la herramienta y vuelve a comprobar.'
-                  : 'Mueve o cambia las cifras en la tabla y vuelve a comprobar.'
-                : 'Intenta otra vez con las alternativas que quedan.'}
-            </p>
-            {(descartadas.length >= 2 || intentosInteractivo >= 2) && (
+            <p>{errorVisible.feedback}</p>
+            <p className="panel__nota">{notaError[tipo] ?? 'Corrige tu respuesta y vuelve a comprobar.'}</p>
+            {errores.length >= 2 && (
               <button type="button" className="boton boton--suave" onClick={verSolucion}>
                 Ver cómo se resuelve
               </button>
@@ -188,13 +282,7 @@ function Pregunta({ ejercicio, esUltima, onSiguiente }) {
 
         {resuelto && (
           <div className="panel panel--logrado" ref={panelRef} tabIndex={-1}>
-            <h2>
-              {mostroSolucion
-                ? 'Así se resuelve'
-                : primerIntento
-                  ? '¡Correcto a la primera!'
-                  : '¡Lo lograste!'}
-            </h2>
+            <h2>{mostroSolucion ? 'Así se resuelve' : primerIntento ? '¡Correcto a la primera!' : '¡Lo lograste!'}</h2>
             <p className="panel__solucion">
               {typeof ejercicio.solucion === 'object' ? ejercicio.solucion.texto : ejercicio.solucion}
             </p>
@@ -204,11 +292,7 @@ function Pregunta({ ejercicio, esUltima, onSiguiente }) {
             {mostroSolucion && (
               <p className="panel__nota">Esta pregunta va a tu lista para repasar. La próxima vez te va a salir.</p>
             )}
-            <button
-              type="button"
-              className="boton boton--principal"
-              onClick={() => onSiguiente(primerIntento)}
-            >
+            <button type="button" className="boton boton--principal" onClick={() => onSiguiente(primerIntento)}>
               {esUltima ? 'Ver mis resultados' : 'Siguiente pregunta'}
             </button>
           </div>
@@ -241,7 +325,10 @@ export default function Practica({ sesion, onTerminar, onSalir }) {
   const total = sesion.ejercicios.length;
 
   function siguiente(primerIntento) {
-    const nuevos = { ...historial, [ejercicio.id]: { id: ejercicio.id, primerIntento } };
+    const nuevos = {
+      ...historial,
+      [ejercicio.id]: { id: ejercicio.id, primerIntento },
+    };
     setHistorial(nuevos);
     if (indice + 1 >= total) {
       const listaFinal = sesion.ejercicios.map((e) => nuevos[e.id] ?? { id: e.id, primerIntento: false });

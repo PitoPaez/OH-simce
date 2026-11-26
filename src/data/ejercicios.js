@@ -24,7 +24,7 @@ export const EJES = [
   {
     id: 'datos',
     nombre: 'Datos y probabilidades',
-    descripcion: 'Leer gráficos y tablas',
+    descripcion: 'Gráficos, tablas y probabilidades',
   },
 ];
 
@@ -1449,7 +1449,7 @@ export const EJERCICIOS = [
     "solucion": "10 × 5 = 50 cm². Son 5 filas de 10 cuadrados de 1 cm². ✓"
   },
   // =========================================================
-  // ---------- Datos y probabilidades (10 ejercicios) ----------
+  // ---------- Datos y probabilidades (13 ejercicios) ----------
   // =========================================================
   {
     "id": "dat-diferencia",
@@ -1798,36 +1798,14 @@ export const EJERCICIOS = [
     "eje": "datos",
     "enunciado": "En una tienda hay frascos de mermelada de distintos sabores. Si se saca un frasco al azar, ¿qué dos sabores tienen la misma probabilidad de salir?",
     "visual": {
-      "tipo": "tabla",
-      "encabezados": [
-        "Sabor",
-        "Frascos"
-      ],
-      "filas": [
-        [
-          "Uva",
-          17
-        ],
-        [
-          "Manzana",
-          8
-        ],
-        [
-          "Frutilla",
-          14
-        ],
-        [
-          "Durazno",
-          11
-        ],
-        [
-          "Naranja",
-          6
-        ],
-        [
-          "Piña",
-          8
-        ]
+      "tipo": "tienda",
+      "estantes": [
+        { "sabor": "Uva", "frascos": 17 },
+        { "sabor": "Manzana", "frascos": 8 },
+        { "sabor": "Frutilla", "frascos": 14 },
+        { "sabor": "Durazno", "frascos": 11 },
+        { "sabor": "Naranja", "frascos": 6 },
+        { "sabor": "Piña", "frascos": 8 }
       ]
     },
     "opciones": [
@@ -1850,14 +1828,16 @@ export const EJERCICIOS = [
     ],
     "pistas": [
       "Tienen la misma probabilidad los sabores que tienen la misma cantidad de frascos.",
-      "Busca dos números iguales en la tabla."
+      "Mira los letreros de los estantes y busca dos sabores con la misma cantidad de frascos."
     ],
     "solucion": "Manzana y piña tienen 8 frascos cada uno. Son los únicos dos sabores con la misma cantidad. ✓"
   },
   {
     "id": "pr-bolsas",
     "eje": "datos",
-    "enunciado": "Ganas si sacas una bolita roja sin mirar. ¿Con qué bolsa es más probable ganar?",
+    "responderEnDibujo": true,
+    "mezclarBolsas": true,
+    "enunciado": "Ganas si sacas una canica roja sin mirar. ¿Con qué bolsa es más probable ganar?",
     "visual": {
       "tipo": "bolsas",
       "bolsas": [
@@ -1893,7 +1873,7 @@ export const EJERCICIOS = [
     "opciones": [
       {
         "texto": "Bolsa 1",
-        "feedback": "En la bolsa 1 es igual de probable sacar roja que azul (2 y 2). Hay una bolsa con más rojas."
+        "feedback": "En la {b1} es igual de probable sacar roja que azul (2 y 2). Hay una bolsa con más rojas."
       },
       {
         "texto": "Bolsa 2",
@@ -1901,23 +1881,26 @@ export const EJERCICIOS = [
       },
       {
         "texto": "Bolsa 3",
-        "feedback": "En la bolsa 3 hay solo 1 roja de 4."
+        "feedback": "En la {b3} hay solo 1 roja de 4."
       },
       {
         "texto": "Bolsa 4",
-        "feedback": "En la bolsa 4 no hay rojas: es imposible ganar."
+        "feedback": "En la {b4} no hay rojas: es imposible ganar."
       }
     ],
     "pistas": [
-      "Todas las bolsas tienen 4 bolitas. Cuenta las rojas de cada una.",
-      "Bolsa 1: 2 rojas. Bolsa 2: 3. Bolsa 3: 1. Bolsa 4: ninguna."
+      "Todas las bolsas tienen 4 canicas. Cuenta las rojas de cada una.",
+      "Hay una bolsa con 3 rojas, una con 2, una con 1 y una sin rojas. ¿Cuál tiene más?"
     ],
-    "solucion": "La bolsa 2 tiene más bolitas rojas: 3 de 4. Con la bolsa 4 es imposible ganar, y con la 2 es lo más probable. ✓"
+    "solucion": "La {b2} tiene más canicas rojas: 3 de 4. Con la {b4} es imposible ganar, y con la {b2} es lo más probable. ✓"
   },
   {
     "id": "pr-dado",
     "eje": "datos",
     "enunciado": "Lanzas un dado común, con los números del 1 al 6. ¿Qué es imposible?",
+    "visual": {
+      "tipo": "dado3d"
+    },
     "opciones": [
       {
         "texto": "Sacar un 7",
@@ -1941,5 +1924,119 @@ export const EJERCICIOS = [
       "¿Qué números tiene el dado? ¿Hay alguno que no esté?"
     ],
     "solucion": "El dado no tiene 7: sacar un 7 es imposible. En cambio, sacar un número menor que 7 es seguro. ✓"
+  },
+  // ---------- Ejercicios de la PPT "ejercicios de prueba" ----------
+  // Usan imágenes de public/img/datos y dos formas nuevas de responder:
+  // "ordenar" (arrastrar o tocar tarjetas) y "numerica" (escribir el número, por pasos).
+  {
+    "id": "pr-colaciones",
+    "eje": "datos",
+    "interaccion": "ordenar",
+    "enunciado": "La mamá de Sofía dejó una caja con 11 colaciones para la semana: 5 manzanas, 3 yogures, 1 paquete de galletas de chocolate y 2 jugos en caja. El lunes, Sofía mete la mano en la caja sin mirar y saca una colación. Ordena las colaciones desde la menos probable hasta la más probable de sacar.",
+    "visual": {
+      "tipo": "caja",
+      "titulo": "Caja de colaciones",
+      "items": [
+        { "id": "manzana", "singular": "una manzana", "nombre": "manzanas", "imagen": "manzana", "cantidad": 5 },
+        { "id": "yogur", "singular": "un yogur", "nombre": "yogures", "imagen": "yogur", "cantidad": 3 },
+        { "id": "galletas", "singular": "el paquete de galletas", "nombre": "paquete de galletas", "imagen": "galletas", "cantidad": 1 },
+        { "id": "jugo", "singular": "un jugo en caja", "nombre": "jugos en caja", "imagen": "jugo", "cantidad": 2 }
+      ]
+    },
+    "ordenar": {
+      "elementos": [
+        { "id": "manzana", "texto": "Sacar una manzana", "imagen": "manzana" },
+        { "id": "yogur", "texto": "Sacar un yogur", "imagen": "yogur" },
+        { "id": "galletas", "texto": "Sacar las galletas", "imagen": "galletas" },
+        { "id": "jugo", "texto": "Sacar un jugo", "imagen": "jugo" }
+      ],
+      "casillas": ["Muy poco probable", "Poco probable", "Probable", "Más probable"],
+      "correcto": ["galletas", "jugo", "yogur", "manzana"],
+      "feedbackInvertido": "Las ordenaste de la más probable a la menos probable. La primera casilla es para la colación MENOS probable: la que tiene menos unidades en la caja.",
+      "feedback": "Cuenta cuántas hay de cada colación en la caja. Mientras más unidades hay de una colación, más probable es sacarla."
+    },
+    "pistas": [
+      "Cuenta cuántas hay de cada colación: manzanas, yogures, galletas y jugos.",
+      "Hay 1 paquete de galletas, 2 jugos, 3 yogures y 5 manzanas. ¿De cuál hay menos? Esa va primero."
+    ],
+    "solucion": "Galletas (1 de 11) → jugo (2 de 11) → yogur (3 de 11) → manzana (5 de 11). La manzana es la más probable porque es la que más se repite en la caja. ✓"
+  },
+  {
+    "id": "pr-peluches",
+    "eje": "datos",
+    "enunciado": "En una máquina de peluches quedan 12 premios: 6 perritos, 3 gatos, 2 osos y 1 dinosaurio. Si metes una moneda y la garra atrapa un peluche al azar, ¿qué posibilidad hay de sacar el dinosaurio?",
+    "visual": {
+      "tipo": "maquinaPeluches",
+      "destacado": "dinosaurio",
+      "grupos": [
+        { "id": "perrito", "singular": "un perrito", "nombre": "perritos", "imagenes": ["perrito-1", "perrito-2", "perrito-3"], "cantidad": 6 },
+        { "id": "gato", "singular": "un gato", "nombre": "gatos", "imagenes": ["gato-1", "gato-2", "gato-3"], "cantidad": 3 },
+        { "id": "oso", "singular": "un oso", "nombre": "osos", "imagenes": ["oso-1", "oso-2"], "cantidad": 2 },
+        { "id": "dinosaurio", "singular": "el dinosaurio", "nombre": "dinosaurio", "imagenes": ["dinosaurio"], "cantidad": 1 }
+      ]
+    },
+    "opciones": [
+      {
+        "texto": "1 de 12",
+        "correcta": true
+      },
+      {
+        "texto": "6 de 12",
+        "feedback": "6 de 12 es la posibilidad de sacar un perrito, porque hay 6 perritos. ¿Cuántos dinosaurios hay en la máquina?"
+      },
+      {
+        "texto": "3 de 12",
+        "feedback": "3 de 12 es la posibilidad de sacar un gato. Busca cuántos dinosaurios hay."
+      },
+      {
+        "texto": "2 de 12",
+        "feedback": "2 de 12 es la posibilidad de sacar un oso. La pregunta es por el dinosaurio."
+      }
+    ],
+    "pistas": [
+      "La posibilidad se escribe así: (peluches que te sirven) de (todos los peluches).",
+      "Hay 12 peluches en total. ¿Cuántos de ellos son dinosaurios?"
+    ],
+    "solucion": "Hay 1 dinosaurio entre 12 peluches: la posibilidad es 1 de 12. Es poco probable sacarlo, porque es el peluche que menos se repite. ✓"
+  },
+  {
+    "id": "gr-quiosco",
+    "eje": "datos",
+    "interaccion": "numerica",
+    "enunciado": "En el gráfico del quiosco falta la barra del sándwich de pollo. En la mañana se prepararon 12 sándwiches de pollo. Se vendieron 15 manzanas, 6 jugos y 4 helados. De sándwich de pollo se vendió lo mismo que de jugos y helados juntos. ¿Cuántos sándwiches se han vendido hoy?",
+    "visual": {
+      "tipo": "graficoIconos",
+      "escena": "kiosco",
+      "titulo": "Ventas del quiosco",
+      "max": 16,
+      "paso": 2,
+      "datos": [
+        { "etiqueta": "Jugos", "imagen": "quiosco-jugo", "valor": 6 },
+        { "etiqueta": "Sándwich de pollo", "imagen": "quiosco-sandwich", "valor": 10, "oculto": true },
+        { "etiqueta": "Helados", "imagen": "quiosco-helado", "valor": 4 },
+        { "etiqueta": "Manzanas", "imagen": "quiosco-manzana", "valor": 15 }
+      ]
+    },
+    "pasos": [
+      {
+        "pregunta": "¿Cuántos sándwiches de pollo se han vendido hoy?",
+        "respuesta": 10,
+        "unidad": "sándwiches",
+        "feedback": "Lee otra vez: se vendió lo mismo que de jugos y helados juntos. Busca esas dos barras en el gráfico y súmalas.",
+        "errores": {
+          "2": "Restaste 6 − 4. \"Juntos\" significa que hay que sumar los jugos y los helados.",
+          "6": "6 son solo los jugos. Falta sumarle los helados.",
+          "4": "4 son solo los helados. Falta sumarle los jugos.",
+          "12": "12 son los sándwiches que se prepararon en la mañana, no los que se vendieron. Fíjate en los jugos y los helados.",
+          "15": "15 son las manzanas. La pregunta habla de jugos y helados juntos.",
+          "25": "Sumaste también las manzanas. Solo hay que juntar jugos y helados."
+        }
+      }
+    ],
+    "pistas": [
+      "Se vendió lo mismo que de jugos y helados juntos. Busca esas dos barras en el gráfico.",
+      "Vendidos: 6 jugos + 4 helados. Los 12 preparados no se necesitan para esta pregunta."
+    ],
+    "solucion": "De sándwich de pollo se vendió lo mismo que de jugos y helados juntos: 6 + 4 = 10 sándwiches. ✓"
   },
 ];

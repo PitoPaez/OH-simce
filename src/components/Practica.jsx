@@ -2,6 +2,10 @@ import { useEffect, useMemo, useRef, useState } from 'react';
 import { EJES } from '../data/ejercicios.js';
 import Cuadritos from './Cuadritos.jsx';
 import Visual from './Visual.jsx';
+import Ordenar from './interactivos/Ordenar.jsx';
+import Numerica from './interactivos/Numerica.jsx';
+import Sello from './Sello.jsx';
+import { mezclarBolsas } from '../lib/mezclarBolsas.js';
 
 const LETRAS = ['A', 'B', 'C', 'D'];
 const puedeHablar = typeof window !== 'undefined' && 'speechSynthesis' in window;
@@ -24,27 +28,69 @@ function mezclar(lista) {
   return copia;
 }
 
-function Pregunta({ ejercicio, esUltima, onSiguiente }) {
-  const opciones = useMemo(() => mezclar(ejercicio.opciones), [ejercicio]);
-  const [descartadas, setDescartadas] = useState([]);
+// Tipo de respuesta de cada ejercicio: "alternativas" (por defecto),
+// "ordenar" (tarjetas en casillas) o "numerica" (escribir un número, por pasos).
+const tipoDe = (ejercicio) => ejercicio.interaccion ?? 'alternativas';
+
+function Pregunta({ ejercicio: original, esUltima, onSiguiente }) {
+  // Se prepara una sola vez cada vez que se abre la pregunta (por ejemplo, las
+  // bolsas se reparten al azar y no cambian mientras se responde).
+  const [ejercicio] = useState(() => mezclarBolsas(original));
+  const tipo = tipoDe(ejercicio);
+  const opciones = useMemo(() => mezclar(ejercicio.opciones ?? []), [ejercicio]);
+  // Cada error guarda qué respondió (clave), su explicación y en qué paso ocurrió.
+  const [errores, setErrores] = useState([]);
   const [pistas, setPistas] = useState(0);
+  const [paso, setPaso] = useState(0);
   const [resuelto, setResuelto] = useState(false);
   const [mostroSolucion, setMostroSolucion] = useState(false);
+  const [eleccion, setEleccion] = useState(null); // última alternativa elegida: { texto, n }
   const panelRef = useRef(null);
 
-  const ultimoError = descartadas.at(-1);
-  const primerIntento = resuelto && descartadas.length === 0 && !mostroSolucion;
+  const descartadas = errores.map((e) => e.clave);
+  const ultimoError = errores.at(-1);
+  const errorVisible = ultimoError && ultimoError.paso === paso ? ultimoError : null;
+  const primerIntento = resuelto && errores.length === 0 && !mostroSolucion;
 
   useEffect(() => {
-    if (ultimoError || resuelto) panelRef.current?.focus();
-  }, [ultimoError, resuelto]);
+    if (errores.length > 0 || resuelto) panelRef.current?.focus();
+  }, [errores.length, resuelto]);
 
   useEffect(() => () => puedeHablar && window.speechSynthesis.cancel(), []);
 
+  function anotarError(clave, feedback) {
+    setErrores((prev) => [...prev, { clave, feedback, paso }]);
+  }
+
   function elegir(opcion) {
     if (resuelto) return;
+    setEleccion((e) => ({ texto: opcion.texto, n: (e?.n ?? 0) + 1 }));
     if (opcion.correcta) setResuelto(true);
-    else setDescartadas((prev) => [...prev, opcion.texto]);
+    else anotarError(opcion.texto, opcion.feedback);
+  }
+
+  // Si el ejercicio tiene "responderEnDibujo", se responde tocando el dibujo (por
+  // ejemplo, las bolsas) y no se muestran las alternativas A, B, C, D.
+  // Si esa opción ya se descartó o la pregunta está resuelta, solo se vuelve a mostrar.
+  function elegirDesdeDibujo(texto) {
+    const opcion = ejercicio.opciones?.find((o) => o.texto === texto);
+    if (opcion && !resuelto && !descartadas.includes(texto)) elegir(opcion);
+    else setEleccion((e) => ({ texto, n: (e?.n ?? 0) + 1 }));
+  }
+
+  function comprobarOrden(correcto, clave, feedback) {
+    if (correcto) setResuelto(true);
+    else anotarError(clave, feedback);
+  }
+
+  function responderNumero(correcto, clave, feedback) {
+    if (!correcto) {
+      anotarError(clave, feedback);
+    } else if (paso + 1 < ejercicio.pasos.length) {
+      setPaso(paso + 1);
+    } else {
+      setResuelto(true);
+    }
   }
 
   function verSolucion() {
@@ -52,9 +98,40 @@ function Pregunta({ ejercicio, esUltima, onSiguiente }) {
     setResuelto(true);
   }
 
-  const lectura = `${ejercicio.enunciado} ${opciones
-    .map((o, i) => `${LETRAS[i]}: ${o.texto}.`)
-    .join(' ')}`;
+  const enDibujo = tipo === 'alternativas' && Boolean(ejercicio.responderEnDibujo);
+
+  // Sello CORRECTO / INCORRECTO en las preguntas de datos y probabilidades.
+  // Con alternativas va en la esquina del dibujo (o de las alternativas, si no hay
+  // dibujo). Al ordenar o escribir un número va en la esquina de esa respuesta,
+  // que es lo que se está mirando al comprobar.
+  // Las bolsas ponen su propio sello después de sacar la canica.
+  const conSello = ejercicio.eje === 'datos' && !enDibujo;
+  const sello = !conSello ? null : resuelto ? (mostroSolucion ? null : 'correcto') : errorVisible ? 'incorrecto' : null;
+  // cambia en cada respuesta, para que el sello vuelva a timbrar
+  const marcaSello = `${sello}-${errores.length}-${paso}`;
+  const tieneDibujo = Boolean(ejercicio.visual?.tipo);
+  const selloEnDibujo = tieneDibujo && tipo === 'alternativas';
+  const selloAqui = (lugar) =>
+    sello && (lugar === 'dibujo') === selloEnDibujo ? <Sello key={marcaSello} tipo={sello} animado /> : null;
+
+  let lectura = ejercicio.enunciado;
+  if (tipo === 'alternativas' && !enDibujo) {
+    lectura += ` ${opciones.map((o, i) => `${LETRAS[i]}: ${o.texto}.`).join(' ')}`;
+  } else if (tipo === 'numerica' && !resuelto) {
+    lectura += ` ${ejercicio.pasos[paso].pregunta}`;
+  }
+
+  // La barra oculta del gráfico aparece cuando se completa el primer paso.
+  const estadoVisual = {
+    paso,
+    resuelto,
+    revelar: resuelto || paso > 0,
+    intentos: errores.length,
+    eleccion,
+    elegir: enDibujo ? elegirDesdeDibujo : undefined,
+    descartadas,
+    correcta: ejercicio.opciones?.find((o) => o.correcta)?.texto,
+  };
 
   return (
     <>
@@ -72,36 +149,58 @@ function Pregunta({ ejercicio, esUltima, onSiguiente }) {
           )}
         </div>
 
-        <Visual visual={ejercicio.visual} />
+        {tieneDibujo && (
+          <div className="con-sello">
+            <Visual visual={ejercicio.visual} estado={estadoVisual} />
+            {selloAqui('dibujo')}
+          </div>
+        )}
 
-        <div className="opciones" role="group" aria-label="Alternativas">
-          {opciones.map((opcion, i) => {
-            const descartada = descartadas.includes(opcion.texto);
-            const esCorrecta = resuelto && opcion.correcta;
-            return (
-              <button
-                key={opcion.texto}
-                type="button"
-                className={`opcion${descartada ? ' opcion--descartada' : ''}${esCorrecta ? ' opcion--correcta' : ''}`}
-                onClick={() => elegir(opcion)}
-                disabled={descartada || resuelto}
-                aria-label={`${LETRAS[i]}: ${opcion.texto}${descartada ? ', descartada' : ''}${esCorrecta ? ', correcta' : ''}`}
-              >
-                <span className="opcion__letra">{LETRAS[i]}</span>
-                <span className="opcion__texto">{opcion.texto}</span>
-              </button>
-            );
-          })}
+        <div className={selloEnDibujo ? undefined : 'con-sello'}>
+          {tipo === 'alternativas' && !enDibujo && (
+            <div className="opciones" role="group" aria-label="Alternativas">
+              {opciones.map((opcion, i) => {
+                const descartada = descartadas.includes(opcion.texto);
+                const esCorrecta = resuelto && opcion.correcta;
+                return (
+                  <button
+                    key={opcion.texto}
+                    type="button"
+                    className={`opcion${descartada ? ' opcion--descartada' : ''}${esCorrecta ? ' opcion--correcta' : ''}`}
+                    onClick={() => elegir(opcion)}
+                    disabled={descartada || resuelto}
+                    aria-label={`${LETRAS[i]}: ${opcion.texto}${descartada ? ', descartada' : ''}${esCorrecta ? ', correcta' : ''}`}
+                  >
+                    <span className="opcion__letra">{LETRAS[i]}</span>
+                    <span className="opcion__texto">{opcion.texto}</span>
+                  </button>
+                );
+              })}
+            </div>
+          )}
+
+          {tipo === 'ordenar' && <Ordenar datos={ejercicio.ordenar} resuelto={resuelto} onComprobar={comprobarOrden} />}
+
+          {tipo === 'numerica' && (
+            <Numerica pasos={ejercicio.pasos} paso={paso} resuelto={resuelto} onResponder={responderNumero} />
+          )}
+          {selloAqui('respuesta')}
         </div>
       </div>
 
       <div className="apoyo" aria-live="polite">
-        {!resuelto && ultimoError && (
+        {!resuelto && errorVisible && (
           <div className="panel panel--revisar" ref={panelRef} tabIndex={-1}>
             <h2>Revisemos tu respuesta</h2>
-            <p>{ejercicio.opciones.find((o) => o.texto === ultimoError).feedback}</p>
-            <p className="panel__nota">Intenta otra vez con las alternativas que quedan.</p>
-            {descartadas.length >= 2 && (
+            <p>{errorVisible.feedback}</p>
+            <p className="panel__nota">
+              {tipo === 'alternativas'
+                ? enDibujo
+                  ? 'Intenta otra vez con otra de las que quedan.'
+                  : 'Intenta otra vez con las alternativas que quedan.'
+                : 'Corrige tu respuesta y vuelve a comprobar.'}
+            </p>
+            {errores.length >= 2 && (
               <button type="button" className="boton boton--suave" onClick={verSolucion}>
                 Ver cómo se resuelve
               </button>
@@ -111,13 +210,7 @@ function Pregunta({ ejercicio, esUltima, onSiguiente }) {
 
         {resuelto && (
           <div className="panel panel--logrado" ref={panelRef} tabIndex={-1}>
-            <h2>
-              {mostroSolucion
-                ? 'Así se resuelve'
-                : primerIntento
-                  ? '¡Correcto a la primera!'
-                  : '¡Lo lograste!'}
-            </h2>
+            <h2>{mostroSolucion ? 'Así se resuelve' : primerIntento ? '¡Correcto a la primera!' : '¡Lo lograste!'}</h2>
             <p className="panel__solucion">{ejercicio.solucion}</p>
             {!primerIntento && !mostroSolucion && (
               <p className="panel__nota">Encontraste tu error y lo corregiste. Así se aprende.</p>
@@ -125,11 +218,7 @@ function Pregunta({ ejercicio, esUltima, onSiguiente }) {
             {mostroSolucion && (
               <p className="panel__nota">Esta pregunta va a tu lista para repasar. La próxima vez te va a salir.</p>
             )}
-            <button
-              type="button"
-              className="boton boton--principal"
-              onClick={() => onSiguiente(primerIntento)}
-            >
+            <button type="button" className="boton boton--principal" onClick={() => onSiguiente(primerIntento)}>
               {esUltima ? 'Ver mis resultados' : 'Siguiente pregunta'}
             </button>
           </div>
@@ -162,7 +251,10 @@ export default function Practica({ sesion, onTerminar, onSalir }) {
   const total = sesion.ejercicios.length;
 
   function siguiente(primerIntento) {
-    const nuevos = { ...historial, [ejercicio.id]: { id: ejercicio.id, primerIntento } };
+    const nuevos = {
+      ...historial,
+      [ejercicio.id]: { id: ejercicio.id, primerIntento },
+    };
     setHistorial(nuevos);
     if (indice + 1 >= total) {
       const listaFinal = sesion.ejercicios.map((e) => nuevos[e.id] ?? { id: e.id, primerIntento: false });

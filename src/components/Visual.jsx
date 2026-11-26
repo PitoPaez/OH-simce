@@ -5,7 +5,10 @@
 import { Arreglo, Balanza as BalanzaAvanzada, Barras as BarrasAvanzadas, FraccionVisual, Posicional as PosicionalAvanzada, Recta, Secuencia, Tabla } from './visuales/numeros.jsx';
 import { Coordenadas as CoordenadasAvanzadas, Cuerpo, Figuras, Plano, Sala } from './visuales/geometria.jsx';
 import { Area, Poligono, Reloj } from './visuales/medicion.jsx';
-import { Bolsas, Grafico, Pictograma } from './visuales/datos.jsx';
+import { Caja, Grafico, GraficoIconos, MaquinaPeluches, Pictograma } from './visuales/datos.jsx';
+import { Bolsas } from './visuales/BolsasCanicas.jsx';
+import { Tienda } from './visuales/TiendaMermeladas.jsx';
+import { Dado3D } from './visuales/Dado3D.jsx';
 
 function Barras(props) {
   if (props.partes || props.comparar) {
@@ -156,15 +159,21 @@ const TIPOS = {
   poligono: Poligono,
   pictograma: Pictograma,
   bolsas: Bolsas,
+  tienda: Tienda,
+  caja: Caja,
+  maquinaPeluches: MaquinaPeluches,
+  graficoIconos: GraficoIconos,
+  dado3d: Dado3D,
 };
 
-export default function Visual({ visual }) {
+// estado: datos que cambian mientras se responde (por ejemplo, revelar una barra).
+export default function Visual({ visual, estado }) {
   if (!visual || !visual.tipo) return null;
   const Componente = TIPOS[visual.tipo];
   if (!Componente) return null;
   return (
-    <figure className="visual">
-      <Componente {...visual} />
+    <figure className={`visual visual--${visual.tipo}`}>
+      <Componente {...visual} estado={estado} />
     </figure>
   );
 }

@@ -4,7 +4,7 @@ import { Angulos, Coordenadas, Cuerpo, Figura2D, Figuras, Plano, Red, Sala } fro
 import { Area, Cubos, CubosConPisos, Longitudes, Poligono, Reloj } from './medicion.jsx';
 import { Bolsas, Grafico, Pictograma } from './datos.jsx';
 import { Fosforos, Maquina, Pulsera, Tablero100 } from './patrones.jsx';
-import './patrones-seleccion.css';
+import '../interactivos/patrones-seleccion.css';
 
 const TIPOS = {
   posicional: Posicional,

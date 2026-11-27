@@ -9,6 +9,7 @@ import { Caja, Grafico, GraficoIconos, MaquinaPeluches, Pictograma } from './vis
 import { Bolsas } from './visuales/BolsasCanicas.jsx';
 import { Tienda } from './visuales/TiendaMermeladas.jsx';
 import { Dado3D } from './visuales/Dado3D.jsx';
+import { EncuestaProfesora } from './visuales/EncuestaProfesora.jsx';
 
 import Calendario from './herramientas/Calendario.jsx';
 import Medir from './herramientas/Medir.jsx';
@@ -169,6 +170,7 @@ const TIPOS = {
   maquinaPeluches: MaquinaPeluches,
   graficoIconos: GraficoIconos,
   dado3d: Dado3D,
+  encuesta: EncuestaProfesora,
 };
 
 const HERRAMIENTAS = {

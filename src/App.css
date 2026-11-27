@@ -4556,3 +4556,259 @@
     grid-template-columns: repeat(2, 1fr);
   }
 }
+
+/* =========================================================
+   Encuesta en la tabla de pinza (pregunta 2 de datos)
+   ========================================================= */
+.visual--encuesta {
+  padding: 0;
+  overflow: hidden;
+}
+
+.encuesta {
+  position: relative;
+  width: 100%;
+  min-width: 0;
+  padding: 22px 16px 18px;
+  display: flex;
+  justify-content: center;
+  /* muro y piso de la sala, que quedan detrás de la tabla grande */
+  background: linear-gradient(#f3ead8 0 74%, #c9b08a 74% 75.5%, #d6a46c 75.5%);
+}
+
+.visual .encuesta__escena {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  max-width: none;
+  max-height: none;
+  z-index: 1;
+}
+
+.encuesta__vista {
+  transform-origin: 0 0;
+}
+
+.encuesta__profesora {
+  transform-origin: 0 0;
+  animation: encuesta-acercarse 3.4s cubic-bezier(0.3, 0.1, 0.45, 1) both;
+}
+
+@keyframes encuesta-acercarse {
+  from {
+    transform: translate(660px, 600px) scale(0.5);
+  }
+  to {
+    transform: translate(500px, 900px) scale(1.7);
+  }
+}
+
+/* paso: el cuerpo sube y baja, y cada pierna se levanta por turno */
+.encuesta__cuerpo {
+  animation: encuesta-balanceo 0.45s ease-in-out 7 alternate;
+}
+
+@keyframes encuesta-balanceo {
+  to {
+    transform: translateY(-4px);
+  }
+}
+
+.encuesta__pierna--izq {
+  animation: encuesta-paso 0.9s ease-in-out 4;
+}
+
+.encuesta__pierna--der {
+  animation: encuesta-paso 0.9s ease-in-out -0.45s 4;
+}
+
+@keyframes encuesta-paso {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-9px);
+  }
+}
+
+/* la tabla gira (como sobre un eje vertical): primero se ve el dorso y después la hoja */
+.encuesta__dorso,
+.encuesta__frente {
+  transform-box: fill-box;
+  transform-origin: center;
+}
+
+.encuesta__dorso {
+  animation: encuesta-dorso 3.4s linear both;
+}
+
+.encuesta__frente {
+  animation: encuesta-frente 3.4s linear both;
+}
+
+@keyframes encuesta-dorso {
+  0%,
+  45% {
+    transform: scaleX(1);
+  }
+  62%,
+  100% {
+    transform: scaleX(0);
+  }
+}
+
+@keyframes encuesta-frente {
+  0%,
+  62% {
+    transform: scaleX(0);
+  }
+  80%,
+  100% {
+    transform: scaleX(1);
+  }
+}
+
+/* al final la vista se acerca a la tabla (que queda en 500, 587) */
+.encuesta--zoom .encuesta__vista {
+  transform-origin: 500px 587px;
+  animation: encuesta-zoom 0.8s ease-in both;
+}
+
+.encuesta--zoom .encuesta__escena {
+  animation: encuesta-desvanecer 0.8s ease-in both;
+}
+
+@keyframes encuesta-zoom {
+  to {
+    transform: translate(0, -207px) scale(3.6);
+  }
+}
+
+@keyframes encuesta-desvanecer {
+  0%,
+  55% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+
+/* tabla grande: aglomerado café con pinza plateada, como la foto de referencia */
+.encuesta__tabla {
+  position: relative;
+  width: min(100%, 520px);
+  padding: 30px 16px 16px;
+  border: 2px solid #7d5a3a;
+  border-radius: 16px;
+  background:
+    radial-gradient(ellipse at 30% 20%, #bf9670 0%, transparent 60%),
+    #b08660;
+  box-shadow: 0 10px 22px rgba(60, 38, 18, 0.35);
+  opacity: 0;
+}
+
+.encuesta--lista .encuesta__tabla {
+  animation: encuesta-mostrar 0.45s ease-out both;
+}
+
+@keyframes encuesta-mostrar {
+  from {
+    opacity: 0;
+    transform: scale(0.92);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+.visual .encuesta__pinza {
+  position: absolute;
+  top: -14px;
+  left: 50%;
+  width: 150px;
+  max-width: none;
+  max-height: none;
+  transform: translateX(-50%);
+  z-index: 1;
+}
+
+.encuesta__hoja {
+  padding: 36px 16px 8px;
+  background: #fff;
+  border-radius: 3px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+}
+
+.encuesta__curso {
+  margin: 0;
+  font-size: 0.9rem;
+  font-weight: 700;
+  color: var(--tinta-suave);
+  text-align: center;
+}
+
+.encuesta__pregunta {
+  margin: 2px 0 10px;
+  font-size: 1.15rem;
+  font-weight: 800;
+  text-align: center;
+}
+
+.encuesta__conteo {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 8px;
+}
+
+.encuesta__conteo th,
+.encuesta__conteo td {
+  padding: 4px 8px;
+  border-bottom: 1.5px solid #d5dbe6;
+  text-align: left;
+}
+
+.encuesta__conteo thead th {
+  font-size: 0.85rem;
+  color: var(--tinta-suave);
+}
+
+.encuesta__conteo tbody th {
+  width: 40%;
+  font-weight: 700;
+}
+
+.visual .encuesta__palotes {
+  display: block;
+  width: auto;
+  height: 30px;
+  max-width: none;
+  max-height: none;
+  fill: none;
+  stroke: #2c3e70;
+  stroke-width: 2.6;
+  stroke-linecap: round;
+}
+
+.encuesta__grafico {
+  display: flex;
+  justify-content: center;
+}
+
+.encuesta .sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .encuesta__tabla {
+    opacity: 1;
+  }
+}

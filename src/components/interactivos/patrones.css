@@ -1,0 +1,29 @@
+/* Interactive exercise controls */
+.patrones-completar { display: flex; flex-wrap: wrap; align-items: end; gap: 1rem; }
+.patrones-campo { display: grid; gap: .35rem; min-width: 8rem; font-weight: 700; }
+.patrones-campo input { width: 100%; min-height: 3rem; padding: .5rem .75rem; border: 2px solid var(--tinta); border-radius: .5rem; font: inherit; }
+.patrones-color-opciones { display: flex; flex-wrap: wrap; gap: .75rem; }
+.patrones-color-opcion { display: inline-flex; align-items: center; gap: .5rem; padding: .6rem .8rem; border: 2px solid var(--tinta); border-radius: .75rem; background: white; color: var(--tinta); font: inherit; cursor: pointer; }
+.patrones-color-opcion--activa { outline: 3px solid var(--eje); outline-offset: 2px; }
+.patrones-color-muestra { width: 1.5rem; height: 1.5rem; border: 1px solid var(--tinta); border-radius: 50%; }
+.patrones-tablero-grilla { display: grid; grid-template-columns: repeat(10, minmax(2rem, 1fr)); max-width: 34rem; border-top: 1px solid var(--tinta); border-left: 1px solid var(--tinta); }
+.patrones-tablero-numero { min-width: 0; aspect-ratio: 1; border: 0; border-right: 1px solid var(--tinta); border-bottom: 1px solid var(--tinta); background: white; color: var(--tinta); cursor: pointer; }
+.patrones-tablero-numero--fijo { background: var(--eje); font-weight: 700; }
+.patrones-tablero-numero--activo { background: var(--tinta); color: white; }
+.v-maquina { display: grid; gap: .5rem; width: min(100%, 28rem); margin-inline: auto; }
+.v-maquina-fila, .v-maquina-actual { display: grid; grid-template-columns: 1fr auto 1fr; align-items: center; gap: 1rem; padding: .65rem 1rem; border: 1px solid var(--tinta); border-radius: .5rem; text-align: center; }
+.v-maquina-actual { background: var(--eje); }
+.v-pulsera { display: flex; flex-wrap: wrap; justify-content: center; align-items: center; gap: .5rem; }
+.v-pulsera-cuenta-contenedor { display: grid; justify-items: center; gap: .25rem; }
+.v-pulsera-cuenta { width: 2rem; height: 2rem; border: 2px solid var(--tinta); border-radius: 50%; }
+.v-pulsera-cuenta--incognita { display: grid; place-items: center; border-style: dashed; background: transparent !important; }
+.v-pulsera-numero, .v-pulsera-puntos { font-size: .8rem; }
+.v-tablero100 { display: grid; grid-template-columns: repeat(10, minmax(1.7rem, 1fr)); max-width: 30rem; margin-inline: auto; }
+.v-tablero100-numero { display: grid; place-items: center; aspect-ratio: 1; border: 1px solid var(--tinta); font-size: .8rem; }
+.v-tablero100-numero--fijo { background: var(--eje); font-weight: 700; }
+.v-fosforos { display: flex; flex-wrap: wrap; justify-content: center; gap: 1.5rem; padding: 0; list-style: none; }
+.v-fosforo-etapa { display: grid; justify-items: center; gap: .5rem; text-align: center; }
+.v-fosforo-etapa svg { overflow: visible; }
+.balanza-pesas-controles { display: flex; flex-wrap: wrap; justify-content: center; gap: .75rem; }
+.balanza-pesa-control { display: flex; align-items: center; gap: .5rem; }
+@media (max-width: 420px) { .patrones-tablero-grilla { grid-template-columns: repeat(10, minmax(1.65rem, 1fr)); } }

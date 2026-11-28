@@ -1,0 +1,15 @@
+/* Estado seleccionado de la interacción de elegir un término de una secuencia. */
+.patrones-clic-secuencia .v-secuencia-caja[aria-pressed='true'],
+.patrones-clic-secuencia .v-secuencia-caja--activa {
+  background: var(--eje, #f3d36a);
+  border: 3px solid var(--tinta, #29313a);
+  box-shadow: 0 0 0 4px color-mix(in srgb, var(--eje, #f3d36a) 45%, transparent);
+  color: var(--tinta, #29313a);
+  font-weight: 700;
+  transform: translateY(-3px) scale(1.05);
+}
+
+.patrones-clic-secuencia .v-secuencia-caja:focus-visible {
+  outline: 3px solid var(--tinta, #29313a);
+  outline-offset: 4px;
+}

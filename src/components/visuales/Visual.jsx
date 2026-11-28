@@ -1,9 +1,10 @@
-// Representaciones pictóricas (etapa "pictórica" de COPISI). Cada ejercicio
-// declara su dibujo en los datos con { tipo, ...props }.
+// Representaciones pictóricas (etapa "pictórica" de COPISI).
 import { Arreglo, Balanza, Barras, Columnas, Etapas, FraccionVisual, NumeroDestacado, Posicional, Precios, Recta, Secuencia, Tabla } from './numeros.jsx';
 import { Angulos, Coordenadas, Cuerpo, Figura2D, Figuras, Plano, Red, Sala } from './geometria.jsx';
 import { Area, Cubos, CubosConPisos, Longitudes, Poligono, Reloj } from './medicion.jsx';
 import { Bolsas, Grafico, Pictograma } from './datos.jsx';
+import { Fosforos, Maquina, Pulsera, Tablero100 } from './patrones.jsx';
+import '../interactivos/patrones-seleccion.css';
 
 const TIPOS = {
   posicional: Posicional,
@@ -18,6 +19,10 @@ const TIPOS = {
   balanza: Balanza,
   precios: Precios,
   tabla: Tabla,
+  maquina: Maquina,
+  pulsera: Pulsera,
+  'tablero-100': Tablero100,
+  fosforos: Fosforos,
   coordenadas: Coordenadas,
   plano: Plano,
   sala: Sala,
@@ -37,13 +42,10 @@ const TIPOS = {
   bolsas: Bolsas,
 };
 
-// Varios dibujos juntos (por ejemplo, un reloj y una tabla).
 function Grupo({ items }) {
   return (
     <div className="v-grupo">
-      {items.map((item, i) => (
-        <Visual key={i} visual={item} enMarco={false} />
-      ))}
+      {items.map((item, i) => <Visual key={i} visual={item} enMarco={false} />)}
     </div>
   );
 }

@@ -106,30 +106,55 @@
   {
     "id": "sr-bolitas",
     "eje": "numeros",
-    "enunciado": "Marcia tiene 112 bolitas rojas, 43 amarillas y 103 azules. ¿Cuántas bolitas tiene en total?",
-    "opciones": [
+    "tema": "suma-alineacion",
+    "tipo": "sumaBolitas",
+    "enunciado": "Marcia tiene [[112 bolitas rojas]], [[43 amarillas]] y [[103 azules]]. {{¿Cuántas bolitas tiene en total?}}",
+    "sumandos": [
       {
-        "texto": "258",
-        "correcta": true
+        "id": "rojas",
+        "num": 112,
+        "color": "rojas",
+        "nombre": "Bolitas rojas",
+        "cantidad": 112
       },
       {
-        "texto": "645",
-        "feedback": "Te dio 645 porque pusiste el 43 corrido a la izquierda, como si fuera 430. Alinea las cifras por la derecha: unidades con unidades."
+        "id": "amarillas",
+        "num": 43,
+        "color": "amarillas",
+        "nombre": "Bolitas amarillas",
+        "cantidad": 43
       },
       {
-        "texto": "155",
-        "feedback": "Sumaste solo las rojas y las amarillas. Faltan las 103 azules."
-      },
-      {
-        "texto": "268",
-        "feedback": "Revisa las decenas: 1 + 4 + 0 = 5, no 6."
+        "id": "azules",
+        "num": 103,
+        "color": "azules",
+        "nombre": "Bolitas azules",
+        "cantidad": 103
       }
     ],
-    "pistas": [
-      "Escribe los tres números en columnas, alineados por la derecha.",
-      "Unidades: 2 + 3 + 3 = 8. Decenas: 1 + 4 + 0 = 5. Centenas: 1 + 0 + 1 = 2."
+    "columnas": [
+      "C",
+      "D",
+      "U"
     ],
-    "solucion": "112 + 43 + 103 = 258 bolitas. Estima: 110 + 40 + 100 = 250. 258 está cerca. ✓"
+    "solucionValor": "258",
+    "errores": {
+      "signo-resta": "Marcia quiere saber cuántas bolitas tiene en total al juntar las tres bolsas. La operación debe ser una suma (+). ¡Toca el signo − para cambiarlo a +!",
+      "43-desalineado": "¡Cuidado con la posición del 43! Tiene 4 decenas y 3 unidades, por lo que debe alinearse en las columnas D y U, dejando la C vacía.",
+      "645": "Te dio 645 porque colocaste o sumaste el 43 corrido a la izquierda (como si fuera 430). Recuerda alinear siempre unidades con unidades y decenas con decenas.",
+      "155": "Sumaste solo 112 y 43. ¡No olvides sumar las 103 bolitas azules!",
+      "215": "Sumaste solo dos grupos de bolitas. Asegúrate de sumar las tres bolsas: rojas, amarillas y azules.",
+      "245": "Sumaste 112 + 103 + 30. Revisa la cantidad de bolitas amarillas: son 43.",
+      "268": "Revisa la suma en la columna de las decenas: 1 + 4 + 0 = 5, no 6.",
+      "incompleto": "Arrastra o toca las 3 bolsas de bolitas para colocarlas en la tabla antes de comprobar.",
+      "otro": "Revisa tu cálculo columna por columna empezando por las unidades (U: 2 + 3 + 3 = 8), luego las decenas (D: 1 + 4 + 0 = 5) y las centenas (C: 1 + 0 + 1 = 2)."
+    },
+    "pistas": [
+      "Coloca cada número en la tabla alineando siempre las cifras por la derecha: unidades en la U y decenas en la D.",
+      "¡Atención con el 43! Como tiene solo dos cifras (4 decenas y 3 unidades), debe colocarse en D y U, dejando la columna de las centenas (C) vacía.",
+      "Suma columna por columna: Unidades (2 + 3 + 3 = 8), Decenas (1 + 4 + 0 = 5) y Centenas (1 + 0 + 1 = 2)."
+    ],
+    "solucion": "112 + 43 + 103 = 258 bolitas en total. Al alinear el 43 correctamente en decenas y unidades, obtenemos 258."
   },
   {
     "id": "sr-zoologico",

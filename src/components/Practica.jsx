@@ -8,12 +8,14 @@ import ArrastrarPosicional from './interactivos/ArrastrarPosicional.jsx';
 import RestaColumnas from './interactivos/RestaColumnas.jsx';
 import CajasLapices from './interactivos/CajasLapices.jsx';
 import CortarPizza from './interactivos/CortarPizza.jsx';
+import SumaBolitas from './interactivos/SumaBolitas.jsx';
 
 const INTERACTIVOS = {
   arrastrarPosicional: ArrastrarPosicional,
   restaColumnas: RestaColumnas,
   cajasLapices: CajasLapices,
   cortarPizza: CortarPizza,
+  sumaBolitas: SumaBolitas,
 };
 
 const LETRAS = ['A', 'B', 'C', 'D'];

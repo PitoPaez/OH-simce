@@ -2251,6 +2251,274 @@
 }
 
 /* ==========================================================================
+   EJERCICIO INTERACTIVO: SUMA DE BOLITAS CON ALINEACIÓN (SR-BOLITAS)
+   ========================================================================== */
+
+.simce-suma-bolitas-interactivo {
+  max-width: 880px;
+}
+
+.simce-pantalla-flex--suma {
+  gap: 40px;
+  align-items: flex-start;
+}
+
+/* Panel izquierdo: Bolsas de bolitas */
+.simce-bolsas-panel {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+  max-width: 380px;
+}
+
+.simce-bolsas-grid {
+  display: flex;
+  gap: 14px;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.simce-bolsa-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  padding: 10px 12px;
+  border-radius: 16px;
+  border: 2px dashed #b8cde8;
+  background: #ffffff;
+  cursor: grab;
+  user-select: none;
+  transition: transform 0.2s ease, background-color 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.simce-bolsa-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 6px 14px rgba(0, 0, 0, 0.08);
+}
+
+.simce-bolsa-card:active {
+  cursor: grabbing;
+  transform: scale(0.96);
+}
+
+.simce-bolsa-card--roja {
+  border-color: #ef9a9a;
+  background: #fffafa;
+}
+
+.simce-bolsa-card--amarilla {
+  border-color: #ffe082;
+  background: #fffef6;
+}
+
+.simce-bolsa-card--azul {
+  border-color: #90caf9;
+  background: #f7faff;
+}
+
+.simce-bolsa-card--colocada {
+  opacity: 0.42;
+  filter: grayscale(35%);
+  cursor: default;
+  pointer-events: auto;
+}
+
+.simce-bolsa-card--seleccionada {
+  border-color: var(--eje) !important;
+  background: color-mix(in srgb, var(--eje) 14%, #fff) !important;
+  transform: scale(1.06);
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--eje) 30%, transparent);
+}
+
+.simce-bolsa-img-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 90px;
+  height: 90px;
+}
+
+.simce-bolsa-img {
+  max-width: 86px;
+  max-height: 86px;
+  object-fit: contain;
+  filter: drop-shadow(0 4px 6px rgba(0, 0, 0, 0.12));
+  transition: transform 0.2s ease;
+}
+
+.simce-bolsa-card:hover .simce-bolsa-img {
+  transform: scale(1.05);
+}
+
+.simce-bolsa-info {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.simce-bolsa-num {
+  font-size: 1.45rem;
+  font-weight: 800;
+  color: var(--tinta);
+  line-height: 1.1;
+}
+
+.simce-bolsa-tag {
+  font-size: 0.76rem;
+  font-weight: 700;
+  color: var(--tinta-suave);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+/* Caja pedagógica de alineación del 43 */
+.simce-alineacion-box {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  background: #fff8e1;
+  border: 1.5px solid #ffe082;
+  border-radius: 12px;
+  padding: 10px 14px;
+  width: 100%;
+  max-width: 320px;
+  text-align: center;
+  animation: fadeIn 0.3s ease;
+}
+
+.simce-alineacion-titulo {
+  font-size: 0.8rem;
+  font-weight: 800;
+  color: #b78103;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.simce-btn-alinear {
+  font-size: 0.88rem;
+  font-weight: 700;
+  padding: 6px 12px;
+  border-radius: 8px;
+  border: 2px solid #ffb300;
+  background: #ffffff;
+  color: #b78103;
+  cursor: pointer;
+  transition: all 0.15s ease;
+  line-height: 1.3;
+}
+
+.simce-btn-alinear:hover {
+  background: #fff3e0;
+  transform: translateY(-1px);
+}
+
+.simce-btn-alinear--activo {
+  border-color: #2e7d32;
+  background: #e8f5e9;
+  color: #1b5e20;
+}
+
+.simce-alineacion-hint {
+  font-size: 0.74rem;
+  color: #8d6e63;
+  font-style: italic;
+}
+
+/* Signo de suma en la tabla */
+.simce-signo-suma {
+  width: 48px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 2.2rem;
+  font-weight: 800;
+  color: #1a2744;
+}
+
+/* Punto indicador de celda vacía para alinear el 43 */
+.simce-placeholder-punto {
+  font-size: 2.4rem;
+  color: #b0bec5;
+  font-weight: 800;
+  line-height: 0.5;
+}
+
+.simce-casilla-cuadro--punto {
+  background: #f8fafc;
+  border-style: dotted;
+  cursor: pointer;
+}
+
+.simce-casilla-cuadro--punto:hover {
+  background: #e2e8f0;
+}
+
+.simce-fila-datos--es43 {
+  position: relative;
+  cursor: pointer;
+}
+
+.simce-fila-datos--es43:hover {
+  background: rgba(255, 193, 7, 0.08);
+}
+
+/* Teclado numérico táctil para tablets */
+.simce-teclado-tactil {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  margin-top: 6px;
+}
+
+.simce-teclado-fila {
+  display: flex;
+  gap: 6px;
+  flex-wrap: wrap;
+  justify-content: center;
+  max-width: 460px;
+}
+
+.simce-btn-digito {
+  min-width: 36px;
+  height: 38px;
+  padding: 0 10px;
+  font-size: 1.25rem;
+  font-weight: 700;
+  border-radius: 8px;
+  border: 1.5px solid #cbd5e1;
+  background: #ffffff;
+  color: #1a2744;
+  cursor: pointer;
+  transition: all 0.12s ease;
+}
+
+.simce-btn-digito:hover {
+  background: #f1f5f9;
+  border-color: #94a3b8;
+  transform: translateY(-1px);
+}
+
+.simce-btn-digito:active {
+  transform: scale(0.95);
+}
+
+.simce-btn-digito--borrar {
+  background: #fef2f2;
+  border-color: #fca5a5;
+  color: #dc2626;
+  font-size: 1.15rem;
+}
+
+.simce-btn-digito--borrar:hover {
+  background: #fee2e2;
+  border-color: #ef4444;
+}
+
+/* ==========================================================================
    EJERCICIO INTERACTIVO: CAJAS Y LÁPICES (MULTIPLICACIÓN)
    ========================================================================== */
 

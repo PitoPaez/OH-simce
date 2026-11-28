@@ -10,6 +10,8 @@ import RestaColumnas from './interactivos/RestaColumnas.jsx';
 import CajasLapices from './interactivos/CajasLapices.jsx';
 import CortarPizza from './interactivos/CortarPizza.jsx';
 import SumaBolitas from './interactivos/SumaBolitas.jsx';
+import BalanzaPesas from './interactivos/BalanzaPesas.jsx';
+import Completar, { ClicColor, ClicSecuencia, TableroInteractivo } from './interactivos/Patrones.jsx';
 import Ordenar from './interactivos/Ordenar.jsx';
 import Numerica from './interactivos/Numerica.jsx';
 import { mezclarBolsas } from '../lib/mezclarBolsas.js';
@@ -21,6 +23,12 @@ const INTERACTIVOS = {
   cajasLapices: CajasLapices,
   cortarPizza: CortarPizza,
   sumaBolitas: SumaBolitas,
+  balanzaInteractiva: BalanzaPesas,
+  'balanza-interactiva': BalanzaPesas,
+  completar: Completar,
+  'clic-secuencia': ClicSecuencia,
+  'clic-color': ClicColor,
+  'tablero-interactivo': TableroInteractivo,
 };
 
 // Herramientas que reemplazan a las alternativas (medir, reloj con manecillas, calendario).
@@ -169,7 +177,8 @@ function Pregunta({ ejercicio: original, esUltima, onSiguiente }) {
   const sello = !conSello ? null : resuelto ? (mostroSolucion ? null : 'correcto') : errorVisible ? 'incorrecto' : null;
   // cambia en cada respuesta, para que el sello vuelva a timbrar
   const marcaSello = `${sello}-${errores.length}-${paso}`;
-  const tieneDibujo = Boolean(ejercicio.visual?.tipo);
+  const visualEnInteractivo = ['clic-secuencia', 'tablero-interactivo', 'balanza-interactiva', 'balanzaInteractiva'].includes(ejercicio.tipo);
+  const tieneDibujo = Boolean(ejercicio.visual?.tipo) && !visualEnInteractivo;
   const selloEnDibujo = tieneDibujo && tipo === 'alternativas';
   const selloAqui = (lugar) =>
     sello && (lugar === 'dibujo') === selloEnDibujo ? <Sello key={marcaSello} tipo={sello} animado /> : null;

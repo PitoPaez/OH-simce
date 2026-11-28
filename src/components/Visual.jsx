@@ -10,6 +10,7 @@ import { Bolsas } from './visuales/BolsasCanicas.jsx';
 import { Tienda } from './visuales/TiendaMermeladas.jsx';
 import { Dado3D } from './visuales/Dado3D.jsx';
 import { EncuestaProfesora } from './visuales/EncuestaProfesora.jsx';
+import { Fosforos, Maquina, Pulsera, Tablero100 } from './visuales/patrones.jsx';
 
 import Calendario from './herramientas/Calendario.jsx';
 import Medir from './herramientas/Medir.jsx';
@@ -171,6 +172,11 @@ const TIPOS = {
   graficoIconos: GraficoIconos,
   dado3d: Dado3D,
   encuesta: EncuestaProfesora,
+  maquina: Maquina,
+  pulsera: Pulsera,
+  'tablero-100': Tablero100,
+  tablero100: Tablero100,
+  fosforos: Fosforos,
 };
 
 const HERRAMIENTAS = {

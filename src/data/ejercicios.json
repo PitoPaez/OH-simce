@@ -139,13 +139,13 @@
     ],
     "solucionValor": "258",
     "errores": {
-      "signo-resta": "Marcia quiere saber cuántas bolitas tiene en total al juntar las tres bolsas. La operación debe ser una suma (+). ¡Toca el signo − para cambiarlo a +!",
-      "43-desalineado": "¡Cuidado con la posición del 43! Tiene 4 decenas y 3 unidades, por lo que debe alinearse en las columnas D y U, dejando la C vacía.",
-      "645": "Te dio 645 porque colocaste o sumaste el 43 corrido a la izquierda (como si fuera 430). Recuerda alinear siempre unidades con unidades y decenas con decenas.",
       "155": "Sumaste solo 112 y 43. ¡No olvides sumar las 103 bolitas azules!",
       "215": "Sumaste solo dos grupos de bolitas. Asegúrate de sumar las tres bolsas: rojas, amarillas y azules.",
       "245": "Sumaste 112 + 103 + 30. Revisa la cantidad de bolitas amarillas: son 43.",
       "268": "Revisa la suma en la columna de las decenas: 1 + 4 + 0 = 5, no 6.",
+      "645": "Te dio 645 porque colocaste o sumaste el 43 corrido a la izquierda (como si fuera 430). Recuerda alinear siempre unidades con unidades y decenas con decenas.",
+      "signo-resta": "Marcia quiere saber cuántas bolitas tiene en total al juntar las tres bolsas. La operación debe ser una suma (+). ¡Toca el signo − para cambiarlo a +!",
+      "43-desalineado": "¡Cuidado con la posición del 43! Tiene 4 decenas y 3 unidades, por lo que debe alinearse en las columnas D y U, dejando la C vacía.",
       "incompleto": "Arrastra o toca las 3 bolsas de bolitas para colocarlas en la tabla antes de comprobar.",
       "otro": "Revisa tu cálculo columna por columna empezando por las unidades (U: 2 + 3 + 3 = 8), luego las decenas (D: 1 + 4 + 0 = 5) y las centenas (C: 1 + 0 + 1 = 2)."
     },
@@ -327,371 +327,422 @@
     "solucion": "Regaló 4/10 de las galletas. Regaló 4 y le quedaron 6: 4 + 6 = 10. ✓"
   },
   {
-    "id": "pat-secuencia",
+    "id": "pat-11-ecuacion-suma",
     "eje": "patrones",
-    "enunciado": "¿Qué número falta en la secuencia? 7, 11, 15, ___, 23",
-    "visual": {
-      "tipo": "recta",
-      "valores": [
-        7,
-        11,
-        15,
-        null,
-        23
-      ]
-    },
-    "opciones": [
-      {
-        "texto": "19",
-        "correcta": true
-      },
-      {
-        "texto": "17",
-        "feedback": "Sumaste 2. Mira cuánto aumenta de 7 a 11: el salto es más grande."
-      },
-      {
-        "texto": "16",
-        "feedback": "Sumaste 1 al 15. Revisa cuánto crece la secuencia en cada salto."
-      },
-      {
-        "texto": "22",
-        "feedback": "Le restaste 1 al 23. El número tiene que seguir el mismo patrón que los demás."
-      }
-    ],
-    "pistas": [
-      "¿Cuánto hay que sumar para pasar de 7 a 11? ¿Y de 11 a 15?",
-      "Siempre se suma 4. Calcula 15 + 4 y revisa que al sumar 4 otra vez llegues a 23."
-    ],
-    "solucion": "La regla es sumar 4: 15 + 4 = 19, y 19 + 4 = 23."
-  },
-  {
-    "id": "pat-ecuacion",
-    "eje": "patrones",
-    "enunciado": "¿Qué número va en el cuadrado para que la balanza quede en equilibrio?",
-    "visual": {
-      "tipo": "balanza",
-      "izquierda": "□ + 25",
-      "derecha": "60"
-    },
-    "opciones": [
-      {
-        "texto": "35",
-        "correcta": true
-      },
-      {
-        "texto": "85",
-        "feedback": "Sumaste 60 + 25. Pero si pones 85 en el cuadrado, el lado izquierdo pesaría 110."
-      },
-      {
-        "texto": "45",
-        "feedback": "Revisa la resta 60 − 25: a 0 unidades no le puedes quitar 5 sin pedir prestado."
-      },
-      {
-        "texto": "25",
-        "feedback": "Copiaste el número que ya estaba. Comprueba: 25 + 25 = 50, no 60."
-      }
-    ],
-    "pistas": [
-      "Los dos lados tienen que valer lo mismo. ¿Qué número le sumas a 25 para llegar a 60?",
-      "Puedes calcular 60 − 25, o contar desde 25 hasta 60."
-    ],
-    "solucion": "60 − 25 = 35. Comprueba: 35 + 25 = 60."
-  },
-  {
-    "id": "pa-regla",
-    "eje": "patrones",
-    "enunciado": "Noemí escribió esta secuencia. ¿Qué regla sigue?",
-    "visual": {
-      "tipo": "secuencia",
-      "valores": [
-        640,
-        320,
-        160,
-        80,
-        40,
-        20,
-        10
-      ]
-    },
-    "opciones": [
-      {
-        "texto": "Dividir por 2 cada término",
-        "correcta": true
-      },
-      {
-        "texto": "Restar 320 a cada término",
-        "feedback": "Restar 320 solo funciona en el primer salto: 320 − 320 = 0, no 160. Una regla tiene que servir en todos los saltos."
-      },
-      {
-        "texto": "Sumar 160 a cada término",
-        "feedback": "La secuencia va bajando: no puede ser sumando."
-      },
-      {
-        "texto": "Multiplicar por 2 cada término",
-        "feedback": "Multiplicar por 2 agranda los números, y aquí van bajando."
-      }
-    ],
-    "pistas": [
-      "Prueba cada regla en todos los saltos, no solo en el primero.",
-      "640 : 2 = 320. 320 : 2 = 160. 160 : 2 = 80..."
-    ],
-    "solucion": "Cada término es la mitad del anterior: se divide por 2. 20 : 2 = 10, el último término. ✓"
-  },
-  {
-    "id": "pa-recta",
-    "eje": "patrones",
-    "enunciado": "¿Qué par de números completa la recta numérica?",
-    "visual": {
-      "tipo": "recta",
-      "inicio": 925,
-      "fin": 1100,
-      "paso": 25,
-      "etiquetas": "todas",
-      "cajas": [
-        950,
-        1000
-      ]
-    },
-    "opciones": [
-      {
-        "texto": "950 y 1 000",
-        "correcta": true
-      },
-      {
-        "texto": "955 y 1 005",
-        "feedback": "Sumaste 30 en cada salto. Mira dos números seguidos que conozcas, como 1 050 y 1 075: el salto es 25."
-      },
-      {
-        "texto": "955 y 1 000",
-        "feedback": "El primero no calza: 925 + 25 = 950."
-      },
-      {
-        "texto": "950 y 1 005",
-        "feedback": "El segundo no calza: 975 + 25 = 1 000."
-      }
-    ],
-    "pistas": [
-      "Busca dos números seguidos que conozcas para saber de cuánto es cada salto.",
-      "1 025, 1 050, 1 075: los saltos son de 25."
-    ],
-    "solucion": "925 + 25 = 950 y 975 + 25 = 1 000. 1 000 + 25 = 1 025, que es el número siguiente. ✓"
-  },
-  {
-    "id": "pa-restando",
-    "eje": "patrones",
-    "enunciado": "La secuencia empieza en 660. ¿Cómo se obtienen los demás términos?",
-    "visual": {
-      "tipo": "secuencia",
-      "valores": [
-        660,
-        540,
-        420,
-        300,
-        180,
-        60
-      ]
-    },
-    "opciones": [
-      {
-        "texto": "Restando 120",
-        "correcta": true
-      },
-      {
-        "texto": "Sumando 120",
-        "feedback": "La secuencia va bajando: no puede ser sumando."
-      },
-      {
-        "texto": "Restando 20",
-        "feedback": "Mira también las centenas: de 660 a 540 bajan 120, no 20."
-      },
-      {
-        "texto": "Restando 100",
-        "feedback": "660 − 100 = 560, y el siguiente término es 540."
-      }
-    ],
-    "pistas": [
-      "Calcula cuánto baja de un término al siguiente.",
-      "660 − 540 = 120. 540 − 420 = 120."
-    ],
-    "solucion": "Cada término se obtiene restando 120. 180 − 120 = 60, el último. ✓"
-  },
-  {
-    "id": "ec-signo-igual",
-    "eje": "patrones",
-    "enunciado": "Observa la ecuación 7 + x = 15. ¿Qué valor debe tener x para que se cumpla?",
+    "tema": "ecuaciones",
+    "tipo": "balanza-interactiva",
+    "enunciado": "{{¿Qué valor debe tener △ para que se cumpla la igualdad?}} [[24 + △ = 50]]",
     "visual": {
       "tipo": "balanza",
       "izquierda": [
         {
           "tipo": "pesa",
-          "valor": "7"
+          "valor": "24"
         },
         {
           "tipo": "caja",
-          "texto": "x"
+          "texto": "△"
         }
       ],
       "derecha": [
         {
           "tipo": "pesa",
-          "valor": "15"
+          "valor": "50"
         }
-      ]
+      ],
+      "pesasDisponibles": [
+        1,
+        5,
+        10,
+        20
+      ],
+      "platoEditable": "izquierda"
     },
-    "opciones": [
-      {
-        "texto": "8",
-        "correcta": true
-      },
-      {
-        "texto": "15",
-        "feedback": "El signo = no significa «aquí va el resultado»: significa que los dos lados valen lo mismo. Si x fuera 15, el lado izquierdo valdría 22."
-      },
-      {
-        "texto": "22",
-        "feedback": "Sumaste 7 + 15. Busca qué número sumado a 7 da 15."
-      },
-      {
-        "texto": "7",
-        "feedback": "Si x fuera 7, quedaría 7 + 7 = 14, no 15."
-      }
-    ],
+    "solucionValor": "26",
+    "respuesta": {
+      "valorAgregado": 26
+    },
+    "errores": {
+      "24": "24 + 24 = 48; faltan 2 para equilibrar la balanza en 50.",
+      "36": "Calcula 50 − 24: 50 − 20 = 30 y 30 − 4 = 26.",
+      "74": "Sumaste 50 + 24. Si △ fuera 74, la balanza se inclinaría hacia la izquierda.",
+      "otro": "Agrega pesas con los botones + y − en el plato izquierdo hasta que ambos lados sumen 50."
+    },
     "pistas": [
-      "Piensa en la balanza: los dos lados tienen que pesar lo mismo.",
-      "¿7 más qué número da 15? Puedes calcular 15 − 7."
+      "En equilibrio, ambos lados deben pesar lo mismo: 50.",
+      "Usa las pesas disponibles (+ y −) para agregar 26 al lado izquierdo (50 − 24 = 26)."
     ],
-    "solucion": "x = 8, porque 7 + 8 = 15. 7 + 8 = 15. ✓"
+    "solucion": "24 + 26 = 50. La pesa agregada debe ser de 26 para equilibrar la balanza."
   },
   {
-    "id": "ec-mayor",
+    "id": "pat-13-balanza-peso",
     "eje": "patrones",
-    "enunciado": "¿Qué número hace verdadera esta oración? □ + 250 > 1 000",
-    "opciones": [
-      {
-        "texto": "759",
-        "correcta": true
-      },
-      {
-        "texto": "750",
-        "feedback": "750 + 250 = 1 000. Eso es igual, y la oración pide mayor."
-      },
-      {
-        "texto": "748",
-        "feedback": "748 + 250 = 998: es menor que 1 000."
-      },
-      {
-        "texto": "250",
-        "feedback": "250 + 250 = 500: es mucho menor que 1 000."
-      }
-    ],
-    "pistas": [
-      "Busca primero el número que da exactamente 1 000.",
-      "750 + 250 = 1 000. Para que sea mayor, □ tiene que ser más que 750."
-    ],
-    "solucion": "759 + 250 = 1 009, y 1 009 > 1 000. Cualquier número mayor que 750 hace verdadera la oración. ✓"
-  },
-  {
-    "id": "ec-resta",
-    "eje": "patrones",
-    "enunciado": "Observa: □ − 500 = 150. ¿Qué valor debe tener □?",
-    "opciones": [
-      {
-        "texto": "650",
-        "correcta": true
-      },
-      {
-        "texto": "350",
-        "feedback": "Restaste 500 − 150. Si a □ le quitas 500 y quedan 150, □ tiene que ser más grande que 500."
-      },
-      {
-        "texto": "150",
-        "feedback": "Si □ fuera 150, no podrías quitarle 500."
-      },
-      {
-        "texto": "600",
-        "feedback": "600 − 500 = 100, no 150."
-      }
-    ],
-    "pistas": [
-      "La resta y la suma son operaciones inversas: una deshace a la otra.",
-      "Si quitas 500 y quedan 150, antes había 150 + 500."
-    ],
-    "solucion": "□ = 650, porque 650 − 500 = 150. 650 − 500 = 150. ✓"
-  },
-  {
-    "id": "ec-figuras",
-    "eje": "patrones",
-    "enunciado": "Cada figura representa siempre el mismo número: ● + ▲ = 11 y ▲ × ▲ = 9. ¿Cuál es el valor de ●?",
-    "opciones": [
-      {
-        "texto": "8",
-        "correcta": true
-      },
-      {
-        "texto": "3",
-        "feedback": "3 es el valor de ▲. La pregunta es por ●."
-      },
-      {
-        "texto": "2",
-        "feedback": "Si ● fuera 2, quedaría 2 + 3 = 5, no 11."
-      },
-      {
-        "texto": "9",
-        "feedback": "9 es el resultado de ▲ × ▲. Primero averigua cuánto vale ▲."
-      }
-    ],
-    "pistas": [
-      "Empieza por la ecuación que tiene una sola figura repetida: ▲ × ▲ = 9.",
-      "3 × 3 = 9, así que ▲ = 3. Después: ● + 3 = 11."
-    ],
-    "solucion": "● = 8, porque 8 + 3 = 11. 8 + 3 = 11 y 3 × 3 = 9. ✓"
-  },
-  {
-    "id": "ec-bolitas",
-    "eje": "patrones",
-    "enunciado": "La balanza está en equilibrio. Cada bolita pesa 1 kilo. ¿Cuánto pesa la caja X?",
+    "tema": "ecuaciones",
+    "tipo": "balanza-interactiva",
+    "enunciado": "Una balanza está en equilibrio. A la izquierda hay [[45 kg]]; a la derecha, [[20 kg]] y una caja X. {{¿Cuánto pesa la caja X?}}",
     "visual": {
       "tipo": "balanza",
       "izquierda": [
+        {
+          "tipo": "pesa",
+          "valor": "45 kg"
+        }
+      ],
+      "derecha": [
+        {
+          "tipo": "pesa",
+          "valor": "20 kg"
+        },
         {
           "tipo": "caja",
           "texto": "X"
+        }
+      ],
+      "pesasDisponibles": [
+        5,
+        10,
+        20
+      ],
+      "platoEditable": "derecha"
+    },
+    "solucionValor": "25",
+    "respuesta": {
+      "valorAgregado": 25
+    },
+    "errores": {
+      "15": "20 + 15 = 35 kg, menos que los 45 kg del lado izquierdo.",
+      "35": "Calcula cuánto le falta a 20 para llegar a 45: 45 − 20 = 25.",
+      "65": "Si X pesara 65 kg, el lado derecho pesaría 85 kg y bajaría.",
+      "otro": "Agrega pesas al lado derecho hasta que la balanza alcance 45 kg y quede en equilibrio."
+    },
+    "pistas": [
+      "En equilibrio, ambos lados deben sumar 45 kg.",
+      "A 20 kg le faltan 25 kg para llegar a 45 kg (45 − 20 = 25)."
+    ],
+    "solucion": "45 − 20 = 25 kg. La caja X pesa 25 kg."
+  },
+  {
+    "id": "pat-05-pulsera",
+    "eje": "patrones",
+    "tema": "patrones",
+    "tipo": "clic-color",
+    "enunciado": "Sofía arma una pulsera repitiendo este orden: [[rojo, azul, azul, amarillo]]. {{¿De qué color será la cuenta número 15?}}",
+    "visual": {
+      "tipo": "pulsera",
+      "patron": [
+        "rojo",
+        "azul",
+        "azul",
+        "amarillo"
+      ],
+      "mostrarHasta": 8,
+      "posicionObjetivo": 15,
+      "coloresDisponibles": [
+        "rojo",
+        "azul",
+        "amarillo",
+        "verde"
+      ]
+    },
+    "solucionValor": "azul",
+    "respuesta": {
+      "valor": "azul"
+    },
+    "errores": {
+      "rojo": "El rojo aparece en las posiciones 1, 5, 9 y 13. Sigue contando desde la 13.",
+      "amarillo": "El amarillo cierra cada grupo de 4: aparece en 4, 8, 12 y 16.",
+      "verde": "El verde no forma parte del patrón de la pulsera.",
+      "otro": "El grupo de 4 colores se repite. En la posición 12 termina con amarillo, luego 13 es rojo, 14 es azul y 15 es azul."
+    },
+    "pistas": [
+      "El grupo que se repite tiene 4 cuentas: rojo, azul, azul, amarillo.",
+      "Después de la posición 12 (amarillo), la 13 es roja, la 14 azul y la 15 azul."
+    ],
+    "solucion": "La posición 15 corresponde a la segunda cuenta azul del grupo repetido."
+  },
+  {
+    "id": "pat-06-tabla100",
+    "eje": "patrones",
+    "tema": "patrones",
+    "tipo": "tablero-interactivo",
+    "enunciado": "En la tabla del 100, Martín pintó [[12, 23, 34 y 45]]. {{Selecciona en el tablero los dos números siguientes que continúan el patrón:}}",
+    "visual": {
+      "tipo": "tablero-100",
+      "fijos": [
+        12,
+        23,
+        34,
+        45
+      ],
+      "seleccionMax": 2
+    },
+    "solucionValor": "56 y 67",
+    "respuesta": {
+      "seleccion": [
+        56,
+        67
+      ]
+    },
+    "errores": {
+      "otro": "El patrón suma 11 en cada paso (un casillero abajo y uno a la derecha): 45 + 11 = 56, y 56 + 11 = 67."
+    },
+    "pistas": [
+      "De 12 a 23 se suma 11. Cada paso baja una fila (+10) y corre uno a la derecha (+1).",
+      "Calcula 45 + 11 = 56, y luego 56 + 11 = 67."
+    ],
+    "solucion": "Los números siguientes son 56 y 67 (sumando 11 cada vez en diagonal)."
+  },
+  {
+    "id": "pat-09-error",
+    "eje": "patrones",
+    "tema": "patrones",
+    "tipo": "clic-secuencia",
+    "enunciado": "Benjamín escribió una secuencia con la regla [[«sumar 6»]]: 15, 21, 27, 32, 39. {{Toca en la secuencia el número que está equivocado:}}",
+    "visual": {
+      "tipo": "secuencia",
+      "valores": [
+        15,
+        21,
+        27,
+        32,
+        39
+      ],
+      "seleccionable": true
+    },
+    "solucionValor": "32",
+    "respuesta": {
+      "indice": 3,
+      "valor": 32
+    },
+    "errores": {
+      "21": "15 + 6 = 21, ese término es correcto.",
+      "27": "21 + 6 = 27, ese término es correcto.",
+      "39": "33 + 6 = 39, este término sería correcto si el anterior fuera 33.",
+      "otro": "Revisa cada salto sumando 6: 15+6=21, 21+6=27, 27+6=33 (¡no 32!)."
+    },
+    "pistas": [
+      "Suma 6 paso a paso: 15+6=21, 21+6=27.",
+      "Al llegar a 27, suma 6: 27 + 6 = 33. Pero está escrito 32."
+    ],
+    "solucion": "27 + 6 = 33, no 32. El número equivocado es el 32."
+  },
+  {
+    "id": "pat-04-maquina",
+    "eje": "patrones",
+    "tema": "patrones",
+    "tipo": "completar",
+    "enunciado": "Diego anotó las entradas y salidas de una máquina matemática. {{Si ingresa el número 10, ¿qué número saldrá?}}",
+    "visual": {
+      "tipo": "maquina",
+      "ejemplos": [
+        {
+          "entrada": 4,
+          "salida": 12
         },
         {
-          "tipo": "bolitas",
-          "n": 3
+          "entrada": 6,
+          "salida": 18
+        },
+        {
+          "entrada": 9,
+          "salida": 27
+        }
+      ],
+      "entradaActual": 10
+    },
+    "solucionValor": "30",
+    "respuesta": {
+      "valor": 30
+    },
+    "errores": {
+      "18": "Sumar 8 no funciona en todas las filas (6 + 8 no es 18).",
+      "20": "Multiplicar por 2 no coincide con 4 × 3 = 12.",
+      "28": "No se suma al anterior; la máquina multiplica cada entrada por 3.",
+      "otro": "Descubre la regla de la máquina: 4 × 3 = 12, 6 × 3 = 18. Multiplica 10 × 3."
+    },
+    "pistas": [
+      "Busca la operación que transforma 4 en 12 y 6 en 18: multiplicar por 3.",
+      "Calcula 10 × 3 para saber el número que sale."
+    ],
+    "solucion": "La regla de la máquina es multiplicar por 3: 10 × 3 = 30."
+  },
+  {
+    "id": "pat-07-fosforos",
+    "eje": "patrones",
+    "tema": "patrones",
+    "tipo": "completar",
+    "enunciado": "La figura 1 usa 4 fósforos, la figura 2 usa 7 y la figura 3 usa 10. {{¿Cuántos fósforos se necesitan para la figura 5?}}",
+    "visual": {
+      "tipo": "fosforos",
+      "figuras": [
+        {
+          "numero": 1,
+          "cantidad": 4
+        },
+        {
+          "numero": 2,
+          "cantidad": 7
+        },
+        {
+          "numero": 3,
+          "cantidad": 10
+        }
+      ]
+    },
+    "solucionValor": "16",
+    "respuesta": {
+      "valor": 16
+    },
+    "errores": {
+      "13": "13 fósforos son para la figura 4. Falta calcular la figura 5.",
+      "15": "La primera figura ya empieza con 4 fósforos, no solo con múltiplos de 3.",
+      "19": "19 corresponde a la figura 6.",
+      "otro": "Cada nueva figura agrega 3 fósforos: figura 4 = 10 + 3 = 13; figura 5 = 13 + 3 = 16."
+    },
+    "pistas": [
+      "Compara cuántos palitos se agregan: de 4 a 7 hay 3, de 7 a 10 hay 3.",
+      "Figura 4: 10 + 3 = 13. Figura 5: 13 + 3 = 16."
+    ],
+    "solucion": "El patrón suma 3 fósforos por figura. Para la figura 5 se necesitan 16 fósforos."
+  },
+  {
+    "id": "pat-01-laminas",
+    "eje": "patrones",
+    "tema": "patrones",
+    "tipo": "completar",
+    "enunciado": "Camila junta láminas para su álbum: lunes [[14]], martes [[21]], miércoles [[28]] y jueves [[35]]. {{Si sigue al mismo ritmo, ¿cuántas láminas tendrá el sábado?}}",
+    "visual": {
+      "tipo": "secuencia",
+      "valores": [
+        14,
+        21,
+        28,
+        35,
+        null,
+        null
+      ],
+      "etiquetas": [
+        "Lunes",
+        "Martes",
+        "Miércoles",
+        "Jueves",
+        "Viernes",
+        "Sábado"
+      ]
+    },
+    "solucionValor": "49",
+    "respuesta": {
+      "campos": [
+        {
+          "indice": 4,
+          "valor": 42,
+          "etiqueta": "Viernes"
+        },
+        {
+          "indice": 5,
+          "valor": 49,
+          "etiqueta": "Sábado"
+        }
+      ]
+    },
+    "errores": {
+      "otro": "El patrón suma 7 láminas cada día: Viernes = 35 + 7 = 42; Sábado = 42 + 7 = 49."
+    },
+    "pistas": [
+      "Mira cuánto aumenta cada día: de 14 a 21 hay 7.",
+      "Viernes: 35 + 7 = 42. Sábado: 42 + 7 = 49."
+    ],
+    "solucion": "El patrón es sumar 7 láminas por día: el viernes tendrá 42 y el sábado 49."
+  },
+  {
+    "id": "pat-12-ecuacion-resta",
+    "eje": "patrones",
+    "tema": "ecuaciones",
+    "tipo": "completar",
+    "enunciado": "{{Encuentra el número que falta en el cuadrado (□) para equilibrar la igualdad:}} [[82 − □ = 35]]",
+    "visual": {
+      "tipo": "balanza",
+      "izquierda": [
+        {
+          "tipo": "pesa",
+          "valor": 82
         }
       ],
       "derecha": [
         {
-          "tipo": "bolitas",
-          "n": 7
+          "tipo": "caja",
+          "texto": "□"
+        },
+        {
+          "tipo": "pesa",
+          "valor": 35
         }
       ]
     },
+    "solucionValor": "47",
+    "respuesta": {
+      "valor": 47
+    },
+    "errores": {
+      "53": "No restes el menor del mayor en las unidades: a 2 no le puedes quitar 5 sin canje.",
+      "57": "Revisa la resta 82 − 35 (recuerda el canje en las unidades).",
+      "117": "Sumaste 82 + 35 en lugar de restar.",
+      "otro": "Calcula 82 − 35: 82 − 35 = 47. Comprueba: 82 − 47 = 35."
+    },
+    "pistas": [
+      "El valor que falta es lo que se restó a 82 para quedar en 35: 82 − 35.",
+      "82 − 35 = 47. Comprueba: 47 + 35 = 82."
+    ],
+    "solucion": "□ = 47, porque 82 − 35 = 47."
+  },
+  {
+    "id": "pat-17-balanza-desequilibrio",
+    "eje": "patrones",
+    "tema": "ecuaciones",
+    "enunciado": "La balanza se inclina hacia la izquierda: allí hay [[50 kg]] y a la derecha hay [[32 kg y una bolsa M]]. {{¿Cuánto podría pesar M para mantener esta inclinación?}}",
+    "visual": {
+      "tipo": "balanza",
+      "izquierda": [
+        {
+          "tipo": "pesa",
+          "valor": "50 kg"
+        }
+      ],
+      "derecha": [
+        {
+          "tipo": "pesa",
+          "valor": "32 kg"
+        },
+        {
+          "tipo": "caja",
+          "texto": "M"
+        }
+      ],
+      "inclinacion": -8
+    },
     "opciones": [
       {
-        "texto": "4 kilos",
+        "texto": "15 kg",
         "correcta": true
       },
       {
-        "texto": "7 kilos",
-        "feedback": "7 kilos pesa todo el lado derecho. Junto a la caja hay 3 bolitas que también pesan."
+        "texto": "18 kg",
+        "feedback": "Si M fuera 18 kg, 32 + 18 = 50 kg y la balanza quedaría en equilibrio recto."
       },
       {
-        "texto": "10 kilos",
-        "feedback": "Sumaste 7 + 3. La caja y las 3 bolitas juntas pesan lo mismo que 7 bolitas."
+        "texto": "20 kg",
+        "feedback": "32 + 20 = 52 kg: la balanza bajaría a la derecha, no a la izquierda."
       },
       {
-        "texto": "3 kilos",
-        "feedback": "3 kilos pesan las bolitas que están junto a la caja, no la caja."
+        "texto": "25 kg",
+        "feedback": "32 + 25 = 57 kg: el lado derecho pesaría más."
       }
     ],
     "pistas": [
-      "Si sacas 3 bolitas de cada lado, la balanza sigue en equilibrio.",
-      "Quedan la caja sola a la izquierda y 4 bolitas a la derecha."
+      "Si baja el lado izquierdo, el lado derecho (32 + M) debe pesar MENOS de 50 kg.",
+      "32 + 18 = 50 kg (equilibrio). Por lo tanto, M debe pesar menos de 18 kg."
     ],
-    "solucion": "La caja pesa 4 kilos. 4 + 3 = 7. ✓"
+    "solucion": "15 kg es correcto porque 32 + 15 = 47 kg, que es menor que 50 kg."
   },
   {
     "id": "geo-cubo",

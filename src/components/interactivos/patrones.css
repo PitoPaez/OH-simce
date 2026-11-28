@@ -1,0 +1,43 @@
+/* Interactive exercise controls */
+.patrones-completar { display: flex; flex-wrap: wrap; align-items: end; gap: 1rem; justify-content: center; margin-top: 1rem; }
+.patrones-campo { display: grid; gap: .35rem; min-width: 8rem; font-weight: 700; text-align: center; }
+.patrones-campo input { width: 100%; min-height: 3rem; padding: .5rem .75rem; border: 2px solid var(--tinta); border-radius: .5rem; font: inherit; font-size: 1.25rem; text-align: center; }
+.patrones-color { display: flex; flex-direction: column; align-items: center; gap: 1rem; margin-top: 1rem; }
+.patrones-color-opciones { display: flex; flex-wrap: wrap; gap: .75rem; justify-content: center; }
+.patrones-color-opcion { display: inline-flex; align-items: center; gap: .5rem; padding: .6rem 1rem; border: 2px solid var(--tinta); border-radius: .75rem; background: white; color: var(--tinta); font: inherit; font-weight: 700; cursor: pointer; text-transform: capitalize; transition: all .15s ease; }
+.patrones-color-opcion:hover { transform: translateY(-2px); }
+.patrones-color-opcion--activa { outline: 3px solid var(--eje); outline-offset: 2px; background: color-mix(in srgb, var(--eje) 15%, #fff); }
+.patrones-color-muestra { width: 1.5rem; height: 1.5rem; border: 1px solid var(--tinta); border-radius: 50%; }
+.patrones-tablero { display: flex; flex-direction: column; align-items: center; gap: 0.75rem; width: 100%; }
+.patrones-tablero-grilla { display: grid; grid-template-columns: repeat(10, minmax(2rem, 1fr)); max-width: 34rem; border-top: 1px solid var(--tinta); border-left: 1px solid var(--tinta); user-select: none; }
+.patrones-tablero-numero { min-width: 0; aspect-ratio: 1; border: 0; border-right: 1px solid var(--tinta); border-bottom: 1px solid var(--tinta); background: white; color: var(--tinta); cursor: pointer; font-weight: 600; font-size: 0.95rem; display: flex; align-items: center; justify-content: center; transition: all 0.1s ease; }
+.patrones-tablero-numero:hover:not(:disabled) { background: #f0f4f8; }
+.patrones-tablero-numero--fijo { background: var(--eje); font-weight: 800; cursor: not-allowed; }
+.patrones-tablero-numero--activo { background: var(--tinta); color: white; font-weight: 800; }
+.v-maquina { display: grid; gap: .5rem; width: min(100%, 28rem); margin-inline: auto; }
+.v-maquina-filas { display: grid; gap: 0.4rem; }
+.v-maquina-fila, .v-maquina-actual { display: grid; grid-template-columns: 1fr auto 1fr; align-items: center; gap: 1rem; padding: .65rem 1rem; border: 2px solid var(--tinta); border-radius: .5rem; text-align: center; font-size: 1.15rem; font-weight: 700; background: #fff; }
+.v-maquina-actual { background: color-mix(in srgb, var(--eje) 30%, #fff); border-style: dashed; }
+.v-pulsera { display: flex; flex-wrap: wrap; justify-content: center; align-items: center; gap: .6rem; padding: 1rem; }
+.v-pulsera-cuenta-contenedor { display: grid; justify-items: center; gap: .25rem; }
+.v-pulsera-cuenta { width: 2.2rem; height: 2.2rem; border: 2px solid var(--tinta); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 800; box-shadow: 0 2px 4px rgba(0,0,0,0.1); }
+.v-pulsera-cuenta--incognita { border-style: dashed; background: transparent !important; color: var(--tinta); font-size: 1.2rem; }
+.v-pulsera-numero, .v-pulsera-puntos { font-size: .85rem; font-weight: 700; color: var(--tinta-suave); }
+.v-tablero100 { display: grid; grid-template-columns: repeat(10, minmax(1.7rem, 1fr)); max-width: 30rem; margin-inline: auto; }
+.v-tablero100-numero { display: grid; place-items: center; aspect-ratio: 1; border: 1px solid var(--tinta); font-size: .8rem; }
+.v-tablero100-numero--fijo { background: var(--eje); font-weight: 700; }
+.v-fosforos { display: flex; flex-wrap: wrap; justify-content: center; gap: 1.5rem; padding: 0; list-style: none; margin: 0.5rem 0; }
+.v-fosforo-etapa { display: grid; justify-items: center; gap: .5rem; text-align: center; font-weight: 600; font-size: 0.9rem; }
+.v-fosforo-etapa svg { overflow: visible; }
+.balanza-pesas { display: flex; flex-direction: column; align-items: center; gap: 1rem; width: 100%; max-width: 540px; margin: 0 auto; }
+.balanza-pesas .visual,
+.patrones-clic-secuencia .visual,
+.patrones-tablero .visual {
+  width: 100%;
+  margin: 0 0 12px;
+}
+.balanza-int-estado { font-weight: 700; font-size: 1.05rem; margin: 0.25rem 0; color: var(--tinta); text-align: center; }
+.balanza-pesas-controles { display: flex; flex-wrap: wrap; justify-content: center; gap: .75rem; margin: 0.5rem 0; }
+.balanza-pesa-control { display: flex; align-items: center; gap: .5rem; background: #f8fafc; border: 1.5px solid #cbd5e1; border-radius: 10px; padding: 4px 8px; font-weight: 700; }
+.patrones-clic-secuencia { display: flex; flex-direction: column; align-items: center; gap: 1rem; width: 100%; }
+@media (max-width: 420px) { .patrones-tablero-grilla { grid-template-columns: repeat(10, minmax(1.65rem, 1fr)); } }

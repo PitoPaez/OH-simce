@@ -1,7 +1,7 @@
-import { EJES, EJERCICIOS } from '../data/ejercicios.js';
+import { EJES } from '../data/ejercicios.js';
 import Cuadritos from './Cuadritos.jsx';
 
-export default function Inicio({ dominados, onElegirEje, onPracticaMixta }) {
+export default function Inicio({ dominados, ejercicios: todos, onElegirEje, onPracticaMixta }) {
   return (
     <main className="pagina inicio">
       <header className="inicio__encabezado">
@@ -15,7 +15,7 @@ export default function Inicio({ dominados, onElegirEje, onPracticaMixta }) {
 
       <ul className="indice">
         {EJES.map((eje) => {
-          const ejercicios = EJERCICIOS.filter((e) => e.eje === eje.id);
+          const ejercicios = todos.filter((e) => e.eje === eje.id);
           const logrados = ejercicios.filter((e) => dominados[e.id]).length;
           return (
             <li key={eje.id}>

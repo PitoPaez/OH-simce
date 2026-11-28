@@ -1,4 +1,3 @@
-import { EJERCICIOS } from '../data/ejercicios.js';
 import Cuadritos from './Cuadritos.jsx';
 import Texto from './ui/Texto.jsx';
 
@@ -13,7 +12,7 @@ export default function Resumen({ sesion, resultados, onRepetir, onInicio }) {
   const total = resultados.length;
   const repasar = resultados
     .filter((r) => !r.primerIntento)
-    .map((r) => EJERCICIOS.find((e) => e.id === r.id));
+    .map((r) => sesion.ejercicios.find((e) => e.id === r.id));
 
   return (
     <main className="pagina resumen" style={{ '--eje': sesion.ejeId ? `var(--eje-${sesion.ejeId})` : 'var(--eje-mixta)' }}>
@@ -22,7 +21,7 @@ export default function Resumen({ sesion, resultados, onRepetir, onInicio }) {
       <div className="resumen__cuadritos">
         <Cuadritos
           estados={resultados.map((r) => (r.primerIntento ? 'pintado' : 'repasar'))}
-          colores={resultados.map((r) => `var(--eje-${EJERCICIOS.find((e) => e.id === r.id).eje})`)}
+          colores={resultados.map((r) => `var(--eje-${sesion.ejercicios.find((e) => e.id === r.id).eje})`)}
           etiqueta={`${logrados} de ${total} correctas a la primera`}
         />
         <p>
